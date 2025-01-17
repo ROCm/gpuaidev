@@ -35,6 +35,8 @@ source_suffix = ['.md', '.ipynb']
 html_theme = "rocm_docs_theme"
 html_theme_options = {"flavor": "rocm-docs-home"}
 
+external_projects_current_project = "ai-developer-hub"
+
 # # Paths for custom static files (e.g., CSS, JS)
 # html_static_path = ['_static']
 
