@@ -42,7 +42,8 @@ nb_render_text_lexer = "none"  # Disables syntax highlighting errors
 
 source_suffix = ['.md', '.ipynb']  
 # Use Read the Docs theme
-html_theme = 'sphinx_rtd_theme'
+html_theme = "rocm_docs_theme"
+html_theme_options = {"flavor": "rocm-docs-home"}
 
 # # Paths for custom static files (e.g., CSS, JS)
 # html_static_path = ['_static']
