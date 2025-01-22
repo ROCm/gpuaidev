@@ -1,0 +1,43 @@
+# Anywhere {branch} is used, the branch name will be substituted.
+# These comments will also be removed.
+defaults:
+  numbered: False
+  maxdepth: 6
+root: index
+subtrees:
+
+  - caption: Inference tutorials
+    entries:
+    - file: notebooks/inference/1_inference_ver3_HF_transformers.ipynb
+      title: Running Inference with Hugging Face Transformers
+    - file: notebooks/inference/2_inference_ver3_HF_TGI.ipynb
+      title: Running Hugging Face text generation inference with Llama 3.1 8B
+    - file: notebooks/inference/3_inference_ver3_HF_vllm.ipynb
+      title: Deploying Llama 3.1 8B using vLLM
+    - file: notebooks/inference/rapbot_vllm.ipynb 
+      title: Building your own chatbot and rap bot with vLLM
+    - file: notebooks/inference/rag_ollama_llamaindex.ipynb
+      title: Constructing a RAG system using LlamaIndex & Ollama
+
+  - caption: Fine-tuning tutorials
+    entries:
+    - file: notebooks/fine_tune/fine_tuning_lora_qwen2vl.ipynb
+      title: Fine-tuning with the Hugging Face ecosystem (TRL)
+    - file: notebooks/fine_tune/LoRA_Llama-3.2.ipynb
+      title: Fine-Tuning Llama-3.2 3B with LoRA
+    - file: notebooks/fine_tune/QLoRA_Llama-3.1.ipynb
+      title: Fine-Tuning Llama-3.1 with QLoRA
+
+  - caption: Pretraining tutorials
+    entries:
+    - file: notebooks/pretrain/torch_fsdp.ipynb
+      title: Pretrain an OLMo model with PyTorch FSDP
+    - file: notebooks/pretrain/setup_tutorial.ipynb
+      title: Pretraining with Megatron-LM
+    - file: notebooks/pretrain/train_llama_mock_data.ipynb
+      title: Training Llama 3.1 8B with Megatron-LM
+
+  - caption: About
+    entries:
+    - file: notebooks/licensing.md
+      title: Licensing and support information

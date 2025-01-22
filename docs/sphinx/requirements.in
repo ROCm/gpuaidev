@@ -1,5 +1,5 @@
-rocm-docs-core==1.12.0
+rocm-docs-core==1.14.1
 sphinx-reredirects
 sphinx
-myst-nb
+nbsphinx
 sphinx-rtd-theme

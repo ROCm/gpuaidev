@@ -15,8 +15,14 @@ copyright = "Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved
 extensions = [
     'myst_nb',            # For integrating Jupyter notebooks
     'sphinx.ext.mathjax', # For rendering math expressions
-    'sphinx_rtd_theme',   # For the Read the Docs theme
+    'rocm_docs'           # For ROCm Docs theme
 ]
+external_toc_path = "./sphinx/_toc.yml"
+external_projects_current_project = "gpuaidev-docs"
+
+html_theme = "rocm_docs_theme"
+html_theme_options = {"flavor": "rocm"}
+
 
 # Paths for templates and static files
 templates_path = ['_templates']
@@ -40,9 +46,8 @@ nb_render_text_lexer = "none"  # Disables syntax highlighting errors
 
 
 
-source_suffix = ['.md', '.ipynb']  
-# Use Read the Docs theme
-html_theme = 'sphinx_rtd_theme'
+source_suffix = ['.md', '.ipynb', ".rst"]
+suppress_warnings = ['app.add_source_parser']
 
 # # Paths for custom static files (e.g., CSS, JS)
 # html_static_path = ['_static']
