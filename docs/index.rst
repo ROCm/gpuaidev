@@ -5,7 +5,7 @@
 .. _index:
 
 ****************************************
-GPU AI Developer Hub
+Tutorials for AI developers
 ****************************************
 
 The AI Developer Hub provides tutorials and guides for training, fine-tuning, and inference.
