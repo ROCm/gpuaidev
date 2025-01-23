@@ -1,4 +1,4 @@
-# Licensing Information
+# Licensing information
 
 Your use of this application is subject to the terms of the applicable component-level license identified below. To the extent any subcomponent in this container requires an offer for corresponding source code, AMD hereby makes such an offer for corresponding source code form, which will be made available upon request. By accessing and using this application, you are agreeing to fully comply with the terms of this license. If you do not agree to the terms of this license, do not access or use this application.
 
@@ -21,11 +21,11 @@ The application is provided in a container image format that includes the follow
 | Chroma DB         | Apache License 2.0                               | [Chroma DB License](https://github.com/chroma-core/chroma/blob/main/LICENSE) |
 
 
-**Disclaimer**
+## Disclaimer
 ---
 The information contained herein is for informational purposes only and is subject to change without notice. In addition, any stated support is planned and is also subject to change. While every precaution has been taken in the preparation of this document, it may contain technical inaccuracies, omissions, and typographical errors, and AMD is under no obligation to update or otherwise correct this information. Advanced Micro Devices, Inc. makes no representations or warranties with respect to the accuracy or completeness of the contents of this document and assumes no liability of any kind, including the implied warranties of noninfringement, merchantability, or fitness for purposes, with respect to the operation or use of AMD hardware, software, or other products described herein. No license, including implied or arising by estoppel, to any intellectual property rights, is granted by this document. Terms and limitations applicable to the purchase or use of AMD's products are as set forth in a signed agreement between the parties or in AMD's Standard Terms and Conditions of Sale.
 
-**Notices and Attribution**
+## Notices and Attribution
 ---
 © 2025 Advanced Micro Devices, Inc. All rights reserved. AMD, the AMD Arrow logo, Instinct, Radeon Instinct, ROCm, and combinations thereof are trademarks of Advanced Micro Devices, Inc.
 
@@ -34,6 +34,6 @@ Docker and the Docker logo are trademarks or registered trademarks of Docker, In
 All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes.
 
 
-**Support**
+## Support
 ---
 You can report bugs through our GitHub [issue tracker](https://github.com/ROCm/gpuaidev-docs/issues).
