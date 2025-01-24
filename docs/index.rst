@@ -8,7 +8,7 @@
 Tutorials for AI developers
 ****************************************
 
-The AI Developer Hub contains Jupyter Notebook tutorials and guides for training, fine-tuning, and inference.
+The AI Developer Hub contains AMD ROCm tutorials in Jupyter Notebook format for training, fine-tuning, and inference.
 It leverages popular machine learning frameworks on AMD GPUs.
 
 These tutorials are organized into three main categories:
