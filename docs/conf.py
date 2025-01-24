@@ -5,7 +5,7 @@ import sys
 project = 'Tutorials for AI developers'
 version = "0.0.1"
 release = version
-html_title = f"Tutorials for AI developers {version}"
+html_title = "Tutorials for AI developers"
 author = "Advanced Micro Devices, Inc."
 copyright = "Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved."
 
