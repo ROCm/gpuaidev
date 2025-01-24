@@ -11,31 +11,31 @@ subtrees:
     - file: notebooks/inference/1_inference_ver3_HF_transformers.ipynb
       title: Hugging Face Transformers
     - file: notebooks/inference/2_inference_ver3_HF_TGI.ipynb
-      title: Hugging Face TGI with Llama-3.1 8B
+      title: Hugging Face TGI
     - file: notebooks/inference/3_inference_ver3_HF_vllm.ipynb
-      title: Llama-3.1 8B using vLLM
+      title: Deploying with vLLM
     - file: notebooks/inference/rapbot_vllm.ipynb 
-      title: Chatbot and rap bot with vLLM
+      title: From chatbot to rap bot with vLLM
     - file: notebooks/inference/rag_ollama_llamaindex.ipynb
-      title: RAG system using LlamaIndex and Ollama
+      title: RAG with LlamaIndex and Ollama
 
   - caption: Fine-tuning tutorials
     entries:
     - file: notebooks/fine_tune/fine_tuning_lora_qwen2vl.ipynb
-      title: Hugging Face ecosystem
+      title: VLM with PEFT
     - file: notebooks/fine_tune/LoRA_Llama-3.2.ipynb
-      title: Llama-3.2 3B with LoRA
+      title: LLM with LoRA
     - file: notebooks/fine_tune/QLoRA_Llama-3.1.ipynb
-      title: Llama-3.1 with QLoRA
+      title: LLM with QLoRA
 
   - caption: Pretraining tutorials
     entries:
     - file: notebooks/pretrain/torch_fsdp.ipynb
       title: OLMo model with PyTorch FSDP
     - file: notebooks/pretrain/setup_tutorial.ipynb
-      title: Megatron-LM
+      title: Training configuration with Megatron-LM
     - file: notebooks/pretrain/train_llama_mock_data.ipynb
-      title: Llama-3.1 8B with Megatron-LM
+      title: LLM with Megatron-LM
 
   - caption: About
     entries:
