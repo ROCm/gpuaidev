@@ -22,11 +22,11 @@ The application is provided in a container image format that includes the follow
 
 
 ## Disclaimer
----
+
 The information contained herein is for informational purposes only and is subject to change without notice. In addition, any stated support is planned and is also subject to change. While every precaution has been taken in the preparation of this document, it may contain technical inaccuracies, omissions, and typographical errors, and AMD is under no obligation to update or otherwise correct this information. Advanced Micro Devices, Inc. makes no representations or warranties with respect to the accuracy or completeness of the contents of this document and assumes no liability of any kind, including the implied warranties of noninfringement, merchantability, or fitness for purposes, with respect to the operation or use of AMD hardware, software, or other products described herein. No license, including implied or arising by estoppel, to any intellectual property rights, is granted by this document. Terms and limitations applicable to the purchase or use of AMD's products are as set forth in a signed agreement between the parties or in AMD's Standard Terms and Conditions of Sale.
 
 ## Notices and Attribution
----
+
 © 2025 Advanced Micro Devices, Inc. All rights reserved. AMD, the AMD Arrow logo, Instinct, Radeon Instinct, ROCm, and combinations thereof are trademarks of Advanced Micro Devices, Inc.
 
 Docker and the Docker logo are trademarks or registered trademarks of Docker, Inc. in the United States and/or other countries. Docker, Inc. and other parties may also have trademark rights in other terms used herein. Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries.
@@ -35,5 +35,5 @@ All other trademarks and copyrights are property of their respective owners and 
 
 
 ## Support
----
+
 You can report bugs through our GitHub [issue tracker](https://github.com/ROCm/gpuaidev-docs/issues).
