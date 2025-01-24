@@ -13,7 +13,7 @@ It leverages popular machine learning frameworks on AMD GPUs.
 
 These tutorials are organized into three main categories:
 
-*  **Fine-Tuning**: Examples and guides for fine-tuning machine learning models.
+*  **Fine-tuning**: Examples and guides for fine-tuning machine learning models.
 *  **Pretraining**: Tutorials on pretraining models from scratch.
 *  **Inference**: Resources for running inference with trained models.
 
