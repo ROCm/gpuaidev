@@ -2,10 +2,10 @@
 import os
 import sys
 
-project = 'AI Developer Hub Documentation'
+project = 'Tutorials for AI developers'
 version = "0.0.1"
 release = version
-html_title = f"AI Developer Hub {version} Documentation"
+html_title = f"Tutorials for AI developers {version}"
 author = "Advanced Micro Devices, Inc."
 copyright = "Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved."
 
