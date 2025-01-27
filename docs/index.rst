@@ -13,9 +13,9 @@ It leverages popular machine learning frameworks on AMD GPUs.
 
 These tutorials are organized into three main categories:
 
+*  **Inference**: Resources for running inference with trained models.
 *  **Fine-tuning**: Examples and guides for fine-tuning machine learning models.
 *  **Pretraining**: Tutorials on pretraining models from scratch.
-*  **Inference**: Resources for running inference with trained models.
 
 All tutorials on the AI Developer Hub are available to download in the Jupyter Notebook format from the
 public GitHub repository at `<https://github.com/ROCm/gpuaidev-docs>`_.
