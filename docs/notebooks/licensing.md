@@ -36,4 +36,4 @@ All other trademarks and copyrights are property of their respective owners and 
 
 ## Support
 
-You can report bugs through our GitHub [issue tracker](https://github.com/ROCm/gpuaidev-docs/issues).
+You can report bugs through our GitHub [issue tracker](https://github.com/ROCm/gpuaidev/issues).
