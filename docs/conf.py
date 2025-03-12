@@ -19,10 +19,10 @@ extensions = [
     'rocm_docs'           # For ROCm Docs theme
 ]
 external_toc_path = "./sphinx/_toc.yml"
-external_projects_current_project = "gpuaidev-docs"
+external_projects_current_project = "gpuaidev"
 
 html_theme = "rocm_docs_theme"
-html_theme_options = {"flavor": "rocm"}
+html_theme_options = {"flavor": "ai-developer-hub"}
 
 
 # Paths for templates and static files
