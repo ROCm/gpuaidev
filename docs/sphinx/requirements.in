@@ -1,4 +1,4 @@
-git+https://github.com/ROCm/rocm-docs-core.git@alexxu12/ai-develop-hub-flavor#egg=rocm-docs-core
+rocm-docs-core==1.18.0
 sphinx-reredirects
 sphinx
 nbsphinx
