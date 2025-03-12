@@ -21,7 +21,7 @@ external_toc_path = "./sphinx/_toc.yml"
 external_projects_current_project = "gpuaidev-docs"
 
 html_theme = "rocm_docs_theme"
-html_theme_options = {"flavor": "rocm"}
+html_theme_options = {"flavor": "ai-developer-hub"}
 
 
 # Paths for templates and static files
