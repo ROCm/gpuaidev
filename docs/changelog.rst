@@ -10,6 +10,17 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+
+Version 3.1
+===========
+
+Added
+------
+
+*  New fine-tuning tutorial:
+
+   * :doc:`GRPO with Unsloth <./notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO>`
+
 Version 3.0
 ===========
 
