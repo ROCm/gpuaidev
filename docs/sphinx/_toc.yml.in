@@ -40,7 +40,9 @@ subtrees:
     - file: notebooks/fine_tune/torchtune_llama3.ipynb
       title: Llama-3.1 8B with torchtune
     - file: notebooks/fine_tune/llama_factory_llama3.ipynb
-      title: Llama-3.1 8B with Llama-Factory
+      title: Llama-3.1 8B with Llama Factory
+    - file: notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO3.ipynb
+      title: GRPO with Unsloth
 
   - caption: Pretraining tutorials
     entries:
