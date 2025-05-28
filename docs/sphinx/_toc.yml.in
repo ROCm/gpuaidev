@@ -57,6 +57,10 @@ subtrees:
     - file: notebooks/pretrain/ddim_pretrain.ipynb
       title: DDIM 
 
+  - caption: GPU Development and Optimization
+    entries:
+    - file: notebooks/gpu_dev_optimize/triton_kernel_dev.ipynb
+      title: Kernel Development & Optimizations with Triton
   - caption: About
     entries:
     - file: changelog.rst

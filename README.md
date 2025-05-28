@@ -27,7 +27,10 @@ Welcome to the **AI Developer Hub** repository! This project contains Jupyter No
 |                          | LLM with Megatron-LM                             | [GitHub](https://github.com/ROCm/gpuaidev/blob/main/docs/notebooks/pretrain/train_llama_mock_data.ipynb)               | [AMD Tutorial](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/pretrain/train_llama_mock_data.html)               |
 |                          | Llama-3.1 8B with torchtitan                     | [GitHub](https://github.com/ROCm/gpuaidev/blob/main/docs/notebooks/pretrain/torchtitan_llama3.ipynb)                   | [AMD Tutorial](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/pretrain/torchtitan_llama3.html)                   |
 |                          | DDIM                                             | [GitHub](https://github.com/ROCm/gpuaidev/blob/main/docs/notebooks/pretrain/ddim_pretrain.ipynb)                   | [AMD Tutorial](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/pretrain/ddim_pretrain.html)                   |
+| **GPU Development and Optimization**| Kernel Development & Optimizations with Triton                                     | [GitHub](https://github.com/ROCm/gpuaidev/blob/main/docs/notebooks/gpu_dev_optimize/triton_kernel_dev.ipynb)          | [AMD Tutorial](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/gpu_dev_optimize/triton_kernel_dev.html)          |
 | **About**                | Licensing and Support Information                | [GitHub](https://github.com/ROCm/gpuaidev/blob/main/docs/notebooks/licensing.md)                                       | [AMD Tutorial](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/licensing.html)                                    |
+
+
 
 ## Repository Structure
 
@@ -47,6 +50,7 @@ github_repo/
 │   ├── pretrain.md                # Pretraining tutorials index
 │   ├── inference.md               # Inference tutorials index
 │   └── notebooks/                 # Jupyter notebooks organized by category
+│       ├── gpu_dev_optimize/      # GPU Development & Optimization notebooks
 │       ├── fine_tune/             # Fine-tuning notebooks
 │       ├── pretrain/              # Pretraining notebooks
 │       └── inference/             # Inference notebooks
