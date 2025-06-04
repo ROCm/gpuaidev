@@ -65,8 +65,10 @@ subtrees:
       title: Kernel Development & Optimizations with Triton
     - file: notebooks/gpu_dev_optimize/llama4_profiling_vllm.ipynb
       title: Profiling LLaMA 4 Inference with vLLM
+    - file: notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm.ipynb
+      title: FP8 Quantization with AMD Quark for vLLM
   - caption: About
-    entries:
+    entries:  
     - file: changelog.rst
       title: Changelog
     - file: notebooks/licensing.md
