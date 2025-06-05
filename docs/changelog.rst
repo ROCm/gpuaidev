@@ -11,6 +11,28 @@ Changelog for the AI Developer Hub
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
 
+Version 4.0
+===========
+
+Added
+------
+
+*  New inference tutorial:
+
+   * :doc:`AI agent with MCPs using vLLM and PydanticAI <./notebooks/inference/build_airbnb_agent_mcp>`
+
+*  New GPU development and optimization tutorials:
+
+   * :doc:`Kernel development and optimization with Triton <./notebooks/gpu_dev_optimize/triton_kernel_dev>`
+   * :doc:`Profiling Llama-4 inference with vLLM <./notebooks/gpu_dev_optimize/llama4_profiling_vllm>`
+   * :doc:`FP8 quantization with AMD Quark for vLLM <./notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm>`
+
+Changed
+-------
+
+*  DDIM pretraining tutorial renamed to :doc:`Custom diffusion model with PyTorch <./notebooks/pretrain/ddim_pretrain>`
+   with some minor changes.
+  
 Version 3.1
 ===========
 
