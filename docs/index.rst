@@ -11,11 +11,12 @@ Tutorials for AI developers
 The AI Developer Hub contains AMD ROCm tutorials in Jupyter Notebook format for training, fine-tuning, and inference.
 It leverages popular machine learning frameworks on AMD GPUs.
 
-These tutorials are organized into three main categories:
+These tutorials are organized into four main categories:
 
 *  **Inference**: Resources for running inference with trained models.
 *  **Fine-tuning**: Examples and guides for fine-tuning machine learning models.
 *  **Pretraining**: Tutorials on pretraining models from scratch.
+*  **GPU development and optimization**: Resources for optimizing AI compute and kernel development on GPUs.
 
 All tutorials on the AI Developer Hub are available to download in the Jupyter Notebook format from the
 public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
@@ -25,6 +26,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
 
   .. grid-item-card:: Inference tutorials
 
+    * :doc:`AI agent with MCPs using vLLM and PydanticAI <./notebooks/inference/build_airbnb_agent_mcp>`
     * :doc:`Hugging Face Transformers <./notebooks/inference/1_inference_ver3_HF_transformers>`
     * :doc:`Hugging Face TGI <./notebooks/inference/2_inference_ver3_HF_TGI>`
     * :doc:`Deploying with vLLM <./notebooks/inference/3_inference_ver3_HF_vllm>`
@@ -51,7 +53,13 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Training configuration with Megatron-LM <./notebooks/pretrain/setup_tutorial>`
     * :doc:`LLM with Megatron-LM <./notebooks/pretrain/train_llama_mock_data>`
     * :doc:`Llama-3.1 8B with torchtitan <./notebooks/pretrain/torchtitan_llama3>`
-    * :doc:`DDIM <./notebooks/pretrain/ddim_pretrain>`
+    * :doc:`Custom diffusion model with PyTorch <./notebooks/pretrain/ddim_pretrain>`
+
+  .. grid-item-card:: GPU development and optimization tutorials
+
+    * :doc:`Kernel development and optimization with Triton <./notebooks/gpu_dev_optimize/triton_kernel_dev>`
+    * :doc:`Profiling Llama-4 inference with vLLM <./notebooks/gpu_dev_optimize/llama4_profiling_vllm>`
+    * :doc:`FP8 quantization with AMD Quark for vLLM <./notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm>`
 
 To contribute to the documentation, see
 `Contributing to ROCm <https://rocm.docs.amd.com/en/latest/contribute/contributing.html>`_.
