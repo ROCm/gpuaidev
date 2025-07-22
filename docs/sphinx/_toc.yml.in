@@ -69,6 +69,9 @@ subtrees:
       title: Profiling Llama-4 inference with vLLM
     - file: notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm.ipynb
       title: FP8 quantization with AMD Quark for vLLM
+    - file: notebooks/gpu_dev_optimize/aiter_mla_decode_kernel.ipynb
+      title: MLA decoding kernel of AITER library to accelerate LLM inference 
+
   - caption: About
     entries:  
     - file: changelog.rst
