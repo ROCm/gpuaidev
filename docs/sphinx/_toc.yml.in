@@ -32,6 +32,8 @@ subtrees:
       title: DeepSeek-R1 with SGLang
     - file: notebooks/inference/deepseek_janus_cpu_gpu.ipynb
       title: DeepSeek Janus Pro on EPYC CPU or Instinct GPU
+    - file: notebooks/inference/vllm_v1_DSR1.ipynb
+      title: DeepSeekR1 with vLLM V1  
 
   - caption: Fine-tuning tutorials
     entries:
