@@ -8,6 +8,8 @@ subtrees:
 
   - caption: Inference tutorials
     entries: 
+    - file: notebooks/inference/opea_deployment_and_evaluation.ipynb
+      title: ChatQnA vLLM Deployment and Performance Evaluation
     - file: notebooks/inference/build_airbnb_agent_mcp.ipynb
       title: AI agent with MCPs using vLLM and PydanticAI
     - file: notebooks/inference/1_inference_ver3_HF_transformers.ipynb
