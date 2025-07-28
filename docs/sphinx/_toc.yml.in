@@ -32,6 +32,8 @@ subtrees:
       title: Llama Stack
     - file: notebooks/inference/deepseekr1_sglang.ipynb
       title: DeepSeek-R1 with SGLang
+    - file: notebooks/inference/t2v_comfyui_radeon.ipynb
+      title: Text-to-Video Generation with ComfyUI on Radeon GPU
     - file: notebooks/inference/deepseek_janus_cpu_gpu.ipynb
       title: DeepSeek Janus Pro on EPYC CPU or Instinct GPU
     - file: notebooks/inference/vllm_v1_DSR1.ipynb
