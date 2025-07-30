@@ -8,6 +8,14 @@ subtrees:
 
   - caption: Inference tutorials
     entries: 
+    - file: notebooks/inference/opea_deployment_and_evaluation.ipynb
+      title: ChatQnA vLLM deployment and performance evaluation
+    - file: notebooks/inference/t2v_comfyui_radeon.ipynb
+      title: Text-to-video generation with ComfyUI
+    - file: notebooks/inference/deepseek_janus_cpu_gpu.ipynb
+      title: DeepSeek Janus Pro on CPU or GPU
+    - file: notebooks/inference/vllm_v1_DSR1.ipynb
+      title: DeepSeek-R1 with vLLM V1  
     - file: notebooks/inference/build_airbnb_agent_mcp.ipynb
       title: AI agent with MCPs using vLLM and PydanticAI
     - file: notebooks/inference/1_inference_ver3_HF_transformers.ipynb
@@ -61,12 +69,16 @@ subtrees:
 
   - caption: GPU development and optimization tutorials
     entries: 
+    - file: notebooks/gpu_dev_optimize/aiter_mla_decode_kernel.ipynb
+      title: MLA decoding kernel of AITER library
     - file: notebooks/gpu_dev_optimize/triton_kernel_dev.ipynb
       title: Kernel development and optimization with Triton
     - file: notebooks/gpu_dev_optimize/llama4_profiling_vllm.ipynb
       title: Profiling Llama-4 inference with vLLM
     - file: notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm.ipynb
       title: FP8 quantization with AMD Quark for vLLM
+
+
   - caption: About
     entries:  
     - file: changelog.rst
