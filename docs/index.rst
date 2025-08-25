@@ -32,7 +32,6 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`DeepSeek-R1 with vLLM V1 <./notebooks/inference/vllm_v1_DSR1>`
     * :doc:`AI agent with MCPs using vLLM and PydanticAI <./notebooks/inference/build_airbnb_agent_mcp>`
     * :doc:`Hugging Face Transformers <./notebooks/inference/1_inference_ver3_HF_transformers>`
-    * :doc:`Hugging Face TGI <./notebooks/inference/2_inference_ver3_HF_TGI>`
     * :doc:`Deploying with vLLM <./notebooks/inference/3_inference_ver3_HF_vllm>`
     * :doc:`From chatbot to rap bot with vLLM <./notebooks/inference/rapbot_vllm>`
     * :doc:`RAG with LlamaIndex and Ollama <./notebooks/inference/rag_ollama_llamaindex>`
