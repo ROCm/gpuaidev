@@ -41,6 +41,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Speculative decoding with vLLM <./notebooks/inference/speculative_decoding_deep_dive>`
     * :doc:`Llama Stack <./notebooks/inference/llama-stack-rocm>`
     * :doc:`DeepSeek-R1 with SGLang <./notebooks/inference/deepseekr1_sglang>`
+    * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
 
   .. grid-item-card:: Fine-tuning tutorials
 
