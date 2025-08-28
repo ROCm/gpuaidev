@@ -10,6 +10,17 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+
+Version 5.1
+===========
+
+Added
+------
+
+*  New inference tutorials:
+
+   * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
+
 Version 5.0
 ===========
 

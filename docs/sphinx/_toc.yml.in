@@ -39,7 +39,7 @@ subtrees:
     - file: notebooks/inference/deepseekr1_sglang.ipynb
       title: DeepSeek-R1 with SGLang
     - file: notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU.ipynb
-      title: PD Disaggregation with SGLang
+      title: PD disaggregation with SGLang
 
   - caption: Fine-tuning tutorials
     entries:
