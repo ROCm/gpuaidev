@@ -24,7 +24,7 @@ Added
 Changed
 -------
 
-*  Updated ``pydantic_ai`` argument and Node version in the :doc:`AI agent with MCPs using vLLM and PydanticAI <./notebooks/inference/build_airbnb_agent_mcp>` tutorial.
+*  Updated the ``pydantic_ai`` argument and Node version in the :doc:`AI agent with MCPs using vLLM and PydanticAI <./notebooks/inference/build_airbnb_agent_mcp>` tutorial.
 
 Version 5.0
 ===========
