@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  vllm:
+    image: rocm/vllm:latest
+    container_name: vllm_latest
+    # REMOVED: network_mode: "host" to allow communication with other services.
+    # The ports mapping is now active.
+    ports:
+      - "8088:8088"
+    
+    # Environment variables
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+      
+    # Volumes
+    volumes:
+      - /home/shailens/:/work
+      
+    # Hardware and security settings
+    ipc: "host"
+    privileged: true
+    stdin_open: true 
+    tty: true      
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_ADMIN
+      - SYS_PTRACE
+    group_add:
+      - render
+    devices:
+      - /dev/kfd
+      - /dev/dri
+      - /dev/mem
+    command: >
+      vllm serve meta-llama/Llama-3.1-8B-Instruct
+      --enable-auto-tool-choice
+      --tool-call-parser llama3_json
+      --port 8088
+      --chat-template /work/projects/vllm_setup/vllm/examples/tool_chat_template_llama3.1_json.jinja
+
+  purchasing_concierge:
+    # This path assumes the Dockerfile is in a folder named 'purchasing_concierge'
+    # in the root directory. Adapt if needed.
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - PYTHONUNBUFFERED=1
+    # ADDED: This ensures the other services are started before this one.
+    depends_on:
+      - vllm
+      - burger_agent
+      - pizza_agent
+
+  burger_agent:
+    build: ./remote_seller_agents/burger_agent
+    ports:
+      - "10000:10000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./remote_seller_agents/burger_agent:/app
+
+  pizza_agent:
+    build: ./remote_seller_agents/pizza_agent
+    ports:
+      - "10001:10001"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./remote_seller_agents/pizza_agent:/app
