@@ -51,7 +51,6 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
 
   .. grid-item-card:: Pretraining tutorials
 
-    * :doc:`OLMo model with PyTorch FSDP <./notebooks/pretrain/torch_fsdp>`
     * :doc:`Training configuration with Megatron-LM <./notebooks/pretrain/setup_tutorial>`
     * :doc:`LLM with Megatron-LM <./notebooks/pretrain/train_llama_mock_data>`
     * :doc:`Llama-3.1 8B with torchtitan <./notebooks/pretrain/torchtitan_llama3>`

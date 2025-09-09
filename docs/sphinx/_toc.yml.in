@@ -52,8 +52,6 @@ subtrees:
 
   - caption: Pretraining tutorials
     entries:
-    - file: notebooks/pretrain/torch_fsdp.ipynb
-      title: OLMo model with PyTorch FSDP
     - file: notebooks/pretrain/setup_tutorial.ipynb
       title: Training configuration with Megatron-LM
     - file: notebooks/pretrain/train_llama_mock_data.ipynb
