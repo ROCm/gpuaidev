@@ -38,7 +38,6 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`OCR with vision-language models with vLLM <./notebooks/inference/ocr_vllm>`
     * :doc:`Building AI pipelines for voice assistants <./notebooks/inference/voice_pipeline_rag_ollama>`
     * :doc:`Speculative decoding with vLLM <./notebooks/inference/speculative_decoding_deep_dive>`
-    * :doc:`Llama Stack <./notebooks/inference/llama-stack-rocm>`
     * :doc:`DeepSeek-R1 with SGLang <./notebooks/inference/deepseekr1_sglang>`
 
   .. grid-item-card:: Fine-tuning tutorials

@@ -32,8 +32,6 @@ subtrees:
       title: Building AI pipelines for voice assistants
     - file: notebooks/inference/speculative_decoding_deep_dive.ipynb
       title: Speculative decoding with vLLM 
-    - file: notebooks/inference/llama-stack-rocm.ipynb
-      title: Llama Stack
     - file: notebooks/inference/deepseekr1_sglang.ipynb
       title: DeepSeek-R1 with SGLang
 
