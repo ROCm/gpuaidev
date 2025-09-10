@@ -10,6 +10,22 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+
+Version 5.1
+===========
+
+Added
+------
+
+*  New inference tutorials:
+
+   * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
+
+Changed
+-------
+
+*  Updated the ``pydantic_ai`` argument and Node version in the :doc:`AI agent with MCPs using vLLM and PydanticAI <./notebooks/inference/build_airbnb_agent_mcp>` tutorial.
+
 Version 5.0
 ===========
 
