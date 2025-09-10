@@ -40,6 +40,8 @@ subtrees:
       title: DeepSeek-R1 with SGLang
     - file: notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU.ipynb
       title: PD Disaggregation with SGLang
+    - file: notebooks/inference/mtp.ipynb
+      title: Accelerating DeepSeek V3 Inference via Multi-Token Prediction in SGLang
 
   - caption: Fine-tuning tutorials
     entries:
