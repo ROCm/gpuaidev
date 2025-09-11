@@ -42,6 +42,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Llama Stack <./notebooks/inference/llama-stack-rocm>`
     * :doc:`DeepSeek-R1 with SGLang <./notebooks/inference/deepseekr1_sglang>`
     * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
+    * :doc:`Accelerating DeepSeek V3 inference via multi-token prediction in SGLang <./notebooks/inference/mtp>`
 
   .. grid-item-card:: Fine-tuning tutorials
 
