@@ -39,10 +39,6 @@ subtrees:
     entries:
     - file: notebooks/fine_tune/fine_tuning_lora_qwen2vl.ipynb
       title: VLM with PEFT
-    - file: notebooks/fine_tune/LoRA_Llama-3.2.ipynb
-      title: LLM with LoRA
-    - file: notebooks/fine_tune/QLoRA_Llama-3.1.ipynb
-      title: LLM with QLoRA
     - file: notebooks/fine_tune/torchtune_llama3.ipynb
       title: Llama-3.1 8B with torchtune
     - file: notebooks/fine_tune/llama_factory_llama3.ipynb

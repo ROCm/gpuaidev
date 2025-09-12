@@ -43,8 +43,6 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
   .. grid-item-card:: Fine-tuning tutorials
 
     * :doc:`VLM with PEFT <./notebooks/fine_tune/fine_tuning_lora_qwen2vl>`
-    * :doc:`LLM with LoRA <./notebooks/fine_tune/LoRA_Llama-3.2>`
-    * :doc:`LLM with QLoRA <./notebooks/fine_tune/QLoRA_Llama-3.1>`
     * :doc:`Llama-3.1 8B with torchtune <./notebooks/fine_tune/torchtune_llama3>`
     * :doc:`Llama-3.1 8B with Llama-Factory <./notebooks/fine_tune/llama_factory_llama3>`
     * :doc:`GRPO with Unsloth <./notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO>`
