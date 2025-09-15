@@ -22,8 +22,6 @@ subtrees:
       title: "Google ADK + Local models + AMD Instinct™ GPUs: The Dynamic Trio for Multi-AI Agents"
     - file: notebooks/inference/1_inference_ver3_HF_transformers.ipynb
       title: Hugging Face Transformers
-    - file: notebooks/inference/2_inference_ver3_HF_TGI.ipynb
-      title: Hugging Face TGI
     - file: notebooks/inference/3_inference_ver3_HF_vllm.ipynb
       title: Deploying with vLLM
     - file: notebooks/inference/rapbot_vllm.ipynb 
@@ -36,8 +34,6 @@ subtrees:
       title: Building AI pipelines for voice assistants
     - file: notebooks/inference/speculative_decoding_deep_dive.ipynb
       title: Speculative decoding with vLLM 
-    - file: notebooks/inference/llama-stack-rocm.ipynb
-      title: Llama Stack
     - file: notebooks/inference/deepseekr1_sglang.ipynb
       title: DeepSeek-R1 with SGLang
     - file: notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU.ipynb
@@ -49,10 +45,6 @@ subtrees:
     entries:
     - file: notebooks/fine_tune/fine_tuning_lora_qwen2vl.ipynb
       title: VLM with PEFT
-    - file: notebooks/fine_tune/LoRA_Llama-3.2.ipynb
-      title: LLM with LoRA
-    - file: notebooks/fine_tune/QLoRA_Llama-3.1.ipynb
-      title: LLM with QLoRA
     - file: notebooks/fine_tune/torchtune_llama3.ipynb
       title: Llama-3.1 8B with torchtune
     - file: notebooks/fine_tune/llama_factory_llama3.ipynb
@@ -62,8 +54,6 @@ subtrees:
 
   - caption: Pretraining tutorials
     entries:
-    - file: notebooks/pretrain/torch_fsdp.ipynb
-      title: OLMo model with PyTorch FSDP
     - file: notebooks/pretrain/setup_tutorial.ipynb
       title: Training configuration with Megatron-LM
     - file: notebooks/pretrain/train_llama_mock_data.ipynb
