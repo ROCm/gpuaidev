@@ -18,8 +18,6 @@ subtrees:
       title: DeepSeek-R1 with vLLM V1  
     - file: notebooks/inference/build_airbnb_agent_mcp.ipynb
       title: AI agent with MCPs using vLLM and PydanticAI
-    - file: notebooks/inference/google-adk-agentic-ai-multi-agents-tutorial/Tutorial_Powering_Google_ADK_on_AMD_Platform_and_Local_LLMs.ipynb
-      title: "Google ADK + Local models + AMD Instinct™ GPUs: The Dynamic Trio for Multi-AI Agents"
     - file: notebooks/inference/1_inference_ver3_HF_transformers.ipynb
       title: Hugging Face Transformers
     - file: notebooks/inference/3_inference_ver3_HF_vllm.ipynb
@@ -39,7 +37,9 @@ subtrees:
     - file: notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU.ipynb
       title: PD disaggregation with SGLang
     - file: notebooks/inference/mtp.ipynb
-      title: Accelerating DeepSeek V3 inference via multi-token prediction in SGLang
+      title: Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang
+    - file: notebooks/inference/google-adk-agentic-ai-multi-agents-tutorial/power-Google-ADK-on-AMD-platform-and-local-LLMs.ipynb
+      title: Multi-agents with Google ADK and A2A protocol
 
   - caption: Fine-tuning tutorials
     entries:

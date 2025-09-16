@@ -40,7 +40,8 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Speculative decoding with vLLM <./notebooks/inference/speculative_decoding_deep_dive>`
     * :doc:`DeepSeek-R1 with SGLang <./notebooks/inference/deepseekr1_sglang>`
     * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
-    * :doc:`Accelerating DeepSeek V3 inference via multi-token prediction in SGLang <./notebooks/inference/mtp>`
+    * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
+    * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/google-adk-agentic-ai-multi-agents-tutorial/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
 
   .. grid-item-card:: Fine-tuning tutorials
 
