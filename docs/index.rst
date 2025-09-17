@@ -32,29 +32,26 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`DeepSeek-R1 with vLLM V1 <./notebooks/inference/vllm_v1_DSR1>`
     * :doc:`AI agent with MCPs using vLLM and PydanticAI <./notebooks/inference/build_airbnb_agent_mcp>`
     * :doc:`Hugging Face Transformers <./notebooks/inference/1_inference_ver3_HF_transformers>`
-    * :doc:`Hugging Face TGI <./notebooks/inference/2_inference_ver3_HF_TGI>`
     * :doc:`Deploying with vLLM <./notebooks/inference/3_inference_ver3_HF_vllm>`
     * :doc:`From chatbot to rap bot with vLLM <./notebooks/inference/rapbot_vllm>`
     * :doc:`RAG with LlamaIndex and Ollama <./notebooks/inference/rag_ollama_llamaindex>`
     * :doc:`OCR with vision-language models with vLLM <./notebooks/inference/ocr_vllm>`
     * :doc:`Building AI pipelines for voice assistants <./notebooks/inference/voice_pipeline_rag_ollama>`
     * :doc:`Speculative decoding with vLLM <./notebooks/inference/speculative_decoding_deep_dive>`
-    * :doc:`Llama Stack <./notebooks/inference/llama-stack-rocm>`
     * :doc:`DeepSeek-R1 with SGLang <./notebooks/inference/deepseekr1_sglang>`
     * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
+    * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
+    * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
 
   .. grid-item-card:: Fine-tuning tutorials
 
     * :doc:`VLM with PEFT <./notebooks/fine_tune/fine_tuning_lora_qwen2vl>`
-    * :doc:`LLM with LoRA <./notebooks/fine_tune/LoRA_Llama-3.2>`
-    * :doc:`LLM with QLoRA <./notebooks/fine_tune/QLoRA_Llama-3.1>`
     * :doc:`Llama-3.1 8B with torchtune <./notebooks/fine_tune/torchtune_llama3>`
     * :doc:`Llama-3.1 8B with Llama-Factory <./notebooks/fine_tune/llama_factory_llama3>`
     * :doc:`GRPO with Unsloth <./notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO>`
 
   .. grid-item-card:: Pretraining tutorials
 
-    * :doc:`OLMo model with PyTorch FSDP <./notebooks/pretrain/torch_fsdp>`
     * :doc:`Training configuration with Megatron-LM <./notebooks/pretrain/setup_tutorial>`
     * :doc:`LLM with Megatron-LM <./notebooks/pretrain/train_llama_mock_data>`
     * :doc:`Llama-3.1 8B with torchtitan <./notebooks/pretrain/torchtitan_llama3>`

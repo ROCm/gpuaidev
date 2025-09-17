@@ -11,6 +11,34 @@ Changelog for the AI Developer Hub
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
 
+Version 6.0
+===========
+
+Added
+------
+
+*  New inference tutorials:
+
+   * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
+   * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
+
+Removed
+-------
+
+*  The following inference tutorials were removed:
+
+   * Hugging Face TGI
+   * Llama Stack
+
+*  The following fine-tuning tutorials were removed:
+
+   * LLM with LoRA
+   * LLM with QLoRA 
+
+*  The following pretraining tutorial was removed:
+
+   * OLMo model with PyTorch FSDP
+
 Version 5.1
 ===========
 
