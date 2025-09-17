@@ -38,7 +38,7 @@ subtrees:
       title: PD disaggregation with SGLang
     - file: notebooks/inference/mtp.ipynb
       title: Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang
-    - file: notebooks/inference/google-adk-agentic-ai-multi-agents-tutorial/power-Google-ADK-on-AMD-platform-and-local-LLMs.ipynb
+    - file: notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs.ipynb
       title: Multi-agents with Google ADK and A2A protocol
 
   - caption: Fine-tuning tutorials

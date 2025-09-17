@@ -20,7 +20,7 @@ Added
 *  New inference tutorials:
 
    * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
-   * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/google-adk-agentic-ai-multi-agents-tutorial/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
+   * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
 
 Removed
 -------
