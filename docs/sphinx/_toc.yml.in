@@ -62,6 +62,8 @@ subtrees:
       title: Llama-3.1 8B with torchtitan
     - file: notebooks/pretrain/ddim_pretrain.ipynb
       title: Custom diffusion model with PyTorch
+    - file: notebooks/pretrain/SpecForge_SGlang.ipynb
+      title: Speculative decoding draft model with SpecForge
 
   - caption: GPU development and optimization tutorials
     entries: 
