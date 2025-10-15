@@ -62,9 +62,13 @@ subtrees:
       title: Llama-3.1 8B with torchtitan
     - file: notebooks/pretrain/ddim_pretrain.ipynb
       title: Custom diffusion model with PyTorch
+    - file: notebooks/pretrain/SpecForge_SGlang.ipynb
+      title: Speculative decoding draft model with SpecForge
 
   - caption: GPU development and optimization tutorials
     entries: 
+    - file: notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm.ipynb
+      title: Quark MXFP4 quantization for vLLM
     - file: notebooks/gpu_dev_optimize/aiter_mla_decode_kernel.ipynb
       title: MLA decoding kernel of AITER library
     - file: notebooks/gpu_dev_optimize/triton_kernel_dev.ipynb
