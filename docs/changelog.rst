@@ -10,6 +10,19 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+Version 7.0
+===========
+
+Added
+------
+
+*  New pretraining tutorial:
+
+   * :doc:`Speculative decoding draft model with SpecForge <./notebooks/pretrain/SpecForge_SGlang>`
+
+*  New GPU development and optimization tutorial:
+
+   * :doc:`Quark MXFP4 quantization for vLLM <./notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm>`
 
 Version 6.0
 ===========

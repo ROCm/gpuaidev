@@ -68,7 +68,7 @@ subtrees:
   - caption: GPU development and optimization tutorials
     entries: 
     - file: notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm.ipynb
-      title: Quark MXFP4 Quantization for vLLM
+      title: Quark MXFP4 quantization for vLLM
     - file: notebooks/gpu_dev_optimize/aiter_mla_decode_kernel.ipynb
       title: MLA decoding kernel of AITER library
     - file: notebooks/gpu_dev_optimize/triton_kernel_dev.ipynb

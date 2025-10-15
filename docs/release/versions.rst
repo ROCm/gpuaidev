@@ -12,6 +12,7 @@ AI Developer Hub release history
    :header: "Version","Release date"
    :widths: 10, 30
 
+   "`7.0 <https://rocm.docs.amd.com/projects/ai-developer-hub/en/v7.0/>`_", "October 15, 2025"
    "`6.0 <https://rocm.docs.amd.com/projects/ai-developer-hub/en/v6.0/>`_", "September 17, 2025"
    "`5.1 <https://rocm.docs.amd.com/projects/ai-developer-hub/en/v5.1/>`_", "August 28, 2025"
    "`5.0 <https://rocm.docs.amd.com/projects/ai-developer-hub/en/v5.0/>`_", "July 30, 2025"

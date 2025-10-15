@@ -56,9 +56,11 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`LLM with Megatron-LM <./notebooks/pretrain/train_llama_mock_data>`
     * :doc:`Llama-3.1 8B with torchtitan <./notebooks/pretrain/torchtitan_llama3>`
     * :doc:`Custom diffusion model with PyTorch <./notebooks/pretrain/ddim_pretrain>`
+    * :doc:`Speculative decoding draft model with SpecForge <./notebooks/pretrain/SpecForge_SGlang>`
 
   .. grid-item-card:: GPU development and optimization tutorials
 
+    * :doc:`Quark MXFP4 quantization for vLLM <./notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm>`
     * :doc:`MLA decoding kernel of AITER library <./notebooks/gpu_dev_optimize/aiter_mla_decode_kernel>`
     * :doc:`Kernel development and optimization with Triton <./notebooks/gpu_dev_optimize/triton_kernel_dev>`
     * :doc:`Profiling Llama-4 inference with vLLM <./notebooks/gpu_dev_optimize/llama4_profiling_vllm>`
