@@ -64,6 +64,8 @@ subtrees:
       title: Custom diffusion model with PyTorch
     - file: notebooks/pretrain/SpecForge_SGlang.ipynb
       title: Speculative decoding draft model with SpecForge
+    - file: notebooks/pretrain/torchtitan_deepseek.ipynb
+      title: Pretraining with TorchTitan
     - file: notebooks/pretrain/training_with_primus.ipynb
       title: Training a model with Primus
 
