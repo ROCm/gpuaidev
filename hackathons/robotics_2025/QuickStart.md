@@ -112,7 +112,7 @@ torchaudio             2.7.1+rocm6.3
 torchvision            0.22.1+rocm6.3
 ```
 
-Then run the iGPU of Ryzen AI 300 series at gfx1100 compatilbe mode by, 
+Set the iGPU of Ryzen AI 300 series run at gfx1100 compatilbe mode by, 
 
 ```
 echo "export HSA_OVERRIDE_GFX_VERSION=11.0.0" >> ~/.bashrc
