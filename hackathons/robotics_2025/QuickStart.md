@@ -96,7 +96,15 @@ But PyTorch.org supports PyTorch-ROCm latest version is v2.8.0+. So that we need
 
 LeRobot github repo using miniconda as example to create the venv for development. But it is use PyTorch-CUDA as default. Let’s follow it to create venv with minor changes in steps for PyTorch-ROCm.
 
-Click Here about How to Install miniconda: 
+Set the iGPU of Ryzen AI 300 series run at gfx1100 compatilbe mode by, 
+
+```
+echo "export HSA_OVERRIDE_GFX_VERSION=11.0.0" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Click [Here](https://www.anaconda.com/docs/getting-started/miniconda/install) about How to Install miniconda: 
+
 
 ```shell
 conda create -n lerobot python=3.10
@@ -110,13 +118,6 @@ pytorch-triton-rocm    3.3.1
 torch                  2.7.1+rocm6.3
 torchaudio             2.7.1+rocm6.3
 torchvision            0.22.1+rocm6.3
-```
-
-Then run the iGPU of Ryzen AI 300 series at gfx1100 compatilbe mode by, 
-
-```
-echo "export HSA_OVERRIDE_GFX_VERSION=11.0.0" >> ~/.bashrc
-source ~/.bashrc
 ```
 
 Now the iGPU of Ryzen AI APU will worked as a CUDA compatible device within PyTorch.
