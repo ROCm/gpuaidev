@@ -4,20 +4,25 @@ Suppose
 1. You have setup the Ubuntu + ROCm + PyTorch + LeRobot development environment by following [QuickStart.md](QuickStart.md).
 2. You have the O101 ARM assembled.
 
-Here we go some key steps with example command to use SO101 ARM. The example commands is base on LeRobot v0.4.0.
+Here we go some key steps with example command to use SO101 ARM.
 
-These examples are base on [LeRobot Tutorial](https://huggingface.co/docs/lerobot/so101) with some modification and comments with our setup.
+These examples are based on [LeRobot Tutorial](https://huggingface.co/docs/lerobot/so101) and LeRobot v0.4.0 with some modification and comments with our setup. YOU MAY MAKE SOME MODIFICATION FOR YOU JOBS AS REQUIRED.
 
 ## Connect the SO101 ARM
 1. Connect the leader ARM with USB UART to PC fisrt and it will get `/dev/ttyACM0` on Ubuntu
 2. Connect the follwer ARM with USB UART to PC fisrt and it will get `/dev/ttyACM1` on Ubuntu
 
-The seuqence of the connection of leader ARM and follower ARM will get different devcie node name. The following steps with commands is base on this sequence.
+The seuqence of the connection of leader ARM and follower ARM will get different devcie node name. The following steps with commands are based on,
 
-LeRobot provide the command `lerobot-find-port` to help find out the UART device node.
+```text
+leader ARM => /dev/ttyACM0
+follower ARM => /dev/ttyACM1
+```
+
+LeRobot provide the command `lerobot-find-port` to help find out the UART device node of the SO101 ARM.
 
 ## Connect the SO101 ARM
-Suppose you have to cameras, one named `top` and another named `side`. The `top` camera may set up to give a bird view of the ARM workspace. The `side` may set up to give a side view.
+Suppose you have two cameras, one named `top` and another named `side`. The `top` camera may set up to give a bird view of the ARM's workspace. The `side` may set up to give a side view.
 
 1. Please connect the `top` camera first and will get `/dev/video0` for it.
 2. Then connect the `side` camera and will get `/dev/video2` for it.
@@ -85,7 +90,25 @@ We will use Learder ARM teleoperate the Follower ARM do the action we want to be
 
 The exmaple command of Huggingface tutorial [here](https://huggingface.co/docs/lerobot/il_robots) will upload the dataset to Hugggingface with you logon it. 
 
-The upload is not mandantory. Here is the example to disable the upload by `--dataset.push_to_hub=False`
+Here is the how-to login copied from the Huggingface tutroial.
+
+```text
+Once you’re familiar with teleoperation, you can record your first dataset.
+
+We use the Hugging Face hub features for uploading your dataset. If you haven’t previously used the Hub, make sure you can login via the cli using a write-access token, this token can be generated from the Hugging Face settings.
+
+Add your token to the CLI by running this command:
+
+$ huggingface-cli login --token ${HUGGINGFACE_TOKEN} --add-to-git-credential
+
+Then store your Hugging Face repository name in a variable:
+
+$ HF_USER=$(hf auth whoami | head -n 1)
+$ echo $HF_USER
+
+```
+
+The dataset uploading could be disabled by `--dataset.push_to_hub=False`.
 
 ```shell
 lerobot-record \
@@ -114,9 +137,9 @@ lerobot-record \
 
 The terminal has the log to notice you when the new episodes start, reset and dataset be record.
 
-You can use ctrl-c to stop the record and add `--resume=true` in the command to continue the dataset record with the num_episodes added.
+You can use `Ctrl-c` to stop the recording. Use `--resume=true` in the command to continue the dataset recording with the num_episodes added.
 
-After the record done. You could use the dataset for training.
+After the recording done. You could use the dataset for training.
 
 ## Training
 
@@ -137,13 +160,14 @@ lerobot-train \
   --policy.push_to_hub=false
 ```
 
-The checkpoints generated in `./outputs/train/act_so101_test/checkpoints/` and the last one is `./outputs/train/act_so101_test/checkpoints/last/pretrained_model/`
+To disable the model uploading by `--policy.push_to_hub=false`.
+
+
+The checkpoints are generated in `./outputs/train/act_so101_test/checkpoints/` and the last one is `./outputs/train/act_so101_test/checkpoints/last/pretrained_model/`
 
 ## Inference Evaluation
 
-Copy `./outputs/train/act_so101_test/` from cloud back to the Edge platform (PC) for inference evaluation.
-
-
+Copy the `pretrained_model` under `./outputs/train/act_so101_test/` from cloud back to the Edge platform (PC) for inference evaluation.
 
 ```
 lerobot-record \
