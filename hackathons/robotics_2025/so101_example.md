@@ -1,31 +1,31 @@
-# Example in command to operate with SO101 ARM
+# Example Commands to Operate SO101 ARM
 
-Suppose
-1. You have setup the Ubuntu + ROCm + PyTorch + LeRobot development environment by following [QuickStart.md](QuickStart.md).
-2. You have the O101 ARM assembled.
+Suppose:
+1. You have set up the Ubuntu + ROCm + PyTorch + LeRobot development environment by following [QuickStart.md](QuickStart.md).
+2. You have the SO101 ARM assembled.
 
-Here we go some key steps with example command to use SO101 ARM.
+Here are some key steps with example commands to use the SO101 ARM.
 
-These examples are based on [LeRobot Tutorial](https://huggingface.co/docs/lerobot/so101) and LeRobot v0.4.0 with some modification and comments with our setup. YOU MAY MAKE SOME MODIFICATION FOR YOU JOBS AS REQUIRED.
+These examples are based on [LeRobot Tutorial](https://huggingface.co/docs/lerobot/so101) and LeRobot v0.4.0 with some modifications and comments for our setup. YOU MAY NEED TO MAKE SOME MODIFICATIONS FOR YOUR JOBS AS REQUIRED.
 
 ## Connect the SO101 ARM
-1. Connect the leader ARM with USB UART to PC fisrt and it will get `/dev/ttyACM0` on Ubuntu
-2. Connect the follwer ARM with USB UART to PC fisrt and it will get `/dev/ttyACM1` on Ubuntu
+1. Connect the leader ARM with USB UART to PC first and it will get `/dev/ttyACM0` on Ubuntu
+2. Connect the follower ARM with USB UART to PC and it will get `/dev/ttyACM1` on Ubuntu
 
-The seuqence of the connection of leader ARM and follower ARM will get different devcie node name. The following steps with commands are based on,
+The sequence of the connection of leader ARM and follower ARM will result in different device node names. The following steps with commands are based on:
 
 ```text
 leader ARM => /dev/ttyACM0
 follower ARM => /dev/ttyACM1
 ```
 
-LeRobot provide the command `lerobot-find-port` to help find out the UART device node of the SO101 ARM.
+LeRobot provides the command `lerobot-find-port` to help find the UART device node of the SO101 ARM.
 
-## Connect the SO101 ARM
-Suppose you have two cameras, one named `top` and another named `side`. The `top` camera may set up to give a bird view of the ARM's workspace. The `side` may set up to give a side view.
+## Connect the Cameras
+Suppose you have two cameras, one named `top` and another named `side`. The `top` camera may be set up to give a bird's eye view of the ARM's workspace. The `side` camera may be set up to give a side view.
 
-1. Please connect the `top` camera first and will get `/dev/video0` for it.
-2. Then connect the `side` camera and will get `/dev/video2` for it.
+1. Please connect the `top` camera first and it will get `/dev/video0` for it.
+2. Then connect the `side` camera and it will get `/dev/video2` for it.
 
 Use the lerobot-find-cameras CLI tool to detect available cameras
 
@@ -35,9 +35,9 @@ lerobot-find-cameras opencv      # Find OpenCV cameras
 
 ## Calibrate the SO101 ARM
 
-Refer to the [calibrate video](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot/calibrate_so101_2.mp4) and steps in https://huggingface.co/docs/lerobot/so101
+Refer to the [calibrate video](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot/calibrate_so101_2.mp4) and steps at https://huggingface.co/docs/lerobot/so101
 
-Follower
+Follower:
 
 ```shell
 lerobot-calibrate \
@@ -46,11 +46,13 @@ lerobot-calibrate \
     --robot.id=my_awesome_follower_arm # <- Give the robot a unique name
 ```
 
+Leader:
+
 ```shell
 lerobot-calibrate \
-    --robot.type=so101_Leader \
+    --robot.type=so101_leader \
     --robot.port=/dev/ttyACM0 \ # <- The port of your robot
-    --robot.id=my_awesome_follower_arm # <- Give the robot a unique name
+    --robot.id=my_awesome_leader_arm # <- Give the robot a unique name
 ```
 
 Then you can use the SO101 ARM 
@@ -86,16 +88,16 @@ lerobot-teleoperate \
 
 ## Record the dataset
 
-We will use Learder ARM teleoperate the Follower ARM do the action we want to be record into the dataset.
+We will use the leader ARM to teleoperate the follower ARM to perform the actions we want to record into the dataset.
 
-The exmaple command of Huggingface tutorial [here](https://huggingface.co/docs/lerobot/il_robots) will upload the dataset to Hugggingface with you logon it. 
+The example command from the Hugging Face tutorial [here](https://huggingface.co/docs/lerobot/il_robots) will upload the dataset to Hugging Face when you log in to it. 
 
-Here is the how-to login copied from the Huggingface tutroial.
+Here is the login procedure copied from the Hugging Face tutorial:
 
 ```text
-Once you’re familiar with teleoperation, you can record your first dataset.
+Once you're familiar with teleoperation, you can record your first dataset.
 
-We use the Hugging Face hub features for uploading your dataset. If you haven’t previously used the Hub, make sure you can login via the cli using a write-access token, this token can be generated from the Hugging Face settings.
+We use the Hugging Face hub features for uploading your dataset. If you haven't previously used the Hub, make sure you can login via the cli using a write-access token. This token can be generated from the Hugging Face settings.
 
 Add your token to the CLI by running this command:
 
@@ -105,10 +107,9 @@ Then store your Hugging Face repository name in a variable:
 
 $ HF_USER=$(hf auth whoami | head -n 1)
 $ echo $HF_USER
-
 ```
 
-The dataset uploading could be disabled by `--dataset.push_to_hub=False`.
+Dataset uploading can be disabled by `--dataset.push_to_hub=False`.
 
 ```shell
 lerobot-record \
@@ -126,20 +127,19 @@ lerobot-record \
     --dataset.reset_time_s=10 \
     --dataset.single_task="pickup the cube and place it to the bin" \
     --dataset.root=${HOME}/so101_dataset/ \
-    --dataset.push_to_hub=False # =True means to uplaod the dataset to HuggingFace in your space
+    --dataset.push_to_hub=False # =True means to upload the dataset to HuggingFace in your space
 ```
 
-`--dataset.num_episodes=60` means we will record 60 times teleoperate.
-`--dataset.episode_time_s=20` means each episodes have 20 seconde, it depends on if it is enought for you actions.
-`--dataset.reset_time_s=10` means the reset time between the episodes, you may use this time slot to reset you environment like recover the position of the cube to the source by hand and waiting to start the next episodes record. 
-`--dataset.root=${HOME}/stack2cube_dataset` means where you dataset be saved
+`--dataset.num_episodes=60` means we will record 60 teleoperation sessions.
+`--dataset.episode_time_s=20` means each episode has 20 seconds; this depends on whether it is enough time for your actions.
+`--dataset.reset_time_s=10` means the reset time between episodes. You may use this time slot to reset your environment, like recovering the position of the cube to the source by hand and waiting to start the next episode recording.
+`--dataset.root=${HOME}/stack2cube_dataset` means where your dataset will be saved.
 
-
-The terminal has the log to notice you when the new episodes start, reset and dataset be record.
+The terminal has logs to notify you when new episodes start, reset, and when the dataset is recorded.
 
 You can use `Ctrl-c` to stop the recording. Use `--resume=true` in the command to continue the dataset recording with the num_episodes added.
 
-After the recording done. You could use the dataset for training.
+After the recording is done, you can use the dataset for training.
 
 ## Training
 
@@ -160,8 +160,7 @@ lerobot-train \
   --policy.push_to_hub=false
 ```
 
-To disable the model uploading by `--policy.push_to_hub=false`.
-
+To disable model uploading, use `--policy.push_to_hub=false`.
 
 The checkpoints are generated in `./outputs/train/act_so101_test/checkpoints/` and the last one is `./outputs/train/act_so101_test/checkpoints/last/pretrained_model/`
 
@@ -184,4 +183,4 @@ lerobot-record \
   --dataset.push_to_hub=false
 ```
 
-Now you finishe the full round work. Then you can continue the next round from `record dataset` => `trainng` => `inference evaluation`
+Now you have finished the full round of work. Then you can continue the next round from `record dataset` => `training` => `inference evaluation`
