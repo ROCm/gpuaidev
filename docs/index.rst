@@ -57,6 +57,8 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Llama-3.1 8B with torchtitan <./notebooks/pretrain/torchtitan_llama3>`
     * :doc:`Custom diffusion model with PyTorch <./notebooks/pretrain/ddim_pretrain>`
     * :doc:`Speculative decoding draft model with SpecForge <./notebooks/pretrain/SpecForge_SGlang>`
+    * :doc:`Pretraining with TorchTitan <./notebooks/pretrain/torchtitan_deepseek>`
+    * :doc:`Training a model with Primus <./notebooks/pretrain/training_with_primus>`
 
   .. grid-item-card:: GPU development and optimization tutorials
 

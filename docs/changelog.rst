@@ -10,6 +10,17 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+Version 8.0
+===========
+
+Added
+------
+
+*  New pretraining tutorials:
+
+   * :doc:`Pretraining with TorchTitan <./notebooks/pretrain/torchtitan_deepseek>`
+   * :doc:`Training a model with Primus <./notebooks/pretrain/training_with_primus>`
+
 Version 7.0
 ===========
 
