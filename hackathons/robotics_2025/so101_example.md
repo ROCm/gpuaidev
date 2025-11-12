@@ -6,7 +6,7 @@ Suppose:
 
 Here are some key steps with example commands to use the SO101 ARM.
 
-These examples are based on [LeRobot Tutorial](https://huggingface.co/docs/lerobot/so101) and LeRobot v0.4.0 with some modifications and comments for our setup. YOU MAY NEED TO MAKE SOME MODIFICATIONS FOR YOUR JOBS AS REQUIRED.
+These examples are based on [LeRobot Tutorial](https://huggingface.co/docs/lerobot/so101) and LeRobot v0.4.1 with some modifications and comments for our setup. YOU MAY NEED TO MAKE SOME MODIFICATIONS FOR YOUR JOBS AS REQUIRED.
 
 ## Connect the SO101 ARM
 1. Connect the leader ARM with USB UART to PC first and it will get `/dev/ttyACM0` on Ubuntu

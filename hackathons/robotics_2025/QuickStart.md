@@ -13,7 +13,7 @@ AMD Ryzen AI 9 HX370 PC
 OS: ubuntu 24.04
 ROCm v6.3+
 PyTorch v2.7.x
-LeRobot: v0.4.0
+LeRobot: v0.4.1
 ```
 
 ### Pre-requisites
@@ -146,14 +146,14 @@ git clone https://github.com/huggingface/lerobot.git
 cd lerobot
 
 # let’s synchronize using this version
-git checkout -b v0.4.0 v0.4.0
+git checkout -b v0.4.1 v0.4.1
 pip install -e .
 ```
 
 Check the Installation
 ```shell
 pip list | grep lerobot
-lerobot                0.4.0          /home/alex/lerobot
+lerobot                0.4.1          /home/alex/lerobot
 ```
 
 Install the feetech-servo-sdk for SO-ARM101 in this Hackation.
