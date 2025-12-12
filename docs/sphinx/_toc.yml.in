@@ -54,6 +54,8 @@ subtrees:
 
   - caption: Pretraining tutorials
     entries:
+    - file: notebooks/pretrain/qwen_image.ipynb
+      title: Customize Qwen-Image with DiffSynth-Studi
     - file: notebooks/pretrain/setup_tutorial.ipynb
       title: Training configuration with Megatron-LM
     - file: notebooks/pretrain/train_llama_mock_data.ipynb
