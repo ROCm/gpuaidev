@@ -43,6 +43,8 @@ subtrees:
 
   - caption: Fine-tuning tutorials
     entries:
+    - file: notebooks/fine_tune/qwen_image.ipynb
+      title: Customize Qwen-Image with DiffSynth-Studio
     - file: notebooks/fine_tune/fine_tuning_lora_qwen2vl.ipynb
       title: VLM with PEFT
     - file: notebooks/fine_tune/torchtune_llama3.ipynb
@@ -73,6 +75,8 @@ subtrees:
     entries: 
     - file: notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm.ipynb
       title: Quark MXFP4 quantization for vLLM
+    - file: notebooks/gpu_dev_optimize/helion_gpu_kernel_dev.ipynb
+      title: GPU kernel development and assessment with Helion
     - file: notebooks/gpu_dev_optimize/aiter_mla_decode_kernel.ipynb
       title: MLA decoding kernel of AITER library
     - file: notebooks/gpu_dev_optimize/triton_kernel_dev.ipynb

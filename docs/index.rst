@@ -45,6 +45,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
 
   .. grid-item-card:: Fine-tuning tutorials
 
+    * :doc:`Customize Qwen-Image with DiffSynth-Studio <./notebooks/fine_tune/qwen_image>`
     * :doc:`VLM with PEFT <./notebooks/fine_tune/fine_tuning_lora_qwen2vl>`
     * :doc:`Llama-3.1 8B with torchtune <./notebooks/fine_tune/torchtune_llama3>`
     * :doc:`Llama-3.1 8B with Llama-Factory <./notebooks/fine_tune/llama_factory_llama3>`
@@ -63,6 +64,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
   .. grid-item-card:: GPU development and optimization tutorials
 
     * :doc:`Quark MXFP4 quantization for vLLM <./notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm>`
+    * :doc:`GPU kernel development and assessment with Helion <./notebooks/gpu_dev_optimize/helion_gpu_kernel_dev>`
     * :doc:`MLA decoding kernel of AITER library <./notebooks/gpu_dev_optimize/aiter_mla_decode_kernel>`
     * :doc:`Kernel development and optimization with Triton <./notebooks/gpu_dev_optimize/triton_kernel_dev>`
     * :doc:`Profiling Llama-4 inference with vLLM <./notebooks/gpu_dev_optimize/llama4_profiling_vllm>`
