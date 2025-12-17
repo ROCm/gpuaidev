@@ -10,6 +10,20 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+Version 9.0
+===========
+
+Added
+------
+
+*  New fine-tuning tutorial:
+
+   * :doc:`Customize Qwen-Image with DiffSynth-Studio <./notebooks/fine_tune/qwen_image>`
+
+*  New GPU development and optimization tutorial:
+
+   * :doc:`GPU kernel development and assessment with Helion <./notebooks/gpu_dev_optimize/helion_gpu_kernel_dev>`
+
 Version 8.0
 ===========
 
