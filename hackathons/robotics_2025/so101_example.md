@@ -22,10 +22,11 @@ follower ARM => /dev/ttyACM1
 LeRobot provides the command `lerobot-find-port` to help find the UART device node of the SO101 ARM.
 
 ## Connect the Cameras
-Suppose you have two cameras, one named `top` and another named `side`. The `top` camera may be set up to give a bird's eye view of the ARM's workspace. The `side` camera may be set up to give a side view.
+Suppose you have three cameras, one named `wrist`, `side`, and another named `top`. The `top` camera may be set up to give a bird's eye view of the ARM's workspace. The `side` camera may be set up to give a side view.
 
-1. Please connect the `top` camera first and it will get `/dev/video0` for it.
-2. Then connect the `side` camera and it will get `/dev/video2` for it.
+1. Please connect the `wrist` camera first and it will get `/dev/video0` for it.
+2. Please connect the `side` camera first and it will get `/dev/video2` for it.
+2. Then connect the `top` camera and it will get `/dev/video4` for it.
 
 Use the lerobot-find-cameras CLI tool to detect available cameras
 
@@ -76,15 +77,15 @@ lerobot-teleoperate \
     --robot.type=so101_follower \
     --robot.port=/dev/ttyACM1 \
     --robot.id=my_awesome_follower_arm \
-    --robot.cameras="{top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}" \
+    --robot.cameras="{wrist: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}, top: {type: opencv, index_or_path: 4, width: 640, height: 480, fps: 30}}" \
     --teleop.type=so101_leader \
     --teleop.port=/dev/ttyACM0 \
     --teleop.id=my_awesome_leader_arm \
     --display_data=true
 ```
-
-`top` camera with index_or_path 0 (/dev/video0)
+`wrist` camera with index_or_path 0 (/dev/video0)
 `side` camera with index_or_path 2 (/dev/video2)
+`top` camera with index_or_path 4 (/dev/video4)
 
 ## Record the dataset
 
@@ -116,7 +117,7 @@ lerobot-record \
     --robot.type=so101_follower \
     --robot.port=/dev/ttyACM1 \
     --robot.id=my_awesome_follower_arm \
-    --robot.cameras="{top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}" \
+    --robot.cameras="{wrist: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}, top: {type: opencv, index_or_path: 4, width: 640, height: 480, fps: 30}}" \
     --teleop.type=so101_leader \
     --teleop.port=/dev/ttyACM0 \
     --teleop.id=my_awesome_leader_arm \
@@ -173,7 +174,7 @@ lerobot-record \
   --robot.type=so101_follower \
   --robot.port=/dev/ttyACM1 \
   --robot.id=my_awesome_leader_arm \
-  --robot.cameras="{top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}" \
+  --robot.cameras="{wrist: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}, top: {type: opencv, index_or_path: 4, width: 640, height: 480, fps: 30}}" \
   --dataset.single_task="Pick cube from source position and stack it on the fixed cube at target position" \
   --dataset.repo_id=alexhegit/eval_act_base \
   --dataset.root=${PWD}/eval_lerobot_dataset/ \
