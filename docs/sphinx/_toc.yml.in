@@ -7,7 +7,7 @@ root: index
 subtrees:
 
   - caption: Inference tutorials
-    entries: 
+    entries:
     - file: notebooks/inference/opea_deployment_and_evaluation.ipynb
       title: ChatQnA vLLM deployment and performance evaluation
     - file: notebooks/inference/t2v_comfyui_radeon.ipynb
@@ -15,14 +15,14 @@ subtrees:
     - file: notebooks/inference/deepseek_janus_cpu_gpu.ipynb
       title: DeepSeek Janus Pro on CPU or GPU
     - file: notebooks/inference/vllm_v1_DSR1.ipynb
-      title: DeepSeek-R1 with vLLM V1  
+      title: DeepSeek-R1 with vLLM V1
     - file: notebooks/inference/build_airbnb_agent_mcp.ipynb
       title: AI agent with MCPs using vLLM and PydanticAI
     - file: notebooks/inference/1_inference_ver3_HF_transformers.ipynb
       title: Hugging Face Transformers
     - file: notebooks/inference/3_inference_ver3_HF_vllm.ipynb
       title: Deploying with vLLM
-    - file: notebooks/inference/rapbot_vllm.ipynb 
+    - file: notebooks/inference/rapbot_vllm.ipynb
       title: From chatbot to rap bot with vLLM
     - file: notebooks/inference/rag_ollama_llamaindex.ipynb
       title: RAG with LlamaIndex and Ollama
@@ -31,7 +31,7 @@ subtrees:
     - file: notebooks/inference/voice_pipeline_rag_ollama.ipynb
       title: Building AI pipelines for voice assistants
     - file: notebooks/inference/speculative_decoding_deep_dive.ipynb
-      title: Speculative decoding with vLLM 
+      title: Speculative decoding with vLLM
     - file: notebooks/inference/deepseekr1_sglang.ipynb
       title: DeepSeek-R1 with SGLang
     - file: notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU.ipynb
@@ -53,6 +53,8 @@ subtrees:
       title: Llama-3.1 8B with Llama Factory
     - file: notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO.ipynb
       title: GRPO with Unsloth
+    - file: notebooks/fine_tune/slime_qwen3_4B_GRPO.ipynb
+      title: GRPO with slime
 
   - caption: Pretraining tutorials
     entries:
@@ -72,7 +74,7 @@ subtrees:
       title: Training a model with Primus
 
   - caption: GPU development and optimization tutorials
-    entries: 
+    entries:
     - file: notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm.ipynb
       title: Quark MXFP4 quantization for vLLM
     - file: notebooks/gpu_dev_optimize/helion_gpu_kernel_dev.ipynb
@@ -89,7 +91,7 @@ subtrees:
       title: TileLang-enabled Flash Attention on AMD Instinct™ MI300X GPU
 
   - caption: About
-    entries:  
+    entries:
     - file: changelog.rst
       title: Changelog
     - file: notebooks/licensing.md
