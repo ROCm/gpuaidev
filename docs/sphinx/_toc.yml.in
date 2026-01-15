@@ -85,7 +85,8 @@ subtrees:
       title: Profiling Llama-4 inference with vLLM
     - file: notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm.ipynb
       title: FP8 quantization with AMD Quark for vLLM
-
+    - file: notebooks/gpu_dev_optimize/tilelang_enabled_flash_attention.ipynb
+      title: TileLang-enabled Flash Attention on AMD Instinct™ MI300X GPU
 
   - caption: About
     entries:  
