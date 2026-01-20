@@ -70,8 +70,6 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Kernel development and optimization with Triton <./notebooks/gpu_dev_optimize/triton_kernel_dev>`
     * :doc:`Profiling Llama-4 inference with vLLM <./notebooks/gpu_dev_optimize/llama4_profiling_vllm>`
     * :doc:`FP8 quantization with AMD Quark for vLLM <./notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm>`
-    * :doc:`TileLang-enabled Flash Attention <./notebooks/gpu_dev_optimize/tilelang_enabled_flash_attention>`
-
 
 To contribute to the documentation, see
 `Contributing to ROCm <https://rocm.docs.amd.com/en/latest/contribute/contributing.html>`_.

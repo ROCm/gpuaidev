@@ -20,10 +20,6 @@ Added
 
    * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
 
-*  New GPU development and optimization tutorial:
-
-   * :doc:`TileLang-enabled Flash Attention <./notebooks/gpu_dev_optimize/tilelang_enabled_flash_attention>`
-
 Version 9.0
 ===========
 
