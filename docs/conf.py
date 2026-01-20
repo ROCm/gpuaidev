@@ -3,12 +3,12 @@ import os
 import sys
 
 project = 'Tutorials for AI developers'
-version = "9.0"
+version = "10.0"
 release = version
 html_title = f"Tutorials for AI developers {version}"
 # html_title = "Tutorials for AI developers"
 author = "Advanced Micro Devices, Inc."
-copyright = "Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved."
+copyright = "Copyright (c) 2026 Advanced Micro Devices, Inc. All rights reserved."
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
