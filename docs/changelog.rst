@@ -10,6 +10,16 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+Version 10.0
+============
+
+Added
+------
+
+*  New fine-tuning tutorial:
+
+   * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
+
 Version 9.0
 ===========
 

@@ -50,6 +50,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Llama-3.1 8B with torchtune <./notebooks/fine_tune/torchtune_llama3>`
     * :doc:`Llama-3.1 8B with Llama-Factory <./notebooks/fine_tune/llama_factory_llama3>`
     * :doc:`GRPO with Unsloth <./notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO>`
+    * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
 
   .. grid-item-card:: Pretraining tutorials
 
