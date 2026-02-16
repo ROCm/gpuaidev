@@ -73,7 +73,7 @@ subtrees:
     - file: notebooks/pretrain/training_with_primus.ipynb
       title: Training a model with Primus
     - file: notebooks/pretrain/se3transform_intro.ipynb
-      title: SE(3)-Transformer for molecular property prediction
+      title: SE(3)-Transformer overview
 
   - caption: GPU development and optimization tutorials
     entries:
