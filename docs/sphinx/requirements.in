@@ -1,4 +1,4 @@
-rocm-docs-core==1.31.2
+rocm-docs-core==1.31.3
 sphinx-reredirects
 sphinx
 nbsphinx
