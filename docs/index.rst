@@ -61,6 +61,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Speculative decoding draft model with SpecForge <./notebooks/pretrain/SpecForge_SGlang>`
     * :doc:`Pretraining with TorchTitan <./notebooks/pretrain/torchtitan_deepseek>`
     * :doc:`Training a model with Primus <./notebooks/pretrain/training_with_primus>`
+    * :doc:`SE(3)-Transformer overview <./notebooks/pretrain/se3transform_intro>`
 
   .. grid-item-card:: GPU development and optimization tutorials
 
