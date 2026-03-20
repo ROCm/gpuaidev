@@ -11,6 +11,11 @@ Tutorials for AI developers
 The AI Developer Hub contains AMD ROCm tutorials in Jupyter Notebook format for training, fine-tuning, and inference.
 It leverages popular machine learning frameworks on AMD GPUs.
 
+.. admonition:: New tutorials
+   
+   * :doc:`SE(3)-Transformer overview <./notebooks/pretrain/se3transform_intro>`
+   * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
+
 These tutorials are organized into four main categories:
 
 *  **Inference**: Resources for running inference with trained models.
@@ -20,6 +25,11 @@ These tutorials are organized into four main categories:
 
 All tutorials on the AI Developer Hub are available to download in the Jupyter Notebook format from the
 public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
+
+.. tip::
+
+   To determine which tutorials are best suited for your experience and knowledge level,
+   see the :doc:`AI Developer Hub tutorial selector <./tutorial-selector>`.
 
 .. grid:: 2
   :gutter: 3
