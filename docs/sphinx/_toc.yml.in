@@ -6,6 +6,10 @@ defaults:
 root: index
 subtrees:
 
+  - entries:
+    - file: tutorial-selector.rst
+      title: Tutorial selector
+
   - caption: Inference tutorials
     entries:
     - file: notebooks/inference/opea_deployment_and_evaluation.ipynb

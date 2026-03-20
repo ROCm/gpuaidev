@@ -1,9 +1,11 @@
 """Configuration file for the Sphinx documentation builder."""
 import os
 import sys
+import shutil
+from pathlib import Path
 
 project = 'Tutorials for AI developers'
-version = "11.0"
+version = "12.0"
 release = version
 html_title = f"Tutorials for AI developers {version}"
 # html_title = "Tutorials for AI developers"
@@ -13,11 +15,15 @@ copyright = "Copyright (c) 2026 Advanced Micro Devices, Inc. All rights reserved
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
+DOCS_DIR = Path(__file__).parent.resolve()
+sys.path.append(str(DOCS_DIR / "extension"))
 extensions = [
     'myst_nb',            # For integrating Jupyter notebooks
     'sphinx.ext.mathjax', # For rendering math expressions
-    'rocm_docs'           # For ROCm Docs theme
+    'rocm_docs',          # For ROCm Docs theme
+    "rocm_docs_custom.selector" # For JavaScript selector
 ]
+
 external_toc_path = "./sphinx/_toc.yml"
 external_projects_current_project = "gpuaidev"
 
