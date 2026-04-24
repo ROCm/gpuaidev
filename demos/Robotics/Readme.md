@@ -14,6 +14,15 @@ This guide provides step-by-step instructions for setting up robotic arms using 
 
 ## Prerequisites
 
+#### Follow these steps if you're on Windows.
+1. Get WSL with Ubuntu 24.04:
+   ```bash
+	wsl --install -d Ubuntu-24.04
+   ```
+3. Get [AMD Software: Adrenalin Edition™](https://www.amd.com/en/support/download/drivers.html)
+4. Get [Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
+5. For all the following instructions, switch to WSL by running `WSL` in Powershell
+
 ### Conda Installation (Miniforge)
 If you don't have conda installed, get it using [Miniforge](https://github.com/conda-forge/miniforge)
 
@@ -24,7 +33,33 @@ bash Miniforge3-Linux-x86_64.sh
 Restart your terminal after installation
 
 ### ROCm Installation
+
+#### Linux
 Install ROCm following the [official AMD documentation](https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/docs/install/installryz/native_linux/install-ryzen.html).
+
+#### Windows - WSL
+1. Install ROCm following the [official AMD documentation](https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/docs/install/installryz/native_linux/install-ryzen.html).
+2. Run these commands
+```bash
+sudo apt update -qq && sudo apt install -y cmake build-essential git && \
+cd ~ && rm -rf librocdxg && git clone https://github.com/ROCm/librocdxg.git && \
+cd librocdxg && git checkout develop && \
+mkdir -p build && cd build && \
+cmake .. -DWIN_SDK="/mnt/c/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/shared" && \
+make -j$(nproc) && sudo make install && \
+grep -q "HSA_ENABLE_DXG_DETECTION" ~/.bashrc || echo 'export HSA_ENABLE_DXG_DETECTION=1' >> ~/.bashrc && \
+export HSA_ENABLE_DXG_DETECTION=1
+
+# Configure WSL memory allocation 
+cat > /mnt/c/Users/$USER/.wslconfig << 'EOF'
+[wsl2]
+memory=<PORTION_OF_TOTAL_RAM>GB
+EOF
+
+# Restart your terminal.
+# Verify setup - GPU should appear in rocminfo output
+rocminfo
+```
 
 ## Environment Setup
 
@@ -103,6 +138,53 @@ For detailed arm setup instructions, refer to the [SO-101 Documentation](https:/
 > - **Follower arm**: 12V adapter
 > - **Leader arm**: 5V adapter
 
+### Follow these additional steps if you're on Windows.
+
+**Install usbipd (Windows PowerShell as Administrator)**
+```bash
+winget install --id dorssel.usbipd-win -e
+```
+
+**Find your BUSIDs**
+```powershell
+usbipd list
+```
+ 
+Example output:
+```
+BUSID  VID:PID    DEVICE                                 STATE
+8-1    1a86:55d3  USB-Enhanced-SERIAL CH343 (COM3)       Attached
+8-2    1a86:55d3  USB-Enhanced-SERIAL CH343 (COM4)       Shared (forced)
+```
+> MotorBus = `USB-Enhanced-SERIAL` or similar USB Serial device  
+ 
+**Bind each device**
+```powershell
+usbipd bind --force --busid <BUSID>
+```
+
+Example output:
+```
+# usbipd bind --force --busid 8-1
+# usbipd bind --force --busid 8-2
+```
+ 
+**Attach to WSL**
+```powershell
+usbipd attach --wsl --busid <BUSID>
+```
+
+Example output:
+```
+# usbipd attach --wsl --busid 8-1
+# usbipd attach --wsl --busid 8-2
+```
+ 
+**Verify in WSL:**
+```bash
+ls -l /dev/ttyACM*
+```
+
 ### 1. Identify USB Ports
 
 Run the port detection utility:
@@ -146,6 +228,49 @@ lerobot-calibrate \
 
 ## Camera Setup
 
+### Follow these additional steps if you're on Windows.
+
+**Find your BUSIDs**
+```powershell
+usbipd list
+```
+ 
+Example output:
+```
+BUSID  VID:PID    DEVICE                                 STATE
+8-1    05a3:9230  USB2.0_CAM1                            Attached
+8-2    0c45:2283  UGREEN Camera                          Attached
+```
+**Note:** You might see a different set of BusIDs depending on your motor connections
+
+> Camera = `USB2.0_CAM`, `UGREEN Camera`, or similar device
+ 
+**Bind each device**
+```powershell
+usbipd bind --force --busid <BUSID>
+```
+
+Example output:
+```
+# usbipd bind --force --busid 8-1
+# usbipd bind --force --busid 8-2
+```
+ 
+**Attach to WSL**
+```powershell
+usbipd attach --wsl --busid <BUSID>
+```
+
+Example output:
+```
+# usbipd attach --wsl --busid 8-1
+# usbipd attach --wsl --busid 8-2
+```
+ 
+**Verify in WSL:**
+```bash
+ls -l /dev/video*
+```
 ### 1. Detect Available Cameras
 
 ```bash
@@ -184,11 +309,22 @@ Camera #1:
 ### 2. Preview Camera Output
 
 Test camera feed using FFmpeg:
+
+#### Linux
 ```bash
 ffplay /dev/video0  # Replace with your camera device
 ```
-	
 
+#### Windows - WSL
+`ffplay` has no display in WSL. Use ffmpeg to save a snapshot instead:
+```bash
+/usr/bin/ffmpeg -f v4l2 -input_format mjpeg -i /dev/video0 -update 1 -frames:v 1 test.jpg && explorer.exe test.jpg
+```
+
+**IMPORTANT:** Cameras must use **MJPEG** in WSL. YUYV (the default) does not stream through usbipd. When configuring cameras in lerobot, set `fourcc="MJPG"`:
+```python
+OpenCVCameraConfig(0, 30, 640, 480, fourcc="MJPG")
+```
 
 ## Teleoperation
 
@@ -210,6 +346,7 @@ lerobot-teleoperate \
 
 Enable visual feedback during teleoperation:
 
+#### Linux
 ```bash
 lerobot-teleoperate \
     --robot.type=so101_follower \
@@ -222,8 +359,20 @@ lerobot-teleoperate \
     --display_data=true
 ```
 
-**Note:** Adjust camera indices (`0` and `2`) based on your camera detection results.
-    
+#### Windows - WSL
+```bash
+lerobot-teleoperate \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1 \
+    --robot.id=my_awesome_follower_arm \
+    --robot.cameras="{top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30, fourcc: MJPG}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30, fourcc: MJPG}}" \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM0 \
+    --teleop.id=my_awesome_leader_arm \
+    --display_data=true
+```
+
+**Note:** Adjust camera indices (`0` and `2`) based on your camera detection results. 
     
 ## Dataset Recording
 
@@ -237,7 +386,7 @@ Before recording datasets, authenticate with Hugging Face:
 
 #### 1. Login to Hugging Face
 ```bash
-huggingface-cli login
+hf auth login
 ```
 
 #### 2. Get Your Username
@@ -250,12 +399,32 @@ echo $HF_USER
 
 Record robot demonstrations with cameras:
 
+#### Linux
 ```bash
 lerobot-record \
     --robot.type=so101_follower \
     --robot.port=/dev/ttyACM1 \
     --robot.id=my_awesome_follower_arm \
     --robot.cameras="{top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}" \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM0 \
+    --teleop.id=my_awesome_leader_arm \
+    --display_data=true \
+    --dataset.repo_id=${HF_USER}/stack-cubes \
+    --dataset.num_episodes=5 \
+    --dataset.episode_time_s=20 \
+    --dataset.reset_time_s=10 \
+    --dataset.single_task="pickup the cube and place it on another cube" \
+    --dataset.root=${HOME}/so101_dataset/
+```
+
+#### Windows - WSL
+```bash
+lerobot-record \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1 \
+    --robot.id=my_awesome_follower_arm \
+    --robot.cameras="{top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30, fourcc: MJPG}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30, fourcc: MJPG}}" \
     --teleop.type=so101_leader \
     --teleop.port=/dev/ttyACM0 \
     --teleop.id=my_awesome_leader_arm \
@@ -298,7 +467,7 @@ For detailed training instructions, see the [Train a Policy Reference](https://h
 
 ### AMD Development Cloud for Training
 
-For high-performance training, we recommend using **AMD MI300X GPUs** on the [AMD Development Cloud](https://www.amd.com/en/registration/ai-dev-program-sign-up-form.html), which provides access to premium data center–grade hardware along with $100 in cloud credits when you join the AI Developer Program
+For high-performance training, we recommend using **AMD MI300X GPUs** on the [AMD Developer Cloud](https://www.amd.com/en/registration/ai-dev-program-sign-up-form.html), which provides access to premium data center–grade hardware along with $100 in cloud credits when you join the AI Developer Program
 
 ### Training Command
 
@@ -341,6 +510,7 @@ After training your policy, you can test it by running inference on the robot. T
 
 Use the same `lerobot-record` command with the addition of the `--policy.path` argument pointing to your trained model:
 
+#### Linux
 ```bash
 lerobot-record \
   --robot.type=so101_follower \
@@ -355,7 +525,23 @@ lerobot-record \
   --dataset.root=${HOME}/eval_so101_dataset/ \
   --policy.path=outputs/train/act_stack_cubes/checkpoints/last/pretrained_model \
   --dataset.push_to_hub=false
+```
 
+#### Windows
+```bash
+lerobot-record \
+  --robot.type=so101_follower \
+  --robot.port=/dev/ttyACM1 \
+  --robot.id=my_awesome_follower_arm \
+  --robot.cameras="{top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30, fourcc: MJPG}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30, fourcc: MJPG}}" \
+  --display_data=true \
+  --dataset.repo_id=${HF_USER}/eval_stack_cubes \
+  --dataset.num_episodes=10 \
+  --dataset.episode_time_s=20 \
+  --dataset.single_task="pickup the cube and place it on another cube" \
+  --dataset.root=${HOME}/eval_so101_dataset/ \
+  --policy.path=outputs/train/act_stack_cubes/checkpoints/last/pretrained_model \
+  --dataset.push_to_hub=false
 ```
 
 ## License
