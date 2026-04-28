@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMD Ryzen AI × Unsloth — RL Finetuning Workshop</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red:   #E8281E;
+    --green: #00C47D;
+    --bg:    #0C0C0C;
+    --card:  #141414;
+    --card2: #1A1A1A;
+    --line:  #1E1E1E;
+    --text:  #F0F0F0;
+    --dim:   #606060;
+    --dim2:  #333;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 52px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(12,12,12,0.97);
+    backdrop-filter: blur(8px);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 0.7rem; font-size: 0.82rem; font-weight: 500; }
+  .nav-amd   { color: var(--red); }
+  .nav-sep   { color: var(--dim2); }
+  .nav-pill  { display: flex; align-items: center; gap: 0.45rem; font-size: 0.68rem; color: var(--dim); letter-spacing: 0.08em; }
+  .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+  /* ── TABS ── */
+  .tabs-bar {
+    position: sticky; top: 52px; z-index: 99;
+    display: flex; align-items: stretch;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    padding: 0 2.5rem;
+    overflow-x: auto;
+    gap: 0;
+  }
+
+  .tab {
+    padding: 0 1.4rem;
+    height: 44px;
+    display: flex; align-items: center;
+    font-size: 0.78rem; font-weight: 500;
+    color: var(--dim);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color .15s, border-color .15s;
+    user-select: none;
+    background: none; border-top: none; border-left: none; border-right: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--text); border-bottom-color: var(--green); }
+  .tab.workshop-tab { color: var(--green); }
+  .tab.workshop-tab.active { border-bottom-color: var(--green); }
+
+  /* ── PANELS ── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── PAGE ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem 6rem; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 3.2rem 0; border-bottom: 1px solid var(--line); }
+  .section:last-child { border-bottom: none; }
+
+  .eyebrow {
+    font-size: 0.63rem; font-weight: 600; color: var(--dim);
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.85rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--dim2); }
+
+  h2 {
+    font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+    font-weight: 700; letter-spacing: -0.025em; line-height: 1.15;
+    margin-bottom: 0.6rem;
+  }
+  h2 .g { color: var(--green); }
+  h2 .r { color: var(--red); }
+
+  .lead {
+    font-size: 0.92rem; color: var(--dim); line-height: 1.75;
+    max-width: 640px; margin-bottom: 1.8rem;
+  }
+  .lead b { color: var(--text); font-weight: 500; }
+
+  /* ── HERO ── */
+  .hero { padding: 3.5rem 0 3rem; border-bottom: 1px solid var(--line); }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    background: rgba(0,196,125,.08); border: 1px solid rgba(0,196,125,.18);
+    border-radius: 100px; padding: 0.28em 0.95em;
+    font-size: 0.67rem; font-weight: 500; color: var(--green);
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.4rem;
+  }
+  .hero-title {
+    font-size: clamp(2.3rem, 4.5vw, 3.8rem);
+    font-weight: 700; line-height: 1.02; letter-spacing: -0.035em; margin-bottom: 1.1rem;
+  }
+  .hero-title .g { color: var(--green); }
+  .hero-desc { font-size: 0.97rem; color: var(--dim); line-height: 1.75; max-width: 560px; margin-bottom: 1.3rem; }
+  .hero-desc b { color: var(--text); font-weight: 500; }
+  .hero-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .tag {
+    font-size: 0.7rem; font-weight: 500; color: var(--dim);
+    border: 1px solid var(--line); border-radius: 3px;
+    padding: 0.28em 0.7em; letter-spacing: 0.02em;
+  }
+
+  /* ── CARDS ── */
+  .cards {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+  }
+  @media (max-width: 800px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .cards { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--card); padding: 1.5rem;
+    transition: background .2s;
+  }
+  .card:hover { background: var(--card2); }
+  .card-icon { font-size: 1.25rem; margin-bottom: 0.65rem; display: block; }
+  .card h3   { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .card p    { font-size: 0.78rem; color: var(--dim); line-height: 1.65; }
+  .card p b  { color: var(--text); font-weight: 500; }
+
+  /* ── STRIX ── */
+  .two-col  { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  @media (max-width: 750px) { .two-col { grid-template-columns: 1fr; } }
+
+  .prose p   { font-size: 0.85rem; color: var(--dim); line-height: 1.75; margin-bottom: 0.85rem; }
+  .prose p b { color: var(--text); font-weight: 500; }
+  .prose h3  { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; }
+
+  .specs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+  .spec {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 4px; padding: 0.48rem 0.85rem;
+    font-size: 0.77rem; color: var(--dim); line-height: 1.35;
+  }
+  .spec b { color: var(--text); font-weight: 600; display: block; font-size: 0.86rem; }
+  .spec.hi { border-color: rgba(0,196,125,.22); }
+  .spec.hi b { color: var(--green); }
+
+  .info-box {
+    background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 1.4rem;
+  }
+  .info-box h4 {
+    font-size: 0.63rem; font-weight: 600; color: var(--dim); letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+
+  .row-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.55rem 0; border-top: 1px solid var(--line);
+    font-size: 0.82rem;
+  }
+  .row-item:first-of-type { border-top: none; padding-top: 0; }
+  .row-item span { color: var(--dim); }
+  .badge {
+    font-size: 0.67rem; font-weight: 600; letter-spacing: 0.04em;
+    padding: 0.2em 0.6em; border-radius: 3px;
+  }
+  .b-green { background: rgba(0,196,125,.12); color: var(--green); }
+  .b-dim   { background: var(--card2); color: var(--dim); }
+
+  .code-snippet {
+    margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--line);
+  }
+
+  .code-block {
+    background: #000; border: 1px solid var(--line); border-radius: 4px;
+    padding: 0.75rem 0.9rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.7rem; color: #999; line-height: 1.65;
+    overflow-x: auto; white-space: pre;
+  }
+  .kw  { color: #6B7CF6; }
+  .fn  { color: #C8A000; }
+  .st  { color: var(--green); }
+  .cm  { color: var(--dim2); }
+  .num { color: #E8281E; }
+
+  /* ── TECHNIQUES ── */
+  .technique-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 650px) { .technique-grid { grid-template-columns: 1fr; } }
+
+  .technique { background: var(--card); padding: 1.5rem; transition: background .2s; }
+  .technique:hover { background: var(--card2); }
+  .t-label { font-size: 0.63rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 0.45rem; }
+  .technique h3 { font-size: 0.92rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .technique p  { font-size: 0.78rem; color: var(--dim); line-height: 1.65; }
+  .technique p b { color: var(--text); font-weight: 500; }
+
+  /* ── RL LOOP ── */
+  .rl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  @media (max-width: 750px) { .rl-grid { grid-template-columns: 1fr; } }
+
+  .loop-box { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 1.4rem; }
+  .loop-box h4 { font-size: 0.63rem; font-weight: 600; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.1rem; }
+
+  .loop-step { display: flex; align-items: flex-start; gap: 0.85rem; padding: 0.75rem 0; border-top: 1px solid var(--line); }
+  .loop-step:first-of-type { border-top: none; padding-top: 0; }
+  .ls-num {
+    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.63rem; font-weight: 700; margin-top: 2px;
+  }
+  .ls-1 { background: rgba(0,196,125,.15); color: var(--green); }
+  .ls-2 { background: rgba(232,40,30,.15); color: var(--red); }
+  .ls-3 { background: rgba(200,160,0,.18); color: #C8A000; }
+  .ls-4 { background: rgba(107,94,214,.18); color: #8B7CF6; }
+
+  .ls-body h5 { font-size: 0.83rem; font-weight: 600; margin-bottom: 0.1rem; }
+  .ls-body p  { font-size: 0.76rem; color: var(--dim); line-height: 1.5; }
+  .ls-body code { font-family: 'SF Mono','Fira Code',monospace; font-size: 0.73rem; background: var(--card2); padding: 0.1em 0.35em; border-radius: 3px; color: var(--green); }
+
+  /* ── SUDOKU ── */
+  .sudoku-wrap-outer { display: flex; gap: 2.5rem; flex-wrap: wrap; align-items: flex-start; margin-top: 2.2rem; padding-top: 2.2rem; border-top: 1px solid var(--line); }
+  .sudoku-text-col { flex: 1; min-width: 240px; }
+  .sudoku-text-col p { font-size: 0.84rem; color: var(--dim); line-height: 1.75; margin-bottom: 0.8rem; }
+  .sudoku-text-col p b { color: var(--text); font-weight: 500; }
+
+  .sudoku-grid-wrap { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+  .sudoku-caption { font-size: 0.63rem; color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .sudoku-grid {
+    display: grid; grid-template-columns: repeat(9,1fr);
+    gap: 1px; background: var(--line);
+    border: 2px solid rgba(0,196,125,.28); border-radius: 4px; overflow: hidden;
+    width: 270px;
+    font-family: 'SF Mono','Fira Code',monospace; font-size: 0.78rem;
+    cursor: default;
+  }
+  .sc {
+    background: var(--card); aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--dim2); transition: background .12s;
+  }
+  .sc.given  { color: var(--green); font-weight: 700; }
+  .sc.solved { color: #C8A000; font-weight: 600; }
+  .sc.b-r { border-right: 1px solid var(--dim2); }
+  .sc.b-b { border-bottom: 1px solid var(--dim2); }
+
+  /* ── REWARDS ── */
+  .reward-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 750px) { .reward-grid { grid-template-columns: 1fr; } }
+
+  .reward { background: var(--card); padding: 1.4rem; transition: background .2s; }
+  .reward:hover { background: var(--card2); }
+  .reward-icon { font-size: 1.2rem; margin-bottom: 0.55rem; display: block; }
+  .reward h3   { font-size: 0.86rem; font-weight: 600; color: var(--green); margin-bottom: 0.3rem; }
+  .reward p    { font-size: 0.77rem; color: var(--dim); line-height: 1.65; margin-bottom: 0.7rem; }
+
+  /* ── WORKSHOP TAB ── */
+  .workshop-page { max-width: 720px; margin: 0 auto; padding: 3rem 2.5rem 6rem; }
+
+  .nb-callout {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--green);
+    border-radius: 6px;
+    padding: 2rem 2.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .nb-callout .nb-label {
+    font-size: 0.63rem; font-weight: 600; color: var(--green);
+    letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.6rem;
+  }
+
+  .nb-callout h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+  .nb-callout h2 em { font-style: normal; color: var(--green); }
+  .nb-callout p { font-size: 0.85rem; color: var(--dim); line-height: 1.7; margin-bottom: 1rem; }
+
+  .nb-url {
+    background: var(--bg); border: 1px solid rgba(0,196,125,.22);
+    border-radius: 4px; padding: 0.65rem 0.95rem;
+    font-family: 'SF Mono','Fira Code',monospace;
+    font-size: 0.76rem; color: var(--green); line-height: 1.5; word-break: break-all;
+    margin-bottom: 1rem;
+  }
+  .nb-url span { color: var(--dim); }
+
+  .nb-open-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--green); color: #000;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem; font-weight: 600;
+    padding: 0.6em 1.4em; border-radius: 4px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: opacity .2s, transform .15s;
+  }
+  .nb-open-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .nb-open-btn.outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--line);
+  }
+  .nb-open-btn.outline:hover { border-color: rgba(0,196,125,.4); color: var(--green); }
+
+  .btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  /* ── DOCKER STEPS ── */
+  .docker-box {
+    background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+    overflow: hidden; margin-bottom: 2rem;
+  }
+
+  .docker-header {
+    padding: 1rem 1.4rem; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .docker-header h3 { font-size: 0.88rem; font-weight: 600; }
+  .docker-header span { font-size: 0.75rem; color: var(--dim); }
+
+  .step-rows { display: flex; flex-direction: column; }
+
+  .step-row {
+    display: flex; align-items: flex-start; gap: 1.1rem;
+    padding: 1.1rem 1.4rem; border-bottom: 1px solid var(--line);
+  }
+  .step-row:last-child { border-bottom: none; }
+
+  .step-n {
+    width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.68rem; font-weight: 700; margin-top: 1px;
+    background: rgba(0,196,125,.12); color: var(--green);
+  }
+
+  .step-body { flex: 1; }
+  .step-body h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .step-body p  { font-size: 0.8rem; color: var(--dim); line-height: 1.6; margin-bottom: 0.5rem; }
+  .step-body p b { color: var(--text); font-weight: 500; }
+
+  .cmd {
+    background: #000; border: 1px solid var(--line); border-radius: 4px;
+    padding: 0.5rem 0.85rem;
+    font-family: 'SF Mono','Fira Code',monospace;
+    font-size: 0.72rem; color: var(--green); line-height: 1.6; white-space: pre;
+    overflow-x: auto; margin-top: 0.4rem;
+  }
+  .cmd .cm { color: var(--dim2); }
+
+  /* ── AGENDA in workshop ── */
+  .agenda { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+
+  .arow { display: grid; grid-template-columns: 80px 1fr; border-bottom: 1px solid var(--line); }
+  .arow:last-child { border-bottom: none; }
+
+  .atime {
+    font-size: 0.68rem; color: var(--dim2);
+    padding: 0.9rem 0.8rem 0.9rem 0; border-right: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: flex-end;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .abody { padding: 0.9rem 1.1rem; display: flex; align-items: flex-start; gap: 0.7rem; }
+  .abar  { width: 2px; align-self: stretch; border-radius: 2px; flex-shrink: 0; margin-top: 3px; }
+  .atxt h4 { font-size: 0.86rem; font-weight: 600; }
+  .atxt p  { font-size: 0.76rem; color: var(--dim); line-height: 1.5; margin-top: 0.12rem; }
+
+  /* ── QR block ── */
+  .qr-row { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .qr-frame { background: #fff; border-radius: 6px; padding: 10px; flex-shrink: 0; }
+  .qr-frame img { display: block; width: 130px; height: 130px; image-rendering: pixelated; }
+  .qr-text { font-size: 0.82rem; color: var(--dim); line-height: 1.7; }
+  .qr-text b { color: var(--text); font-weight: 500; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--line); padding: 1.3rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.73rem; color: var(--dim);
+  }
+  footer a { color: var(--dim); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <span class="nav-amd">AMD</span>
+    <span class="nav-sep">·</span>
+    <span>🦥 Unsloth</span>
+  </div>
+  <div class="nav-pill"><div class="pulse"></div>RL Finetuning Workshop</div>
+</nav>
+
+<!-- TABS -->
+<div class="tabs-bar">
+  <button class="tab active"        data-tab="overview">Overview</button>
+  <button class="tab"               data-tab="why">Why Local AI</button>
+  <button class="tab"               data-tab="hardware">Ryzen AI Hardware</button>
+  <button class="tab"               data-tab="unsloth">Unsloth & Gemma 4</button>
+  <button class="tab"               data-tab="rl">RL & Reward Functions</button>
+  <button class="tab workshop-tab"  data-tab="workshop">⚡ Workshop</button>
+</div>
+
+<!-- ════════════════════════════════ OVERVIEW ════════════════════════════════ -->
+<div class="panel active" id="tab-overview">
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-badge"><div class="pulse"></div>40-minute hands-on session</div>
+    <h1 class="hero-title">
+      <span class="g">Reinforcement Learning</span><br>Finetuning for Local AI
+    </h1>
+    <p class="hero-desc">
+      Teaching <b>Gemma 4 E2B/E4B/26B-A4B-it</b> to solve Sudoku using <b>GRPO</b> — running entirely on
+      <b>AMD Ryzen AI MAX+ 395</b>. No cloud. No API bill. Your model, your data, your hardware.
+    </p>
+    <div class="hero-tags">
+      <div class="tag">Gemma 4 E2B/E4B/26B-A4B-it</div>
+      <div class="tag">GRPO</div>
+      <div class="tag">Unsloth</div>
+      <div class="tag">Local AI</div>
+      <div class="tag">Ryzen AI MAX+ 395</div>
+      <div class="tag">RL Finetuning</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow">What we cover today</div>
+    <h2>From zero to <span class="g">RL-finetuned model</span><br>in 40 minutes</h2>
+    <div class="cards" style="margin-top:1.5rem;">
+      <div class="card"><span class="card-icon">🔒</span><h3>Why Local AI</h3><p>Privacy, personalization, patience — and what becomes possible when data never leaves your machine.</p></div>
+      <div class="card"><span class="card-icon">⚡</span><h3>Ryzen AI Hardware</h3><p>How Strix Halo's unified memory and XDNA 2 NPU make local LLM finetuning practical on a laptop.</p></div>
+      <div class="card"><span class="card-icon">🦥</span><h3>Unsloth Techniques</h3><p>LoRA, gradient checkpointing, GRPO — how Unsloth gets 2× speed and 70% VRAM savings on AMD.</p></div>
+      <div class="card"><span class="card-icon">🎓</span><h3>RL Theory</h3><p>Agents, environments, reward signals. GRPO vs PPO. Why Sudoku is the perfect RL toy problem.</p></div>
+      <div class="card"><span class="card-icon">🏆</span><h3>Reward Functions</h3><p>Design the signals that teach the model. Dense vs sparse rewards. What makes a good reward?</p></div>
+      <div class="card" style="background:rgba(0,196,125,.05); border-left:2px solid var(--green); cursor:pointer;" onclick="switchTab('workshop')">
+        <span class="card-icon">📓</span><h3 style="color:var(--green);">Open the Notebook →</h3>
+        <p>Docker is set up. Follow the README and run the notebook live on your machine.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════════════════════════ WHY LOCAL AI ════════════════════════════ -->
+<div class="panel" id="tab-why">
+<div class="page">
+  <div class="section">
+    <div class="eyebrow">Why Local AI</div>
+    <h2>What would you finetune<br>if your data <span class="g">never left</span> your machine?</h2>
+    <p class="lead">
+      Most powerful AI models live in the cloud — which means your data has to leave your hands.
+      Local finetuning removes that constraint entirely.
+      <b>The real unlock isn't just privacy — it's what becomes possible when the barrier disappears.</b>
+    </p>
+    <div class="cards">
+      <div class="card">
+        <span class="card-icon">🏥</span>
+        <h3>Healthcare</h3>
+        <p>Patient records, clinical notes, diagnostic history. A model finetuned on <b>your hospital's data</b> could assist documentation, triage, or research — without a single record leaving your network.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏦</span>
+        <h3>Finance</h3>
+        <p>Transaction history, risk profiles, proprietary strategies. <b>Compliance regulations</b> make cloud AI a non-starter for most financial data — local models change that equation entirely.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🧬</span>
+        <h3>Personal Wellbeing</h3>
+        <p>Sleep, mood, nutrition, fitness logs. An AI trained on <b>your actual patterns</b> — not population averages — gives genuinely personalized health guidance, not generic advice.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🎯</span>
+        <h3>Personalization</h3>
+        <p>Your communication style, preferences, context, history. A model trained <b>on your own data</b> is fundamentally different from a general assistant — it's genuinely, deeply yours.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔁</span>
+        <h3>Continuous Learning</h3>
+        <p>Cloud models are static snapshots. With local finetuning, your model can <b>keep learning</b> — from new data, new feedback, new domains — without waiting for a vendor's next release cycle.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏛️</span>
+        <h3>Institutional Knowledge</h3>
+        <p>Every organization has tacit knowledge that lives in documents, emails, and conversations. Local finetuning lets you <b>encode that knowledge into a model</b> that understands your specific context.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem; background:var(--card); border:1px solid var(--line); border-radius:6px; padding:1.5rem 1.8rem;">
+      <div style="font-size:0.82rem; color:var(--dim); line-height:1.8;">
+        <b style="color:var(--text); font-weight:600; display:block; margin-bottom:0.3rem;">The common thread: trust.</b>
+        Every one of these use cases shares the same blocker — you can't send the data to a third party.
+        Healthcare can't send patient records to OpenAI. Finance can't send trading strategies to Anthropic.
+        Local finetuning isn't just a technical choice — it's what makes AI <b style="color:var(--text);">deployable in the real world</b>,
+        in regulated industries, in sensitive contexts, at the institutional level.
+        Ryzen AI MAX+ 395 is the hardware that makes this practical without a data center.
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════ HARDWARE ════════════════════════════════ -->
+<div class="panel" id="tab-hardware">
+<div class="page">
+  <div class="section">
+    <div class="eyebrow">Hardware</div>
+    <h2>AMD Ryzen AI MAX+ 395<br><span class="r">"Strix Halo"</span> — local finetuning unlocked</h2>
+    <p class="lead">Until recently, LLM finetuning required expensive cloud GPUs. Strix Halo changes that.
+      With <b>up to 96 GB of unified VRAM</b> and full <b>ROCm + Unsloth support</b>,
+      this is a laptop chip that can actually train models — not just run them.</p>
+
+    <div class="two-col">
+      <div class="prose">
+        <h3>Why unified memory matters</h3>
+        <p>The bottleneck for local LLM finetuning has always been VRAM. Consumer NVIDIA GPUs max out at 24 GB.
+          Ryzen AI MAX+ 395 uses <b>unified memory architecture</b> — CPU and iGPU share a single pool of up to 128 GB,
+          with up to 96 GB convertible to VRAM. That's more than most cloud instances you'd rent.</p>
+
+        <h3>ROCm + PyTorch + Unsloth on AMD</h3>
+        <p>With recent ROCm releases and PyTorch AMD builds, the full Unsloth training stack now runs on Radeon hardware.
+          GRPO finetuning, LoRA adapters, gradient checkpointing — the same workflow that runs on NVIDIA
+          now runs on Strix Halo. </p>
+
+        <h3>XDNA 2 NPU</h3>
+        <p>The dedicated <b>50+ AI TOPS NPU</b> handles inference acceleration and LLM tasks efficiently,
+          freeing the iGPU and CPU to focus on training. It's a complete local AI workstation
+          in a thin-and-light form factor.</p>
+        <div class="specs">
+          <div class="spec hi"><b>50+ TOPS</b>XDNA 2 NPU</div>
+          <div class="spec hi"><b>up to 96 GB</b>iGPU VRAM</div>
+          <div class="spec hi"><b>128 GB</b>Unified Memory</div>
+          <div class="spec"><b>16 cores</b>Zen 5 CPU</div>
+          <div class="spec"><b>40 CU</b>RDNA 3.5 iGPU</div>
+          <div class="spec"><b>4nm</b>TSMC</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="info-box">
+          <h4>Software Stack</h4>
+          <div class="row-item"><span>ROCm</span><div class="badge b-green">Supported</div></div>
+          <div class="row-item"><span>PyTorch AMD</span><div class="badge b-green">Latest build</div></div>
+          <div class="row-item"><span>Unsloth AMD</span><div class="badge b-green">Supported</div></div>
+          <div class="row-item"><span>HuggingFace Transformers</span><div class="badge b-green">Full support</div></div>
+          <div class="row-item"><span>GRPO / RL training</span><div class="badge b-green">Works</div></div>
+          <div class="row-item"><span>16-bit LoRA</span><div class="badge b-green">Default on AMD</div></div>
+          <div class="row-item"><span>bitsandbytes 4-bit</span><div class="badge b-dim">In progress</div></div>
+          <div class="code-snippet">
+            <div class="code-block"><span class="cm"># AMD install</span>
+<span class="kw">pip install</span> torch torchvision \
+  --index-url https://download.pytorch.org/whl/rocm6.4
+<span class="kw">pip install</span> <span class="st">"unsloth[amd]"</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════ UNSLOTH ════════════════════════════════ -->
+<div class="panel" id="tab-unsloth">
+<div class="page">
+  <div class="section">
+    <div class="eyebrow">Unsloth × AMD</div>
+    <h2>Finetuning techniques —<br><span class="g">2× faster, 70% less VRAM</span></h2>
+    <p class="lead">Unsloth uses custom Triton kernels and mathematical optimizations to make finetuning dramatically more efficient — with <b>no accuracy loss</b>. On AMD hardware, the same gains apply.</p>
+
+    <div class="technique-grid">
+      <div class="technique">
+        <div class="t-label">Core technique</div>
+        <h3>LoRA / QLoRA</h3>
+        <p>Instead of updating all weights, LoRA adds small trainable adapter matrices to key layers. <b>60–80% VRAM reduction</b> vs full finetuning. Unsloth further optimizes LoRA backward passes with custom kernels.</p>
+      </div>
+      <div class="technique">
+        <div class="t-label">Memory</div>
+        <h3>Gradient Checkpointing</h3>
+        <p>Rather than storing all intermediate activations, Unsloth recomputes them during the backward pass. <b>Trades compute for memory</b> — essential for long-context models on limited VRAM.</p>
+      </div>
+      <div class="technique">
+        <div class="t-label">Precision</div>
+        <h3>16-bit Training</h3>
+        <p>On AMD hardware, Unsloth defaults to <b>BF16 / FP16</b> for stable mixed-precision training. Near full-precision quality at half the memory footprint — the standard for modern LLM finetuning.</p>
+      </div>
+      <div class="technique">
+        <div class="t-label">Reinforcement learning</div>
+        <h3>GRPO</h3>
+        <p><b>Group Relative Policy Optimization.</b> More memory-efficient than PPO, no separate critic model needed. Scores groups of completions and updates the policy toward higher-reward outputs.</p>
+      </div>
+    </div>
+
+    <div style="background:var(--card); border:1px solid var(--line); border-radius:6px; padding:1.5rem 1.8rem; display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+      <div style="flex:1; min-width:200px;">
+        <div style="font-size:0.63rem; font-weight:600; color:var(--dim); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.3rem;">Today's model</div>
+        <div style="font-size:1rem; font-weight:700; margin-bottom:0.35rem;">Gemma 4 E2B</div>
+        <div style="font-size:0.82rem; color:var(--dim); line-height:1.7;">Google's latest efficient model — 2B parameters, strong reasoning, optimized for RL finetuning with Unsloth. Small enough to train locally on Ryzen AI hardware, capable enough to learn complex tasks like Sudoku.</div>
+      </div>
+      <div class="specs">
+        <div class="spec hi"><b>2B</b>parameters</div>
+        <div class="spec hi"><b>Gemma 4</b>architecture</div>
+        <div class="spec"><b>RL-ready</b>GRPO support</div>
+        <div class="spec"><b>Unsloth</b>optimized</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════ RL ════════════════════════════════ -->
+<div class="panel" id="tab-rl">
+<div class="page">
+  <div class="section">
+    <div class="eyebrow">Reinforcement Learning</div>
+    <h2>Teaching a model to <span class="g">reason</span>,<br>not just memorize</h2>
+
+    <div class="rl-grid">
+      <div class="prose">
+        <p>Supervised finetuning teaches a model to imitate — show it examples, it learns to copy. That works for style and format, but the model memorizes patterns rather than developing strategy.</p>
+        <p><b>Reinforcement Learning flips the paradigm.</b> Instead of showing the model the answer, you give it a reward signal for producing good outputs. It explores, makes mistakes, and gradually learns to maximize reward.</p>
+        <p>We use <b>Sudoku as the RL environment</b> because it has a fully verifiable, objective solution. No human ratings, no fuzzy heuristics — we check the constraints programmatically and compute a precise reward score.</p>
+        <p>Gemma 4 E2B starts with zero Sudoku ability. After GRPO training it develops genuine solving strategies — not by memorizing puzzles, but by learning what makes a valid grid.</p>
+      </div>
+
+      <div class="loop-box">
+        <h4>The GRPO training loop</h4>
+        <div class="loop-step">
+          <div class="ls-num ls-1">1</div>
+          <div class="ls-body"><h5>Environment sends a puzzle</h5><p>Model receives an unsolved 9×9 grid as the input prompt.</p></div>
+        </div>
+        <div class="loop-step">
+          <div class="ls-num ls-2">2</div>
+          <div class="ls-body"><h5>Model generates completions</h5><p>Gemma 4 E2B produces a filled grid inside <code>&lt;answer&gt;</code> tags. Multiple completions sampled per prompt.</p></div>
+        </div>
+        <div class="loop-step">
+          <div class="ls-num ls-3">3</div>
+          <div class="ls-body"><h5>Reward functions score each one</h5><p>Format, digit validity, row, column, and box uniqueness — combined into a scalar reward.</p></div>
+        </div>
+        <div class="loop-step">
+          <div class="ls-num ls-4">4</div>
+          <div class="ls-body"><h5>GRPO updates the weights</h5><p>High-reward completions are reinforced relative to the group average. Poor strategies are discouraged.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUDOKU -->
+    <div class="sudoku-wrap-outer">
+      <div class="sudoku-text-col">
+        <h3 style="font-size:1rem; font-weight:600; margin-bottom:0.6rem;">The Sudoku environment</h3>
+        <p>A Sudoku puzzle is the perfect RL toy problem. Rules are unambiguous — each row, column, and 3×3 box must contain digits 1–9 exactly once.</p>
+        <p>The reward signal is <b>fully verifiable</b>. We check every constraint programmatically. This makes it ideal for GRPO where clean reward signals are essential.</p>
+        <p>Watching the reward curve climb over training steps is a direct window into the model learning to reason — not memorize.</p>
+        <p style="font-size:0.76rem; color:var(--dim2);">Hover the grid to reveal the solved state →</p>
+      </div>
+      <div class="sudoku-grid-wrap">
+        <div class="sudoku-grid" id="sudokuGrid"></div>
+        <div class="sudoku-caption" id="sudokuCap">unsolved puzzle</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REWARDS -->
+  <div class="section">
+    <div class="eyebrow">Reward Engineering</div>
+    <h2>The reward function is<br>the <span class="g">real design problem</span></h2>
+    <p class="lead">In RL finetuning, you define what counts as a good solution — the model figures out how to get there. <b>Getting the reward function right is the most creative part of the process.</b></p>
+
+    <div class="reward-grid">
+      <div class="reward">
+        <span class="reward-icon">📐</span>
+        <h3>Format Reward</h3>
+        <p>Did the model output the answer in the correct structure? Before checking correctness, output must be parseable. Trains the model to follow instructions reliably.</p>
+        <div class="code-block"><span class="kw">def</span> <span class="fn">format_reward</span>(completion):
+  <span class="kw">if</span> <span class="st">"&lt;answer&gt;"</span> <span class="kw">in</span> completion \
+    <span class="kw">and</span> <span class="st">"&lt;/answer&gt;"</span> <span class="kw">in</span> completion:
+    <span class="kw">return</span> <span class="num">1.0</span>
+  <span class="kw">return</span> <span class="num">0.0</span></div>
+      </div>
+      <div class="reward">
+        <span class="reward-icon">🔢</span>
+        <h3>Digit Validity</h3>
+        <p>Every cell must contain exactly one digit 1–9. A basic sanity check that the model understood the domain constraints of the task before we check anything else.</p>
+        <div class="code-block"><span class="kw">def</span> <span class="fn">digit_reward</span>(grid):
+  <span class="kw">for</span> row <span class="kw">in</span> grid:
+    <span class="kw">for</span> cell <span class="kw">in</span> row:
+      <span class="kw">if</span> cell <span class="kw">not in</span> <span class="st">"123456789"</span>:
+        <span class="kw">return</span> <span class="num">0.0</span>
+  <span class="kw">return</span> <span class="num">1.0</span></div>
+      </div>
+      <div class="reward">
+        <span class="reward-icon">↔️</span>
+        <h3>Row / Col / Box</h3>
+        <p>Partial credit per valid row, column, and 3×3 box. Dense rewards give the model a gradient signal even when only some constraints are satisfied — critical for learning.</p>
+        <div class="code-block"><span class="kw">def</span> <span class="fn">row_reward</span>(grid):
+  score = <span class="num">0</span>
+  <span class="kw">for</span> row <span class="kw">in</span> grid:
+    <span class="kw">if</span> <span class="fn">len</span>(<span class="fn">set</span>(row)) == <span class="num">9</span>:
+      score += <span class="num">1</span>
+  <span class="kw">return</span> score / <span class="num">9.0</span></div>
+      </div>
+    </div>
+
+    <div style="background:var(--card); border:1px solid var(--line); border-radius:6px; padding:1.4rem 1.6rem;">
+      <div style="font-size:0.82rem; color:var(--dim); line-height:1.8;">
+        <b style="color:var(--text); font-weight:600;">Dense vs sparse rewards.</b>
+        If you only reward the model when the full Sudoku is correct, it gets zero signal early in training — nothing to learn from.
+        Dense rewards give a gradient at every step: even 3 valid rows scores 0.33, and the model knows it's heading in the right direction.
+        <b style="color:var(--text);">This is the key insight that makes RL finetuning practical on real tasks.</b>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════════════════════════════════ WORKSHOP ════════════════════════════════ -->
+<div class="panel" id="tab-workshop">
+<div class="workshop-page">
+
+  <!-- NOTEBOOK CALLOUT -->
+  <div class="nb-callout">
+    <div class="nb-label">Start here</div>
+    <h2>Open the repo &amp; <em>run the notebook</em></h2>
+    <p>All workshop materials — notebook, README, setup instructions — live in the GitHub repo. Docker containers are <b>already set up on your machine</b>. Follow the README and run the notebook.</p>
+    <div class="nb-url"><span>github.com/</span>iswaryaalex/Unsloth-RL-Workshop-on-Radeon</div>
+    <div class="btn-row">
+      <a href="https://github.com/iswaryaalex/Unsloth-RL-Workshop-on-Radeon" target="_blank" class="nb-open-btn">
+        📂 Open GitHub Repo
+      </a>
+      <a href="https://github.com/iswaryaalex/Unsloth-RL-Workshop-on-Radeon/blob/main/README.md" target="_blank" class="nb-open-btn outline">
+        📖 Read the README
+      </a>
+    </div>
+  </div>
+
+  <!-- DOCKER STEPS -->
+  <div class="docker-box">
+    <div class="docker-header">
+      <span style="font-size:1.1rem;">🐳</span>
+      <h3>Getting started</h3>
+      <span>Docker is pre-installed — follow these steps</span>
+    </div>
+
+    <div class="step-rows">
+
+      <div class="step-row">
+        <div class="step-n">1</div>
+        <div class="step-body">
+          <h4>Go to the GitHub repo</h4>
+          <p>Open your browser and navigate to the repo. <b>Read the README first</b> — it has all setup context.</p>
+          <div class="cmd">github.com/iswaryaalex/Unsloth-RL-Workshop-on-Radeon</div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-n">2</div>
+        <div class="step-body">
+          <h4>Start the Docker container</h4>
+          <p>Docker is already installed and the image is pre-pulled on your machine. Start it with:</p>
+          <div class="cmd"><span class="cm"># start the container (already set up)</span>
+docker compose up</div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-n">3</div>
+        <div class="step-body">
+          <h4>Follow the README</h4>
+          <p>The README has exact steps for your machine. Check your ROCm version, confirm the container is running, and verify Unsloth is accessible.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-n">4</div>
+        <div class="step-body">
+          <h4>Open and run the notebook</h4>
+          <p>Navigate to the Jupyter URL printed by Docker (usually <code>localhost:8888</code>). Open the notebook and <b>run Cell 1 now</b> — model loading takes ~2 minutes.</p>
+          <div class="cmd"><span class="cm"># Jupyter will be at:</span>
+http://localhost:8888</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AGENDA -->
+  <div style="margin-bottom:2rem;">
+    <div style="font-size:0.63rem; font-weight:600; color:var(--dim); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:1rem; display:flex; align-items:center; gap:0.6rem;"><span style="display:inline-block;width:16px;height:1px;background:var(--dim2)"></span>Workshop Schedule</div>
+    <div class="agenda">
+      <div class="arow">
+        <div class="atime">0–5 min</div>
+        <div class="abody"><div class="abar" style="background:var(--green)"></div><div class="atxt"><h4>Welcome & Why Local AI</h4><p>AMD × Unsloth intro · Privacy, patience, personalization</p></div></div>
+      </div>
+      <div class="arow">
+        <div class="atime">5–12 min</div>
+        <div class="abody"><div class="abar" style="background:var(--red)"></div><div class="atxt"><h4>RL Theory — GRPO & Rewards</h4><p>Agents · Environments · Reward signals · GRPO vs PPO</p></div></div>
+      </div>
+      <div class="arow">
+        <div class="atime">12–22 min</div>
+        <div class="abody"><div class="abar" style="background:#C8A000"></div><div class="atxt"><h4>Live Notebook Walkthrough</h4><p>Load Gemma 4 E2B · Define rewards · Kick off GRPO · Watch reward climb</p></div></div>
+      </div>
+      <div class="arow">
+        <div class="atime">22–33 min</div>
+        <div class="abody"><div class="abar" style="background:#008A72"></div><div class="atxt"><h4>Reward Engineering Deep Dive</h4><p>Format · Digit · Row / Col / Box rewards · Pre vs post-RL comparison</p></div></div>
+      </div>
+      <div class="arow">
+        <div class="atime">33–40 min</div>
+        <div class="abody"><div class="abar" style="background:#6B5ED6"></div><div class="atxt"><h4>What's Next & Q&A</h4><p>Apply RL to your own problem · Resources · Open questions</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR -->
+  <div class="qr-row">
+    <div class="qr-frame">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=https://github.com/iswaryaalex/Unsloth-RL-Workshop-on-Radeon&color=000000&bgcolor=ffffff&margin=0" alt="QR"/>
+    </div>
+    <div class="qr-text">
+      <b>Scan to open the repo on your phone</b><br>
+      github.com/iswaryaalex/Unsloth-RL-Workshop-on-Radeon<br>
+      <span style="font-size:0.76rem; color:var(--dim); margin-top:0.3rem; display:block;">Follow along, reference the README, or share with others after the workshop.</span>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<footer>
+  <div>AMD Ryzen AI × 🦥 Unsloth — RL Finetuning Workshop</div>
+  <div>
+    <a href="https://unsloth.ai/docs/get-started/reinforcement-learning-rl-guide" target="_blank">Unsloth RL Docs</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/iswaryaalex/Unsloth-RL-Workshop-on-Radeon" target="_blank">GitHub Repo</a>
+  </div>
+</footer>
+
+<script>
+  // ── TABS ──
+  const tabs   = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+
+  function switchTab(id) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === id));
+    panels.forEach(p => p.classList.toggle('active', p.id === 'tab-' + id));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+
+  // ── SUDOKU ──
+  const puzzle = [
+    [5,3,0,0,7,0,0,0,0],[6,0,0,1,9,5,0,0,0],[0,9,8,0,0,0,0,6,0],
+    [8,0,0,0,6,0,0,0,3],[4,0,0,8,0,3,0,0,1],[7,0,0,0,2,0,0,0,6],
+    [0,6,0,0,0,0,2,8,0],[0,0,0,4,1,9,0,0,5],[0,0,0,0,8,0,0,7,9]
+  ];
+  const solved = [
+    [5,3,4,6,7,8,9,1,2],[6,7,2,1,9,5,3,4,8],[1,9,8,3,4,2,5,6,7],
+    [8,5,9,7,6,1,4,2,3],[4,2,6,8,5,3,7,9,1],[7,1,3,9,2,4,8,5,6],
+    [9,6,1,5,3,7,2,8,4],[2,8,7,4,1,9,6,3,5],[3,4,5,2,8,6,1,7,9]
+  ];
+
+  const gridEl = document.getElementById('sudokuGrid');
+  const capEl  = document.getElementById('sudokuCap');
+
+  function renderGrid(data, showSolved) {
+    gridEl.innerHTML = '';
+    for (let r = 0; r < 9; r++) {
+      for (let c = 0; c < 9; c++) {
+        const d = document.createElement('div');
+        const isGiven = puzzle[r][c] !== 0;
+        const cls = ['sc'];
+        if (isGiven) cls.push('given');
+        else if (showSolved) cls.push('solved');
+        if (c === 2 || c === 5) cls.push('b-r');
+        if (r === 2 || r === 5) cls.push('b-b');
+        d.className = cls.join(' ');
+        d.textContent = data[r][c] || '';
+        gridEl.appendChild(d);
+      }
+    }
+  }
+
+  renderGrid(puzzle, false);
+
+  gridEl.addEventListener('mouseenter', () => { renderGrid(solved, true);  capEl.textContent = 'solved — model output'; });
+  gridEl.addEventListener('mouseleave', () => { renderGrid(puzzle, false); capEl.textContent = 'unsolved puzzle'; });
+</script>
+</body>
+</html>
