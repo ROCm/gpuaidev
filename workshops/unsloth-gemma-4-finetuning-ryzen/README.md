@@ -117,9 +117,8 @@ Grab the notebook and fire it up:
 
 ```bash
 cd /workspace
+curl -L -o Gemma4_E2B_Reinforcement_Learning_Sudoku_Game.ipynb "https://raw.githubusercontent.com/ROCm/gpuaidev/main/workshops/unsloth-gemma-4-finetuning-ryzen/Gemma4_(E2B)_Reinforcement_Learning_Sudoku_Game.ipynb"
 
-curl -L -o "Gemma4_(E2B)_Reinforcement_Learning_Sudoku_Game.ipynb" \
-  "https://raw.githubusercontent.com/iswaryaalex/Unsloth-RL-Workshop-on-Radeon/main/Gemma4_(E2B)_Reinforcement_Learning_Sudoku_Game.ipynb"
 ```
 
 Then start Jupyter:
@@ -169,3 +168,25 @@ Once the notebook is open in your browser, here's everything you need to know:
 ## You're All Set — Happy Finetuning!
 
 > **Tip:** After the workshop, check out [Unsloth Studio](https://unsloth.ai/studio) to fine-tune models with a no-code UI, or explore the [Unsloth blog](https://unsloth.ai/blog) for the latest tricks and benchmarks.
+
+## 📊 Monitoring GPU Utilization while training with ROCm
+
+While training, you can monitor GPU usage in real time using rocm-smi.
+
+🔍 Watch GPU stats live
+```bash
+watch  rocm-smi
+```
+
+This refreshes every second and shows key metrics like:
+
+GPU utilization (GPU%)
+VRAM usage (VRAM%)
+Temperature
+Power consumption
+🧾 Example output
+```bash
+========================================= ROCm System Management Interface =========================================
+Device  Temp    Power     VRAM%  GPU%
+0       61.0°C  45.021W   13%    82%
+```
