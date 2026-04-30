@@ -31,6 +31,37 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
    To determine which tutorials are best suited for your experience and knowledge level,
    see the :doc:`AI Developer Hub tutorial selector <./tutorial-selector>`.
 
+Running the notebooks
+=====================
+
+Each tutorial is a Jupyter Notebook (``.ipynb`` file). To run a notebook:
+
+1. Open the downloaded notebook in `JupyterLab <https://jupyterlab.readthedocs.io/en/latest/>`_ or `Jupyter Notebook <https://jupyter-notebook.readthedocs.io/en/latest/>`_.
+2. Execute cells sequentially from top to bottom using **Shift + Enter** (run the current cell and move to the next) or **Ctrl + Enter** (run and stay on the current cell).
+
+.. rubric:: Understanding cell status
+
+Jupyter shows the execution status of each code cell on its left side:
+
+- ``[ ]:`` — the cell has not been run yet.
+- ``[*]:`` — the cell is **currently running**; wait for it to finish before moving on.
+- ``[1]:``, ``[2]:``, … — the cell has **finished** (the number indicates the execution order).
+
+A cell is considered complete when its indicator changes from ``[*]:`` to a number such as ``[1]:``.
+
+.. note::
+
+   There is no separate "mark as complete" button. Successfully executing a cell is how you
+   complete it. Run all cells in order from top to bottom to complete the tutorial.
+
+.. rubric:: Recommended workflow
+
+1. Read each cell's description before running it.
+2. Run cells **top to bottom** — skipping cells can cause errors.
+3. If a cell shows an error, read the output message, fix the issue, and re-run the cell.
+4. Long-running cells (such as model downloads or training loops) display a progress bar — wait for them to finish before continuing.
+5. To restart a notebook from scratch, select **Kernel > Restart & Run All** in the Jupyter menu.
+
 .. grid:: 2
   :gutter: 3
 
