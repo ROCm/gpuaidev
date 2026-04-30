@@ -45,36 +45,6 @@ Welcome to the **AI Developer Hub** repository! This project contains Jupyter No
 | **About**                | Licensing and Support Information                | [GitHub](https://github.com/ROCm/gpuaidev/blob/main/docs/notebooks/licensing.md)                                       | [AMD Tutorial](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/licensing.html)                                    |
 
 
-
-## Running the notebooks
-
-Each tutorial is a Jupyter Notebook (`.ipynb` file). To run a notebook:
-
-1. Open the notebook in [JupyterLab](https://jupyterlab.readthedocs.io/en/latest/) or [Jupyter Notebook](https://jupyter-notebook.readthedocs.io/en/latest/).
-2. Execute cells sequentially from top to bottom using **Shift + Enter** (run current cell and move to the next) or **Ctrl + Enter** (run and stay on the current cell).
-
-### Understanding cell status
-
-Jupyter shows the execution status of each code cell on its left side:
-
-| Indicator | Meaning |
-|-----------|---------|
-| `[ ]:`    | Cell has not been run yet |
-| `[*]:`    | Cell is **currently running** — wait for it to finish |
-| `[1]:`, `[2]:`, … | Cell has **finished** (the number shows the order it was executed) |
-
-A cell is considered completed when its indicator changes from `[*]:` to a number such as `[1]:`.
-
-> **Note**: There is no separate "mark as complete" button. Successfully executing a cell is how you complete it. Run all cells in order from top to bottom to complete the tutorial.
-
-### Recommended workflow
-
-1. Read each cell's description before running it.
-2. Run cells **top to bottom** — skipping cells can cause errors.
-3. If a cell shows an error, read the output message, fix the issue, and re-run it.
-4. Long-running cells (such as model downloads or training loops) display a progress bar. Wait for them to finish before continuing.
-5. To restart a notebook from scratch, select **Kernel > Restart & Run All** in the Jupyter menu.
-
 ## Repository Structure
 
 The tutorials are organized into four main categories:
