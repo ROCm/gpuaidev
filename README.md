@@ -45,7 +45,6 @@ Welcome to the **AI Developer Hub** repository! This project contains Jupyter No
 | **About**                | Licensing and Support Information                | [GitHub](https://github.com/ROCm/gpuaidev/blob/main/docs/notebooks/licensing.md)                                       | [AMD Tutorial](https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/licensing.html)                                    |
 
 
-
 ## Repository Structure
 
 The tutorials are organized into four main categories:
