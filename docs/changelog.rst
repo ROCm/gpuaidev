@@ -10,6 +10,16 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+Version 13.0
+============
+
+Added
+------
+
+*  New inference tutorial:
+
+   * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
+
 Version 12.0
 ============
 

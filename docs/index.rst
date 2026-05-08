@@ -13,8 +13,7 @@ It leverages popular machine learning frameworks on AMD GPUs.
 
 .. admonition:: New tutorials
    
-   * :doc:`SE(3)-Transformer overview <./notebooks/pretrain/se3transform_intro>`
-   * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
+   * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
 
 These tutorials are organized into four main categories:
 
@@ -52,6 +51,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
     * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
+    * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
 
   .. grid-item-card:: Fine-tuning tutorials
 

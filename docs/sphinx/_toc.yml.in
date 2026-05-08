@@ -44,6 +44,8 @@ subtrees:
       title: Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang
     - file: notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs.ipynb
       title: Multi-agents with Google ADK and A2A protocol
+    - file: notebooks/inference/openclaw_vllm.ipynb
+      title: Deploy OpenClaw with Qwen3.5 and vLLM
 
   - caption: Fine-tuning tutorials
     entries:

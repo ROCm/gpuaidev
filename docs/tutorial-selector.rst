@@ -52,6 +52,7 @@ Here are the selected tutorials.
     * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
     * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
+    * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
 
     **Fine-tuning tutorials**:
 
@@ -98,6 +99,7 @@ Here are the selected tutorials.
     * :doc:`OCR with vision-language models with vLLM <./notebooks/inference/ocr_vllm>`
     * :doc:`Building AI pipelines for voice assistants <./notebooks/inference/voice_pipeline_rag_ollama>`
     * :doc:`DeepSeek-R1 with SGLang <./notebooks/inference/deepseekr1_sglang>`
+    * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
 
     **Pretraining tutorials**:
 

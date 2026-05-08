@@ -5,7 +5,7 @@ import shutil
 from pathlib import Path
 
 project = 'Tutorials for AI developers'
-version = "12.0"
+version = "13.0"
 release = version
 html_title = f"Tutorials for AI developers {version}"
 # html_title = "Tutorials for AI developers"
