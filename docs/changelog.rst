@@ -20,6 +20,10 @@ Added
 
    * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
 
+*  New GPU development and optimization tutorial:
+
+   * :doc:`FP8 GEMM optimization on AMD CDNA4-based GPUs <./notebooks/gpu_dev_optimize/fp8_gemm_hip_cdna4>`
+
 Version 12.0
 ============
 

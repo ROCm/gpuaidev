@@ -96,7 +96,7 @@ subtrees:
     - file: notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm.ipynb
       title: FP8 quantization with AMD Quark for vLLM
     - file: notebooks/gpu_dev_optimize/fp8_gemm_hip_cdna4.ipynb
-      title: FP8 GEMM HIP kernel optimization on CDNA4
+      title: FP8 GEMM optimization on AMD CDNA4-based GPUs
 
   - caption: About
     entries:
