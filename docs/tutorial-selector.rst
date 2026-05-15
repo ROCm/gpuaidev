@@ -28,6 +28,10 @@ the list of matching tutorials in each category will be displayed below.
       :value: intermediate
       :width: 4
 
+   .. selector-option:: Advanced
+      :value: advanced
+      :width: 4
+
 ----
 
 Here are the selected tutorials.
@@ -52,6 +56,7 @@ Here are the selected tutorials.
     * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
     * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
+    * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
 
     **Fine-tuning tutorials**:
 
@@ -81,6 +86,7 @@ Here are the selected tutorials.
     * :doc:`Kernel development and optimization with Triton <./notebooks/gpu_dev_optimize/triton_kernel_dev>`
     * :doc:`Profiling Llama-4 inference with vLLM <./notebooks/gpu_dev_optimize/llama4_profiling_vllm>`
     * :doc:`FP8 quantization with AMD Quark for vLLM <./notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm>`
+    * :doc:`FP8 GEMM optimization on AMD CDNA4-based GPUs <./notebooks/gpu_dev_optimize/fp8_gemm_hip_cdna4>`
 
 .. selected:: level=beginner
 
@@ -98,6 +104,7 @@ Here are the selected tutorials.
     * :doc:`OCR with vision-language models with vLLM <./notebooks/inference/ocr_vllm>`
     * :doc:`Building AI pipelines for voice assistants <./notebooks/inference/voice_pipeline_rag_ollama>`
     * :doc:`DeepSeek-R1 with SGLang <./notebooks/inference/deepseekr1_sglang>`
+    * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
 
     **Pretraining tutorials**:
 
@@ -142,3 +149,9 @@ Here are the selected tutorials.
     * :doc:`Kernel development and optimization with Triton <./notebooks/gpu_dev_optimize/triton_kernel_dev>`
     * :doc:`Profiling Llama-4 inference with vLLM <./notebooks/gpu_dev_optimize/llama4_profiling_vllm>`
     * :doc:`FP8 quantization with AMD Quark for vLLM <./notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm>`
+
+.. selected:: level=advanced
+
+    **GPU development and optimization tutorials**:
+
+    * :doc:`FP8 GEMM optimization on AMD CDNA4-based GPUs <./notebooks/gpu_dev_optimize/fp8_gemm_hip_cdna4>`

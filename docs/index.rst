@@ -13,8 +13,8 @@ It leverages popular machine learning frameworks on AMD GPUs.
 
 .. admonition:: New tutorials
    
-   * :doc:`SE(3)-Transformer overview <./notebooks/pretrain/se3transform_intro>`
-   * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
+   * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
+   * :doc:`FP8 GEMM optimization on AMD CDNA4-based GPUs <./notebooks/gpu_dev_optimize/fp8_gemm_hip_cdna4>`
 
 These tutorials are organized into four main categories:
 
@@ -52,6 +52,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
     * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
+    * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
 
   .. grid-item-card:: Fine-tuning tutorials
 
@@ -81,6 +82,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Kernel development and optimization with Triton <./notebooks/gpu_dev_optimize/triton_kernel_dev>`
     * :doc:`Profiling Llama-4 inference with vLLM <./notebooks/gpu_dev_optimize/llama4_profiling_vllm>`
     * :doc:`FP8 quantization with AMD Quark for vLLM <./notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm>`
+    * :doc:`FP8 GEMM optimization on AMD CDNA4-based GPUs <./notebooks/gpu_dev_optimize/fp8_gemm_hip_cdna4>`
 
 To contribute to the documentation, see
 `Contributing to ROCm <https://rocm.docs.amd.com/en/latest/contribute/contributing.html>`_.
