@@ -80,6 +80,8 @@ subtrees:
       title: Training a model with Primus
     - file: notebooks/pretrain/se3transform_intro.ipynb
       title: SE(3)-Transformer overview
+    - file: notebooks/pretrain/triton_inference_server_benchmark.ipynb
+      title: Training and Serving a FinalNet CTR model with Triton Inference Server
 
   - caption: GPU development and optimization tutorials
     entries:

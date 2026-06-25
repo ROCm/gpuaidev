@@ -10,6 +10,16 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+Version 14.0
+============
+
+Added
+------
+
+*  New pretraining tutorial:
+
+   * :doc:`Training and serving a FinalNet CTR model with Triton Inference Server <./notebooks/pretrain/triton_inference_server_benchmark>`
+
 Version 13.0
 ============
 

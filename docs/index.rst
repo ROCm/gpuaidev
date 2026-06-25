@@ -13,8 +13,7 @@ It leverages popular machine learning frameworks on AMD GPUs.
 
 .. admonition:: New tutorials
    
-   * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
-   * :doc:`FP8 GEMM optimization on AMD CDNA4-based GPUs <./notebooks/gpu_dev_optimize/fp8_gemm_hip_cdna4>`
+   * :doc:`Training and serving a FinalNet CTR model with Triton Inference Server <./notebooks/pretrain/triton_inference_server_benchmark>`
 
 These tutorials are organized into four main categories:
 
@@ -73,6 +72,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Pretraining with TorchTitan <./notebooks/pretrain/torchtitan_deepseek>`
     * :doc:`Training a model with Primus <./notebooks/pretrain/training_with_primus>`
     * :doc:`SE(3)-Transformer overview <./notebooks/pretrain/se3transform_intro>`
+    * :doc:`Training and serving a FinalNet CTR model with Triton Inference Server <./notebooks/pretrain/triton_inference_server_benchmark>`
 
   .. grid-item-card:: GPU development and optimization tutorials
 

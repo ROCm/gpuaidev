@@ -77,6 +77,7 @@ Here are the selected tutorials.
     * :doc:`Pretraining with TorchTitan <./notebooks/pretrain/torchtitan_deepseek>`
     * :doc:`Training a model with Primus <./notebooks/pretrain/training_with_primus>`
     * :doc:`SE(3)-Transformer overview <./notebooks/pretrain/se3transform_intro>`
+    * :doc:`Training and serving a FinalNet CTR model with Triton Inference Server <./notebooks/pretrain/triton_inference_server_benchmark>`
 
     **GPU development and optimization tutorials**:
 
@@ -109,6 +110,7 @@ Here are the selected tutorials.
     **Pretraining tutorials**:
 
     * :doc:`Custom diffusion model with PyTorch <./notebooks/pretrain/ddim_pretrain>`
+    * :doc:`Training and serving a FinalNet CTR model with Triton Inference Server <./notebooks/pretrain/triton_inference_server_benchmark>`
 
     **GPU development and optimization tutorials**:
 
