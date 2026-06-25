@@ -16,6 +16,8 @@ subtrees:
       title: ChatQnA vLLM deployment and performance evaluation
     - file: notebooks/inference/t2v_comfyui_radeon.ipynb
       title: Text-to-video generation with ComfyUI
+    - file: notebooks/inference/t2v_comfyui_api_mode_instinct.ipynb
+      title: Running ComfyUI generative workflows from Python on AMD Instinct GPUs
     - file: notebooks/inference/deepseek_janus_cpu_gpu.ipynb
       title: DeepSeek Janus Pro on CPU or GPU
     - file: notebooks/inference/vllm_v1_DSR1.ipynb

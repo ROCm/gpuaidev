@@ -20,6 +20,10 @@ Added
 
    * :doc:`Training and serving a FinalNet CTR model with Triton Inference Server <./notebooks/pretrain/triton_inference_server_benchmark>`
 
+*  New inference tutorial:
+
+   * :doc:`Running ComfyUI generative workflows from Python on AMD Instinct GPUs <./notebooks/inference/t2v_comfyui_api_mode_instinct>`
+
 Version 13.0
 ============
 
