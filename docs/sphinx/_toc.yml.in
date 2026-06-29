@@ -16,6 +16,8 @@ subtrees:
       title: ChatQnA vLLM deployment and performance evaluation
     - file: notebooks/inference/t2v_comfyui_radeon.ipynb
       title: Text-to-video generation with ComfyUI
+    - file: notebooks/inference/t2v_comfyui_api_mode_instinct.ipynb
+      title: Running ComfyUI generative workflows from Python on AMD Instinct GPUs
     - file: notebooks/inference/deepseek_janus_cpu_gpu.ipynb
       title: DeepSeek Janus Pro on CPU or GPU
     - file: notebooks/inference/vllm_v1_DSR1.ipynb
@@ -80,6 +82,8 @@ subtrees:
       title: Training a model with Primus
     - file: notebooks/pretrain/se3transform_intro.ipynb
       title: SE(3)-Transformer overview
+    - file: notebooks/pretrain/triton_inference_server_benchmark.ipynb
+      title: Training and Serving a FinalNet CTR model with Triton Inference Server
 
   - caption: GPU development and optimization tutorials
     entries:
