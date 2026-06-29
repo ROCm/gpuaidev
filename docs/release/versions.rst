@@ -12,7 +12,7 @@ AI Developer Hub release history
    :header: "Version","Release date"
    :widths: 10, 30
 
-   "`14.0 <https://rocm.docs.amd.com/projects/ai-developer-hub/en/v14.0/>`_", "June 25, 2026"
+   "`14.0 <https://rocm.docs.amd.com/projects/ai-developer-hub/en/v14.0/>`_", "June 29, 2026"
    "`13.0 <https://rocm.docs.amd.com/projects/ai-developer-hub/en/v13.0/>`_", "May 15, 2026"
    "`12.0 <https://rocm.docs.amd.com/projects/ai-developer-hub/en/v12.0/>`_", "March 20, 2026"
    "`11.0 <https://rocm.docs.amd.com/projects/ai-developer-hub/en/v11.0/>`_", "February 18, 2026"
