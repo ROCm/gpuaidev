@@ -63,7 +63,10 @@ Parse the notebook JSON (do not execute it) and confirm the conventions shared b
 3. Header block contains:
    - `**Author**: <name>`
    - `**Knowledge level**:` set to exactly one of `Beginner`, `Intermediate`, `Advanced` (100% of published tutorials include this).
-4. Introduction present: explains goal, technology/model, workflow, and learning outcome.
+4. Introduction and learning objectives (MANDATORY - extract them, do not just confirm an intro exists). Read the header/intro and explicitly answer, in your verdict, four questions: (a) What is the goal/task? (b) What technology/framework/model does it use on ROCm? (c) What is the end-to-end workflow? (d) **What will the reader be able to DO or understand after finishing** - the transferable skill, not just "you will have run this app". The published convention is an opening `This tutorial demonstrates how to <verb> <task> using <tool/model> on AMD ROCm` sentence, followed by motivation and a concrete "you'll use X to do Y" outcome (see `speculative_decoding_deep_dive`, `torchtune_llama3`, `ocr_vllm`). Gate:
+   - **Flag (blocking if you cannot answer (a)-(d) from the notebook text)**: if the reader cannot tell what skill they walk away with - e.g., the intro only names an artifact/app ("fine-tune model X so it does Y") without stating the reusable techniques taught (data prep, reward design, evaluation method, etc.) - report it as a purpose-clarity blocker and quote the intro. An intro that lists steps but never states an outcome does NOT pass.
+   - **Recommendation**: a closing wrap-up (Summary / Conclusion / What you learned / Next steps) that revisits those objectives. Its absence is a recommendation, not a blocker, but call it out because the convention values it and it is where objectives are confirmed.
+   Always write the extracted objectives (a)-(d) into the verdict so the maintainer sees exactly what a reader would learn; if you had to infer any of them because the notebook does not say it plainly, mark that item as "inferred, not stated" - that itself is the finding.
 5. `## Prerequisites` section present with the canonical sub-structure (`### Operating system`, `### Hardware`, `### Software`, and `### Hugging Face API access` when gated models are used). It must include, where applicable:
    - AMD GPU model or family (AMD Instinct or AMD Radeon - Radeon-targeted tutorials are valid; confirm the stated family matches the tutorial's intent)
    - Explicit GPU count required (minimum vs optional if multiple configs)
@@ -134,6 +137,7 @@ Give a short judgment on whether the topic is worth publishing now and whether i
 Output a structured report:
 
 - **Summary**: tutorial title, category, file path, new vs update.
+- **Learning objectives** (mandatory, from Step 3 check 4): the extracted (a) goal/task, (b) tool/model on ROCm, (c) workflow, (d) what the reader can DO after finishing. Mark any item you had to infer as "inferred, not stated". If (d) is missing, this is a purpose-clarity blocker listed below.
 - **Editorial assessment**: pedagogical flow rating (strong / acceptable / needs work) with specific examples, and a topic relevance/recency judgment (is it a current AI topic genuinely demonstrated on ROCm). Mark these clearly as subjective calls the human maintainer can override.
 - **Overlap finding**: whether a related tutorial already exists in the category and what this one adds (from Step 5).
 - **Cell-size distribution** (mandatory, from Step 3 check 9): total code cells, median lines, max lines, and the list of code cells over 60 lines with their indices. Any cell over 100 lines is listed as a Blocking issue.

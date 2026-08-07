@@ -58,7 +58,7 @@ Read the notebook (parse the JSON) and confirm the conventions used by the publi
 2. Immediately followed by:
    - `**Author**: <name>`
    - `**Knowledge level**: <Beginner|Intermediate|Advanced>` (100% of tutorials; use exactly one of these three values).
-3. Introduction: goal of the tutorial, the technology/framework/model, the workflow demonstrated, and what the reader will learn.
+3. Introduction and learning objectives (required and checked at review). The intro must make four things explicit so a reader knows why to invest the time: (a) the goal/task, (b) the technology/framework/model used on AMD ROCm, (c) the end-to-end workflow, and (d) **what the reader will be able to DO or understand afterward** - the transferable skill, not just "you will have run this app". Follow the published convention: open with a `This tutorial demonstrates how to <verb> <task> using <tool/model> on AMD ROCm` sentence, then add motivation and a concrete "you'll use X to do Y" outcome (see `speculative_decoding_deep_dive`, `torchtune_llama3`, `ocr_vllm`). An intro that only names an artifact or lists steps, without stating the reusable techniques taught (e.g., data prep, reward design, evaluation method), will be flagged as a purpose-clarity gap. Recommended: close the notebook with a short Summary / What you learned / Next steps that revisits these objectives.
 4. Optional but common in newer tutorials: an in-notebook table of contents using anchor links (e.g., `[Environment setup](#env-setup)`) backed by `<a id="env-setup"></a>` anchors before the corresponding sections.
 
 ### 2.2 Prerequisites (required, `## Prerequisites` - present in 38/40)
