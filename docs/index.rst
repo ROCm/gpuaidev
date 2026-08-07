@@ -54,6 +54,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
     * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
+    * :doc:`Graph Engineering with OpenClaw: Multi-Agent Incident Triage <./notebooks/inference/graph_multiagent_openclaw>`
 
   .. grid-item-card:: Fine-tuning tutorials
 
