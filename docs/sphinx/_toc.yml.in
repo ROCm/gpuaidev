@@ -49,7 +49,7 @@ subtrees:
     - file: notebooks/inference/openclaw_vllm.ipynb
       title: Deploy OpenClaw with Qwen3.5 and vLLM
     - file: notebooks/inference/graph_multiagent_openclaw.ipynb
-      title: Multi-agent incident triage with OpenClaw graph engineering
+      title: 'Graph Engineering with OpenClaw: Multi-Agent Incident Triage'
 
   - caption: Fine-tuning tutorials
     entries:
