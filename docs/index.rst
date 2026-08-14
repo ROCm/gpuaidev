@@ -13,7 +13,6 @@ It leverages popular machine learning frameworks on AMD GPUs.
 
 .. admonition:: New tutorials
 
-   * :doc:`Running ComfyUI generative workflows from Python on AMD Instinct GPUs <./notebooks/inference/t2v_comfyui_api_mode_instinct>`
    * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
 
 These tutorials are organized into four main categories:
