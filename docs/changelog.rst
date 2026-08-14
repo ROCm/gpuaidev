@@ -10,6 +10,16 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+Version 15.0
+============
+
+Added
+------
+
+*  New inference tutorial:
+
+   * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
+
 Version 14.0
 ============
 
