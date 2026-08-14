@@ -294,6 +294,15 @@ function updateVisibility() {
 
     updateTOC2OptionsList();
     updateTOC2ContentsList();
+
+    // Show "no results" message when no content block is visible
+    const anyVisible = Array.from(
+      document.querySelectorAll(".rocm-docs-selected-content")
+    ).some((el) => !el.classList.contains(HIDDEN_CLASS));
+    const noResults = document.getElementById("rocm-docs-selector-no-results");
+    if (noResults) {
+      anyVisible ? hide(noResults) : show(noResults);
+    }
   } finally {
     isUpdatingVisibility = false;
   }
@@ -318,6 +327,17 @@ domReady(() => {
       }
     }
   });
+
+  // Inject no-results message before the first content block
+  const firstContent = document.querySelector(".rocm-docs-selected-content");
+  if (firstContent) {
+    const noResults = document.createElement("p");
+    noResults.id = "rocm-docs-selector-no-results";
+    noResults.className = HIDDEN_CLASS;
+    noResults.setAttribute("aria-hidden", "true");
+    noResults.textContent = "No tutorials match the selected filters.";
+    firstContent.parentNode.insertBefore(noResults, firstContent);
+  }
 
   setState(initialState);
   updateVisibility();
