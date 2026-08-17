@@ -135,6 +135,27 @@ function shouldBeShown(elem) {
   const conditions = parseConditions("show-when", raw);
   if (!conditions) return true;
 
+  // When type=all is selected, treat it as a wildcard over type so that every
+  // content block for the current level is shown without requiring an explicit
+  // "level=X type=all" authored block:
+  //   level=all + type=all → show only the master catch-all block
+  //   level=X   + type=all → show every block whose level condition is X
+  //
+  // Note: condition values are encoded as arrays by the Sphinx extension,
+  // e.g. {"level": ["beginner"], "type": ["inference"]}, so index into [0].
+  if (state.type === "all" && "type" in conditions) {
+    const condLevel = Array.isArray(conditions.level)
+      ? conditions.level[0]
+      : conditions.level;
+    const condType = Array.isArray(conditions.type)
+      ? conditions.type[0]
+      : conditions.type;
+    if (state.level === "all") {
+      return condLevel === "all" && condType === "all";
+    }
+    return condLevel === state.level;
+  }
+
   return matchesConditions(conditions, state);
 }
 
@@ -295,6 +316,23 @@ function updateVisibility() {
     updateTOC2OptionsList();
     updateTOC2ContentsList();
 
+    // Show type-category headings only when type=all + a specific level is
+    // active. Each heading is shown iff its immediately following content block
+    // is visible (some level+type combos have no tutorials).
+    const showTypeHeadings = state.type === "all" && state.level !== "all";
+    document.querySelectorAll(".rocm-docs-selector-type-heading").forEach((heading) => {
+      if (!showTypeHeadings) {
+        hide(heading);
+        return;
+      }
+      const contentBlock = heading.nextElementSibling;
+      if (contentBlock && !contentBlock.classList.contains(HIDDEN_CLASS)) {
+        show(heading);
+      } else {
+        hide(heading);
+      }
+    });
+
     // Show "no results" message when no content block is visible
     const anyVisible = Array.from(
       document.querySelectorAll(".rocm-docs-selected-content")
@@ -338,6 +376,167 @@ domReady(() => {
     noResults.textContent = "No tutorials match the selected filters.";
     firstContent.parentNode.insertBefore(noResults, firstContent);
   }
+
+  // Dynamically grey out selector buttons whose combinations have no content.
+  // Scan content blocks to learn which (key=value) combos actually exist, then
+  // attach data-disable-when to buttons whose value never appears alongside
+  // each value of every other selector key.
+  (function applyEmptyComboDisabling() {
+    const contentBlocks = document.querySelectorAll(
+      ".rocm-docs-selected-content[data-show-when]",
+    );
+
+    // Collect all selector keys present in the page (e.g. "level", "type").
+    const allKeys = new Set();
+    document.querySelectorAll(OPTION_QUERY).forEach((opt) => {
+      if (opt.dataset.selectorKey) allKeys.add(opt.dataset.selectorKey);
+    });
+
+    // Build a set of existing combos as "key1=val1|key2=val2" strings.
+    const existingCombos = new Set();
+    contentBlocks.forEach((block) => {
+      const conditions = parseConditions("show-when", block.dataset.showWhen);
+      if (!conditions) return;
+      // Only record combos that specify every known selector key (i.e. fully
+      // qualified blocks, not "all" catch-alls that use the wildcard value).
+      const keys = Object.keys(conditions);
+      if (keys.length === allKeys.size) {
+        // Condition values are arrays (e.g. ["advanced"]); extract the first element.
+        const combo = keys.sort()
+          .map((k) => {
+            const v = conditions[k];
+            return `${k}=${Array.isArray(v) ? v[0] : v}`;
+          })
+          .join("|");
+        existingCombos.add(combo);
+      }
+    });
+
+    // For each option button, collect the values of all *other* selector keys
+    // and check whether any existing combo pairs this button's value with each
+    // of those peer values. If no combo exists for a particular peer value,
+    // attach a data-disable-when rule for that peer state.
+    //
+    // Exceptions: never grey out knowledge-level buttons (they set context, not
+    // content) and never grey out any "all" option (it always means "show
+    // whatever exists for the current state").
+    document.querySelectorAll(OPTION_QUERY).forEach((opt) => {
+      const myKey = opt.dataset.selectorKey;
+      const myVal = opt.dataset.selectorValue;
+      if (!myKey || !myVal) return;
+      if (myKey === "level" || myVal === "all") return;
+
+      // Collect all (key, value) pairs for every other selector group.
+      const peerGroups = {};
+      document.querySelectorAll(OPTION_QUERY).forEach((peer) => {
+        const pk = peer.dataset.selectorKey;
+        const pv = peer.dataset.selectorValue;
+        if (!pk || !pv || pk === myKey) return;
+        if (!peerGroups[pk]) peerGroups[pk] = new Set();
+        peerGroups[pk].add(pv);
+      });
+
+      // For each peer key, find which peer values yield no valid combo.
+      const disableConditions = [];
+      for (const [peerKey, peerVals] of Object.entries(peerGroups)) {
+        for (const peerVal of peerVals) {
+          // Build the canonical combo string for (myKey=myVal, peerKey=peerVal).
+          const pair = [
+            `${myKey}=${myVal}`,
+            `${peerKey}=${peerVal}`,
+          ].sort().join("|");
+          if (!existingCombos.has(pair)) {
+            disableConditions.push({ [peerKey]: peerVal });
+          }
+        }
+      }
+
+      if (!disableConditions.length) return;
+
+      // Encode each disable condition as its own data-disable-when-* attribute
+      // so the existing shouldBeDisabled logic (which checks a single object)
+      // can OR across them. We achieve OR by adding multiple attributes and
+      // overriding shouldBeDisabled to check any of them — but since the
+      // existing engine only reads data-disable-when (singular), we store all
+      // disabling peer-values for each peer key as an array in one object.
+      //
+      // Structure: { peerKey: [val1, val2, ...] } — matchesConditions already
+      // supports array values, so a single data-disable-when covers all cases.
+      const merged = {};
+      for (const cond of disableConditions) {
+        for (const [k, v] of Object.entries(cond)) {
+          if (!merged[k]) merged[k] = [];
+          merged[k].push(v);
+        }
+      }
+      opt.dataset.disableWhen = JSON.stringify(merged);
+      logDebug("applyEmptyComboDisabling:", myKey, myVal, "->", merged);
+    });
+  })();
+
+  // Inject type-category headings before each type-specific content block so
+  // they can be shown when type=all + a specific level is active. Heading text
+  // is sourced from the catch-all (level=all type=all) block so it always
+  // matches the authoritative RST wording.
+  (function injectTypeHeadings() {
+    // Find the catch-all block and map type value → heading text from its
+    // <strong> elements. Match each heading to a type value by checking whether
+    // the button's value slug appears in the heading text (case-insensitive,
+    // dashes treated as spaces so "fine-tuning" matches "Fine-tuning tutorials").
+    const typeValues = [];
+    document.querySelectorAll(`${OPTION_QUERY}[data-selector-key="type"]`).forEach((opt) => {
+      const v = opt.dataset.selectorValue;
+      if (v && v !== "all") typeValues.push(v);
+    });
+
+    const typeHeadingText = {};
+    const catchAllBlock = Array.from(
+      document.querySelectorAll(".rocm-docs-selected-content[data-show-when]"),
+    ).find((block) => {
+      const cond = parseConditions("show-when", block.dataset.showWhen);
+      if (!cond) return false;
+      const lv = Array.isArray(cond.level) ? cond.level[0] : cond.level;
+      const tv = Array.isArray(cond.type) ? cond.type[0] : cond.type;
+      return lv === "all" && tv === "all";
+    });
+
+    if (catchAllBlock) {
+      catchAllBlock.querySelectorAll("strong").forEach((strong) => {
+        const text = strong.textContent.trim();
+        const normalized = text.toLowerCase().replace(/-/g, " ");
+        for (const typeVal of typeValues) {
+          const slug = typeVal.toLowerCase().replace(/-/g, " ");
+          // Match if the whole slug is a substring, or if any individual word
+          // of the slug (length > 2) appears in the heading — needed for slugs
+          // like "gpu-dev-opt" whose words expand differently in full headings.
+          const slugWords = slug.split(/\s+/).filter((w) => w.length > 2);
+          if (normalized.includes(slug) || slugWords.some((w) => normalized.includes(w))) {
+            typeHeadingText[typeVal] = text;
+            break;
+          }
+        }
+      });
+    }
+
+    // Inject a hidden heading paragraph immediately before each type-specific
+    // (non-all level, non-all type) content block.
+    document.querySelectorAll(".rocm-docs-selected-content[data-show-when]").forEach((block) => {
+      const cond = parseConditions("show-when", block.dataset.showWhen);
+      if (!cond) return;
+      const levelVal = Array.isArray(cond.level) ? cond.level[0] : cond.level;
+      const typeVal = Array.isArray(cond.type) ? cond.type[0] : cond.type;
+      if (levelVal === "all" || typeVal === "all" || !typeHeadingText[typeVal]) return;
+
+      const heading = document.createElement("p");
+      heading.className = `rocm-docs-selector-type-heading ${HIDDEN_CLASS}`;
+      heading.setAttribute("aria-hidden", "true");
+      heading.dataset.headingForType = typeVal;
+      const strong = document.createElement("strong");
+      strong.textContent = typeHeadingText[typeVal];
+      heading.appendChild(strong);
+      block.parentNode.insertBefore(heading, block);
+    });
+  })();
 
   setState(initialState);
   updateVisibility();
