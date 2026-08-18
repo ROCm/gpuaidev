@@ -13,7 +13,7 @@ It leverages popular machine learning frameworks on AMD GPUs.
 
 .. admonition:: New tutorials
 
-   * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
+   * :doc:`Multi-agent incident triage with OpenClaw <./notebooks/inference/graph_multiagent_openclaw>`
 
 These tutorials are organized into four main categories:
 
@@ -53,7 +53,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
     * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
-    * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
+    * :doc:`Multi-agent incident triage with OpenClaw <./notebooks/inference/graph_multiagent_openclaw>`
 
   .. grid-item-card:: Fine-tuning tutorials
 

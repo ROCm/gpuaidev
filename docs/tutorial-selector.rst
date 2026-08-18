@@ -58,7 +58,7 @@ Here are the selected tutorials.
     * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
     * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
-    * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
+    * :doc:`Multi-agent incident triage with OpenClaw <./notebooks/inference/graph_multiagent_openclaw>`
 
     **Fine-tuning tutorials**:
 
@@ -127,7 +127,7 @@ Here are the selected tutorials.
     * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
     * :doc:`Running ComfyUI generative workflows from Python on AMD Instinct GPUs <./notebooks/inference/t2v_comfyui_api_mode_instinct>`
-    * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
+    * :doc:`Multi-agent incident triage with OpenClaw <./notebooks/inference/graph_multiagent_openclaw>`
 
     **Fine-tuning tutorials**:
 

@@ -18,7 +18,7 @@ Added
 
 *  New inference tutorial:
 
-   * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
+   * :doc:`Multi-agent incident triage with OpenClaw <./notebooks/inference/graph_multiagent_openclaw>`
 
 Version 14.0
 ============
