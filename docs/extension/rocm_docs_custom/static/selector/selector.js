@@ -6,7 +6,7 @@ import {
 
 const GROUP_QUERY = ".rocm-docs-selector-group";
 const OPTION_QUERY = ".rocm-docs-selector-option";
-const COND_QUERY = "[data-show-when],[data-disable-when]";
+const COND_QUERY = "[data-show-when],[data-disable-when],[data-hide-when]";
 
 const DEFAULT_OPTION_CLASS = "rocm-docs-selector-option-default";
 const DISABLED_CLASS = "rocm-docs-disabled";
@@ -110,6 +110,16 @@ function matchesConditions(conditions, currentState) {
     }
   }
   return true;
+}
+
+function shouldBeHiddenByCombo(elem) {
+  const raw = elem.dataset.hideWhen;
+  if (!raw) return false;
+
+  const conditions = parseConditions("hide-when", raw);
+  if (!conditions) return false;
+
+  return matchesConditions(conditions, state);
 }
 
 function shouldBeDisabled(elem) {
@@ -306,6 +316,16 @@ function updateVisibility() {
             enable(elem);
           }
         }
+
+        // Hide/show combo-empty buttons (type buttons with no content for
+        // the current level); distinct from show-when which hides content blocks.
+        if (elem.dataset.hideWhen !== undefined) {
+          if (shouldBeHiddenByCombo(elem)) {
+            hide(elem);
+          } else {
+            show(elem);
+          }
+        }
       });
 
       stateChanged = reconcileGroupSelections();
@@ -377,11 +397,11 @@ domReady(() => {
     firstContent.parentNode.insertBefore(noResults, firstContent);
   }
 
-  // Dynamically grey out selector buttons whose combinations have no content.
+  // Dynamically hide selector buttons whose combinations have no content.
   // Scan content blocks to learn which (key=value) combos actually exist, then
-  // attach data-disable-when to buttons whose value never appears alongside
+  // attach data-hide-when to buttons whose value never appears alongside
   // each value of every other selector key.
-  (function applyEmptyComboDisabling() {
+  (function applyEmptyComboHiding() {
     const contentBlocks = document.querySelectorAll(
       ".rocm-docs-selected-content[data-show-when]",
     );
@@ -415,10 +435,10 @@ domReady(() => {
     // For each option button, collect the values of all *other* selector keys
     // and check whether any existing combo pairs this button's value with each
     // of those peer values. If no combo exists for a particular peer value,
-    // attach a data-disable-when rule for that peer state.
+    // attach a data-hide-when rule for that peer state.
     //
-    // Exceptions: never grey out knowledge-level buttons (they set context, not
-    // content) and never grey out any "all" option (it always means "show
+    // Exceptions: never hide knowledge-level buttons (they set context, not
+    // content) and never hide any "all" option (it always means "show
     // whatever exists for the current state").
     document.querySelectorAll(OPTION_QUERY).forEach((opt) => {
       const myKey = opt.dataset.selectorKey;
@@ -437,7 +457,7 @@ domReady(() => {
       });
 
       // For each peer key, find which peer values yield no valid combo.
-      const disableConditions = [];
+      const hideConditions = [];
       for (const [peerKey, peerVals] of Object.entries(peerGroups)) {
         for (const peerVal of peerVals) {
           // Build the canonical combo string for (myKey=myVal, peerKey=peerVal).
@@ -446,31 +466,25 @@ domReady(() => {
             `${peerKey}=${peerVal}`,
           ].sort().join("|");
           if (!existingCombos.has(pair)) {
-            disableConditions.push({ [peerKey]: peerVal });
+            hideConditions.push({ [peerKey]: peerVal });
           }
         }
       }
 
-      if (!disableConditions.length) return;
+      if (!hideConditions.length) return;
 
-      // Encode each disable condition as its own data-disable-when-* attribute
-      // so the existing shouldBeDisabled logic (which checks a single object)
-      // can OR across them. We achieve OR by adding multiple attributes and
-      // overriding shouldBeDisabled to check any of them — but since the
-      // existing engine only reads data-disable-when (singular), we store all
-      // disabling peer-values for each peer key as an array in one object.
-      //
-      // Structure: { peerKey: [val1, val2, ...] } — matchesConditions already
-      // supports array values, so a single data-disable-when covers all cases.
+      // Merge all hide conditions per peer key into one object so a single
+      // data-hide-when attribute covers all cases. matchesConditions already
+      // supports array values: { peerKey: [val1, val2, ...] }.
       const merged = {};
-      for (const cond of disableConditions) {
+      for (const cond of hideConditions) {
         for (const [k, v] of Object.entries(cond)) {
           if (!merged[k]) merged[k] = [];
           merged[k].push(v);
         }
       }
-      opt.dataset.disableWhen = JSON.stringify(merged);
-      logDebug("applyEmptyComboDisabling:", myKey, myVal, "->", merged);
+      opt.dataset.hideWhen = JSON.stringify(merged);
+      logDebug("applyEmptyComboHiding:", myKey, myVal, "->", merged);
     });
   })();
 
