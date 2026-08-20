@@ -12,9 +12,8 @@ The AI Developer Hub contains AMD ROCm tutorials in Jupyter Notebook format for 
 It leverages popular machine learning frameworks on AMD GPUs.
 
 .. admonition:: New tutorials
-   
-   * :doc:`Training and serving a FinalNet CTR model with Triton Inference Server <./notebooks/pretrain/triton_inference_server_benchmark>`
-   * :doc:`Running ComfyUI generative workflows from Python on AMD Instinct GPUs <./notebooks/inference/t2v_comfyui_api_mode_instinct>`
+
+   * :doc:`Multi-agent incident triage with OpenClaw <./notebooks/inference/graph_multiagent_openclaw>`
 
 These tutorials are organized into four main categories:
 
@@ -54,6 +53,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
     * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
+    * :doc:`Multi-agent incident triage with OpenClaw <./notebooks/inference/graph_multiagent_openclaw>`
 
   .. grid-item-card:: Fine-tuning tutorials
 

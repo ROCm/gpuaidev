@@ -147,6 +147,15 @@ html[data-theme="dark"] {
   display: none;
 }
 
+/* When a type button is hidden, let remaining buttons share the full row */
+.rocm-docs-selector-group > .row {
+  flex-wrap: wrap;
+}
+
+.rocm-docs-selector-group > .row > .rocm-docs-selector-option:not(.rocm-docs-hidden) {
+  flex: 1;
+}
+
 /* Put selected option summary in secondary page-level TOC on a new line */
 .rocm-docs-selector-toc2-item .nav-link span {
   display: block;
