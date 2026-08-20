@@ -5,12 +5,12 @@
 .. _matrix:
 
 ******************************************
-AI Developer Hub tutorial selector 
+AI Developer Hub tutorial selector
 ******************************************
 
 Use the following matrix to determine which tutorials might be suitable for you.
-Select a knowledge level (beginner/intermediate), and
-the list of matching tutorials in each category will be displayed below.
+Select a knowledge level and a tutorial type, and the matching tutorials will be
+displayed below.
 
 
 .. selector:: Knowledge level
@@ -18,25 +18,48 @@ the list of matching tutorials in each category will be displayed below.
 
    .. selector-option:: All
       :value: all
-      :width: 4
+      :width: 3
 
    .. selector-option:: Beginner
       :value: beginner
-      :width: 4
+      :width: 3
 
    .. selector-option:: Intermediate
       :value: intermediate
-      :width: 4
+      :width: 3
 
    .. selector-option:: Advanced
       :value: advanced
-      :width: 4
+      :width: 3
+
+.. selector:: Tutorial type
+   :key: type
+
+   .. selector-option:: All
+      :value: all
+      :width: 3
+
+   .. selector-option:: Inference
+      :value: inference
+      :width: 2
+
+   .. selector-option:: Fine-tuning
+      :value: fine-tuning
+      :width: 2
+
+   .. selector-option:: Pretraining
+      :value: pretraining
+      :width: 2
+
+   .. selector-option:: GPU Dev & Optimization
+      :value: gpu-dev-opt
+      :width: 3
 
 ----
 
 Here are the selected tutorials.
 
-.. selected:: level=all
+.. selected:: level=all type=all
 
     **Inference tutorials**
 
@@ -58,8 +81,9 @@ Here are the selected tutorials.
     * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
     * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
+    * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
 
-    **Fine-tuning tutorials**:
+    **Fine-tuning tutorials**
 
     * :doc:`Customize Qwen-Image with DiffSynth-Studio <./notebooks/fine_tune/qwen_image>`
     * :doc:`VLM with PEFT <./notebooks/fine_tune/fine_tuning_lora_qwen2vl>`
@@ -68,7 +92,7 @@ Here are the selected tutorials.
     * :doc:`GRPO with Unsloth <./notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO>`
     * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
 
-    **Pretraining tutorials**:
+    **Pretraining tutorials**
 
     * :doc:`Training configuration with Megatron-LM <./notebooks/pretrain/setup_tutorial>`
     * :doc:`LLM with Megatron-LM <./notebooks/pretrain/train_llama_mock_data>`
@@ -80,7 +104,7 @@ Here are the selected tutorials.
     * :doc:`SE(3)-Transformer overview <./notebooks/pretrain/se3transform_intro>`
     * :doc:`Training and serving a FinalNet CTR model with Triton Inference Server <./notebooks/pretrain/triton_inference_server_benchmark>`
 
-    **GPU development and optimization tutorials**:
+    **GPU development and optimization tutorials**
 
     * :doc:`Quark MXFP4 quantization for vLLM <./notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm>`
     * :doc:`GPU kernel development and assessment with Helion <./notebooks/gpu_dev_optimize/helion_gpu_kernel_dev>`
@@ -90,9 +114,60 @@ Here are the selected tutorials.
     * :doc:`FP8 quantization with AMD Quark for vLLM <./notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm>`
     * :doc:`FP8 GEMM optimization on AMD CDNA4-based GPUs <./notebooks/gpu_dev_optimize/fp8_gemm_hip_cdna4>`
 
-.. selected:: level=beginner
+.. selected:: level=all type=inference
 
-    **Inference tutorials**:
+    * :doc:`ChatQnA vLLM deployment and performance evaluation <./notebooks/inference/opea_deployment_and_evaluation>`
+    * :doc:`Text-to-video generation with ComfyUI <./notebooks/inference/t2v_comfyui_radeon>`
+    * :doc:`Running ComfyUI generative workflows from Python on AMD Instinct GPUs <./notebooks/inference/t2v_comfyui_api_mode_instinct>`
+    * :doc:`DeepSeek Janus Pro on CPU or GPU <./notebooks/inference/deepseek_janus_cpu_gpu>`
+    * :doc:`DeepSeek-R1 with vLLM V1 <./notebooks/inference/vllm_v1_DSR1>`
+    * :doc:`AI agent with MCPs using vLLM and PydanticAI <./notebooks/inference/build_airbnb_agent_mcp>`
+    * :doc:`Hugging Face Transformers <./notebooks/inference/1_inference_ver3_HF_transformers>`
+    * :doc:`Deploying with vLLM <./notebooks/inference/3_inference_ver3_HF_vllm>`
+    * :doc:`From chatbot to rap bot with vLLM <./notebooks/inference/rapbot_vllm>`
+    * :doc:`RAG with LlamaIndex and Ollama <./notebooks/inference/rag_ollama_llamaindex>`
+    * :doc:`OCR with vision-language models with vLLM <./notebooks/inference/ocr_vllm>`
+    * :doc:`Building AI pipelines for voice assistants <./notebooks/inference/voice_pipeline_rag_ollama>`
+    * :doc:`Speculative decoding with vLLM <./notebooks/inference/speculative_decoding_deep_dive>`
+    * :doc:`DeepSeek-R1 with SGLang <./notebooks/inference/deepseekr1_sglang>`
+    * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
+    * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
+    * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
+    * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
+    * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
+
+.. selected:: level=all type=fine-tuning
+
+    * :doc:`Customize Qwen-Image with DiffSynth-Studio <./notebooks/fine_tune/qwen_image>`
+    * :doc:`VLM with PEFT <./notebooks/fine_tune/fine_tuning_lora_qwen2vl>`
+    * :doc:`Llama-3.1 8B with torchtune <./notebooks/fine_tune/torchtune_llama3>`
+    * :doc:`Llama-3.1 8B with Llama-Factory <./notebooks/fine_tune/llama_factory_llama3>`
+    * :doc:`GRPO with Unsloth <./notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO>`
+    * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
+
+.. selected:: level=all type=pretraining
+
+    * :doc:`Training configuration with Megatron-LM <./notebooks/pretrain/setup_tutorial>`
+    * :doc:`LLM with Megatron-LM <./notebooks/pretrain/train_llama_mock_data>`
+    * :doc:`Llama-3.1 8B with torchtitan <./notebooks/pretrain/torchtitan_llama3>`
+    * :doc:`Custom diffusion model with PyTorch <./notebooks/pretrain/ddim_pretrain>`
+    * :doc:`Speculative decoding draft model with SpecForge <./notebooks/pretrain/SpecForge_SGlang>`
+    * :doc:`Pretraining with TorchTitan <./notebooks/pretrain/torchtitan_deepseek>`
+    * :doc:`Training a model with Primus <./notebooks/pretrain/training_with_primus>`
+    * :doc:`SE(3)-Transformer overview <./notebooks/pretrain/se3transform_intro>`
+    * :doc:`Training and serving a FinalNet CTR model with Triton Inference Server <./notebooks/pretrain/triton_inference_server_benchmark>`
+
+.. selected:: level=all type=gpu-dev-opt
+
+    * :doc:`Quark MXFP4 quantization for vLLM <./notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm>`
+    * :doc:`GPU kernel development and assessment with Helion <./notebooks/gpu_dev_optimize/helion_gpu_kernel_dev>`
+    * :doc:`MLA decoding kernel of AITER library <./notebooks/gpu_dev_optimize/aiter_mla_decode_kernel>`
+    * :doc:`Kernel development and optimization with Triton <./notebooks/gpu_dev_optimize/triton_kernel_dev>`
+    * :doc:`Profiling Llama-4 inference with vLLM <./notebooks/gpu_dev_optimize/llama4_profiling_vllm>`
+    * :doc:`FP8 quantization with AMD Quark for vLLM <./notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm>`
+    * :doc:`FP8 GEMM optimization on AMD CDNA4-based GPUs <./notebooks/gpu_dev_optimize/fp8_gemm_hip_cdna4>`
+
+.. selected:: level=beginner type=inference
 
     * :doc:`ChatQnA vLLM deployment and performance evaluation <./notebooks/inference/opea_deployment_and_evaluation>`
     * :doc:`Text-to-video generation with ComfyUI <./notebooks/inference/t2v_comfyui_radeon>`
@@ -108,26 +183,25 @@ Here are the selected tutorials.
     * :doc:`DeepSeek-R1 with SGLang <./notebooks/inference/deepseekr1_sglang>`
     * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
 
-    **Pretraining tutorials**:
+.. selected:: level=beginner type=pretraining
 
     * :doc:`Custom diffusion model with PyTorch <./notebooks/pretrain/ddim_pretrain>`
     * :doc:`Training and serving a FinalNet CTR model with Triton Inference Server <./notebooks/pretrain/triton_inference_server_benchmark>`
 
-    **GPU development and optimization tutorials**:
+.. selected:: level=beginner type=gpu-dev-opt
 
     * :doc:`Quark MXFP4 quantization for vLLM <./notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm>`
 
-.. selected:: level=intermediate
-
-    **Inference tutorials**:
+.. selected:: level=intermediate type=inference
 
     * :doc:`Speculative decoding with vLLM <./notebooks/inference/speculative_decoding_deep_dive>`
     * :doc:`PD disaggregation with SGLang <./notebooks/inference/SGlang_PD_Disagg_On_AMD_GPU>`
     * :doc:`Accelerating DeepSeek-V3 inference using multi-token prediction in SGLang <./notebooks/inference/mtp>`
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
     * :doc:`Running ComfyUI generative workflows from Python on AMD Instinct GPUs <./notebooks/inference/t2v_comfyui_api_mode_instinct>`
+    * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
 
-    **Fine-tuning tutorials**:
+.. selected:: level=intermediate type=fine-tuning
 
     * :doc:`Customize Qwen-Image with DiffSynth-Studio <./notebooks/fine_tune/qwen_image>`
     * :doc:`VLM with PEFT <./notebooks/fine_tune/fine_tuning_lora_qwen2vl>`
@@ -136,7 +210,7 @@ Here are the selected tutorials.
     * :doc:`GRPO with Unsloth <./notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO>`
     * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
 
-    **Pretraining tutorials**:
+.. selected:: level=intermediate type=pretraining
 
     * :doc:`Training configuration with Megatron-LM <./notebooks/pretrain/setup_tutorial>`
     * :doc:`LLM with Megatron-LM <./notebooks/pretrain/train_llama_mock_data>`
@@ -146,7 +220,7 @@ Here are the selected tutorials.
     * :doc:`Training a model with Primus <./notebooks/pretrain/training_with_primus>`
     * :doc:`SE(3)-Transformer overview <./notebooks/pretrain/se3transform_intro>`
 
-    **GPU development and optimization tutorials**:
+.. selected:: level=intermediate type=gpu-dev-opt
 
     * :doc:`GPU kernel development and assessment with Helion <./notebooks/gpu_dev_optimize/helion_gpu_kernel_dev>`
     * :doc:`MLA decoding kernel of AITER library <./notebooks/gpu_dev_optimize/aiter_mla_decode_kernel>`
@@ -154,8 +228,6 @@ Here are the selected tutorials.
     * :doc:`Profiling Llama-4 inference with vLLM <./notebooks/gpu_dev_optimize/llama4_profiling_vllm>`
     * :doc:`FP8 quantization with AMD Quark for vLLM <./notebooks/gpu_dev_optimize/fp8_quantization_quark_vllm>`
 
-.. selected:: level=advanced
-
-    **GPU development and optimization tutorials**:
+.. selected:: level=advanced type=gpu-dev-opt
 
     * :doc:`FP8 GEMM optimization on AMD CDNA4-based GPUs <./notebooks/gpu_dev_optimize/fp8_gemm_hip_cdna4>`

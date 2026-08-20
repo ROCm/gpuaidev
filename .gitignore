@@ -4,6 +4,10 @@ build
 docs/build
 docs/_static
 docs/make.bat  
+# Python bytecode
+__pycache__/
+*.pyc
+
 # documentation artifacts
 _build/
 _images/
