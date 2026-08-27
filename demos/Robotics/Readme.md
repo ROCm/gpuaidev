@@ -316,14 +316,9 @@ ffplay /dev/video0  # Replace with your camera device
 ```
 
 #### Windows - WSL
-`ffplay` has no display in WSL. Use ffmpeg to save a snapshot instead:
+Cameras must use **MJPEG** in WSL. YUYV (the default) does not stream through usbipd. When configuring cameras in lerobot, set format to MJPG:
 ```bash
-/usr/bin/ffmpeg -f v4l2 -input_format mjpeg -i /dev/video0 -update 1 -frames:v 1 test.jpg && explorer.exe test.jpg
-```
-
-**IMPORTANT:** Cameras must use **MJPEG** in WSL. YUYV (the default) does not stream through usbipd. When configuring cameras in lerobot, set `fourcc="MJPG"`:
-```python
-OpenCVCameraConfig(0, 30, 640, 480, fourcc="MJPG")
+ffplay -f v4l2 -input_format mjpeg -i /dev/video0
 ```
 
 ## Teleoperation
