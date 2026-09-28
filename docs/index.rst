@@ -11,9 +11,11 @@ Tutorials for AI developers
 The AI Developer Hub contains AMD ROCm tutorials in Jupyter Notebook format for training, fine-tuning, and inference.
 It leverages popular machine learning frameworks on AMD GPUs.
 
-.. admonition:: New tutorials
+.. admonition:: What's New
 
-   * :doc:`Profiling and optimizing an AI agent on AMD Instinct GPUs <./notebooks/inference/agentic_ai_profiling>`
+   * Added a new tutorial: :doc:`Profiling and optimizing an AI agent on AMD Instinct GPUs <./notebooks/inference/agentic_ai_profiling>`
+
+   See the :doc:`Changelog for the AI Developer Hub </changelog.rst>` for details about this release.
 
 These tutorials are organized into four main categories:
 
