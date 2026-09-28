@@ -15,7 +15,7 @@ It leverages popular machine learning frameworks on AMD GPUs.
 
    * Added a new tutorial: :doc:`Profiling and optimizing an AI agent on AMD Instinct GPUs <./notebooks/inference/agentic_ai_profiling>`
 
-   See the :doc:`Changelog for the AI Developer Hub <./changelog.rst>` for details about this release.
+   See the :doc:`Changelog for the AI Developer Hub <./changelog>` for details about this release.
 
 These tutorials are organized into four main categories:
 
