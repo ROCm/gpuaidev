@@ -10,6 +10,16 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+Version 16.0
+============
+
+Added
+------
+
+*  New inference tutorial:
+
+   * :doc:`Profiling and optimizing an AI agent on AMD Instinct GPUs <./notebooks/inference/agentic_ai_profiling>`
+
 Version 15.0
 ============
 

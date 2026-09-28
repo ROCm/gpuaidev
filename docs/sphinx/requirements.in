@@ -1,5 +1,1 @@
-rocm-docs-core==1.33.1
-sphinx-reredirects
-sphinx
-nbsphinx
-sphinx-rtd-theme
+-r https://raw.githubusercontent.com/ROCm/rocm-docs-core/new_data/env/sphinx/requirements.txt

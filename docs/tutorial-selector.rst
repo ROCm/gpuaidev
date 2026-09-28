@@ -82,6 +82,7 @@ Here are the selected tutorials.
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
     * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
     * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
+    * :doc:`Profiling and optimizing an AI agent on AMD Instinct GPUs <./notebooks/inference/agentic_ai_profiling>`
 
     **Fine-tuning tutorials**
 
@@ -135,6 +136,7 @@ Here are the selected tutorials.
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
     * :doc:`Deploy OpenClaw with Qwen3.5 and vLLM <./notebooks/inference/openclaw_vllm>`
     * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
+    * :doc:`Profiling and optimizing an AI agent on AMD Instinct GPUs <./notebooks/inference/agentic_ai_profiling>`
 
 .. selected:: level=all type=fine-tuning
 
@@ -200,6 +202,7 @@ Here are the selected tutorials.
     * :doc:`Multi-agents with Google ADK and A2A protocol <./notebooks/inference/power-Google-ADK-on-AMD-platform-and-local-LLMs>`
     * :doc:`Running ComfyUI generative workflows from Python on AMD Instinct GPUs <./notebooks/inference/t2v_comfyui_api_mode_instinct>`
     * :doc:`Multi-agent incident triage with OpenClaw on AMD Instinct <./notebooks/inference/graph_multiagent_openclaw>`
+    * :doc:`Profiling and optimizing an AI agent on AMD Instinct GPUs <./notebooks/inference/agentic_ai_profiling>`
 
 .. selected:: level=intermediate type=fine-tuning
 
