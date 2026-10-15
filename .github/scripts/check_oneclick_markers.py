@@ -50,6 +50,8 @@ FENCE = ("```", "~~~")
 # A fenced code block delimiter: the fence, then anything after it.
 FENCE_DELIM_RE = re.compile(r"^\s*(`{3,}|~{3,})(.*)$")
 LIST_ITEM_RE = re.compile(r"^(?:[-*+]|\d+[.)])\s+\S")
+# A list item line with its parts: indent, marker ("*", "1."), spaces after it.
+LIST_ITEM_LINE_RE = re.compile(r"^(\s*)([-*+]|\d+[.)])(\s+)\S")
 HEADING_RE = re.compile(r"^\s{0,3}#{1,6}\s")
 BADGE_RE = re.compile(r"\]\(https?://notebooks\.amd\.com/tutorials/[^)]*\)")
 
@@ -97,17 +99,55 @@ def has_comment_marker(source):
 def neighbor(lines, hidden, idx, step):
     """The nearest line from `idx` in direction `step` that the docs site
     renders (not blank, not in `hidden`), as (line, blank_between).
-    blank_between is True if a blank line sits between `idx` and it. Returns
-    (None, blank_between) at either end."""
+    blank_between is True if a rendered blank line sits between `idx` and it;
+    a blank line inside an insert block is part of a comment, so it does not
+    separate anything. Returns (None, blank_between) at either end."""
     blank = False
     j = idx + step
     while 0 <= j < len(lines):
-        if not lines[j].strip():
+        if j in hidden:
+            pass
+        elif not lines[j].strip():
             blank = True
-        elif j not in hidden:
+        else:
             return lines[j], blank
         j += step
     return None, blank
+
+
+def content_column(match):
+    """The column a list item's content starts at, from LIST_ITEM_LINE_RE's
+    match: two for "* ", three for "1. ". As in CommonMark, five or more
+    spaces after the marker count as one (the rest is an indented block)."""
+    indent, marker, spaces = match.groups()
+    return len(indent) + len(marker) + (len(spaces) if len(spaces) <= 4 else 1)
+
+
+def list_split_column(lines, hidden, idx):
+    """If the marker at `idx` sits between two items of one list, the column
+    it must be indented to (the earlier item's content column) to stay inside
+    that item. A marker indented less ends the list there, so the docs site
+    shows two lists. None if the marker isn't between two items of a list."""
+    nxt = next((lines[j] for j in range(idx + 1, len(lines))
+                if j not in hidden and lines[j].strip()), None)
+    m = LIST_ITEM_LINE_RE.match(nxt) if nxt else None
+    if not m:
+        return None
+    list_indent = len(m.group(1))
+    # The previous item of that same list, past its indented content and any
+    # deeper nested lists. Text back at or left of the list's own indent that
+    # isn't an item means there is no such list.
+    for j in range(idx - 1, -1, -1):
+        line = lines[j]
+        if j in hidden or not line.strip():
+            continue
+        item = LIST_ITEM_LINE_RE.match(line)
+        indent = len(line) - len(line.lstrip())
+        if item and indent == list_indent:
+            return content_column(item)
+        if indent <= list_indent and not item:
+            return None
+    return None
 
 
 def is_text(line):
@@ -133,10 +173,11 @@ def check_placement(lines, hidden, idx):
         problems.append("sits inside a paragraph, which splits it in two on the "
                         "docs site; move the marker to a paragraph boundary")
     indent = len(lines[idx]) - len(lines[idx].lstrip())
-    if (indent < 2 and nxt is not None and LIST_ITEM_RE.match(nxt)
-            and prev is not None and (LIST_ITEM_RE.match(prev) or prev[:1].isspace())):
-        problems.append("splits a list in two on the docs site; indent the marker "
-                        "to the list item's content (for example, two spaces for '* ')")
+    column = list_split_column(lines, hidden, idx)
+    if column is not None and indent < column:
+        problems.append(f"splits a list in two on the docs site; indent the marker "
+                        f"{column} spaces, to the list item's content (two for '* ', "
+                        f"three for '1. ')")
     return problems
 
 
@@ -151,18 +192,26 @@ def check_markdown(source, cell_removed=False):
     state = None  # None, "remove", or "insert"
     opened_at = 0
     fence = None
+    insert_fence = None  # fenced examples inside an insert block's text
     for idx, line in enumerate(lines):
         n = idx + 1
         if state == "insert":
             hidden.add(idx)
+            # A browser ends the comment at the first terminator, fenced
+            # example or not.
             if line.strip() == INSERT_END:
                 state = None
-            elif any(end in line for end in COMMENT_ENDS):
-                # The browser ends the comment here, so the rest of the
-                # insert block would show on the docs site.
+                continue
+            if any(end in line for end in COMMENT_ENDS):
+                # The rest of the insert block would show on the docs site.
                 yield n, ("ends the oneclick:insert comment early on the docs site; "
                           "the block must close with '-->' alone on its line, and its "
                           "text cannot contain '-->' or '--!>'")
+                continue
+            insert_fence, fenced = track_fence(insert_fence, line)
+            if not fenced and COMMENT_MARKER_RE.search(line):
+                yield n, (f"oneclick marker inside the oneclick:insert block from line "
+                          f"{opened_at}; insert blocks can't be nested or contain markers")
             continue
         fence, fenced = track_fence(fence, line)
         if fenced:
@@ -179,6 +228,7 @@ def check_markdown(source, cell_removed=False):
                 continue
             state = "remove" if REMOVE_START_RE.match(line) else "insert"
             opened_at = n
+            insert_fence = None
         elif REMOVE_END_RE.match(line):
             if state != "remove":
                 yield n, "oneclick:remove-end without a matching oneclick:remove-start"
