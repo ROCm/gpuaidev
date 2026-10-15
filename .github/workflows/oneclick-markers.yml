@@ -16,6 +16,7 @@ on:
     paths:
       - "**/*.ipynb"
       - ".github/scripts/check_oneclick_markers.py"
+      - ".github/scripts/preview_oneclick.py"
       - ".github/workflows/oneclick-markers.yml"
   workflow_dispatch:
 
@@ -39,3 +40,13 @@ jobs:
       # Standard library only, so the runner's system Python is enough.
       - name: Check every notebook
         run: python3 .github/scripts/check_oneclick_markers.py
+
+      # Keeps the contributor preview script working: it must build a preview
+      # of every notebook (one without markers comes out unchanged).
+      - name: Preview every notebook
+        run: |
+          out="$(mktemp -d)"
+          git ls-files '*.ipynb' | while read -r nb; do
+            python3 .github/scripts/preview_oneclick.py "$nb" -o "$out/preview.ipynb" > /dev/null \
+              || { echo "::error file=$nb::preview_oneclick.py failed"; exit 1; }
+          done

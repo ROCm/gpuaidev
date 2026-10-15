@@ -127,3 +127,19 @@ python3 .github/scripts/check_oneclick_markers.py docs/notebooks/inference/ocr_v
 ```
 
 With no arguments, the script checks every notebook in the repository.
+
+## Preview the one-click notebook
+
+```bash
+python3 .github/scripts/preview_oneclick.py docs/notebooks/inference/ocr_vllm.ipynb --diff
+```
+
+This writes `ocr_vllm.oneclick.ipynb` to the current directory: the notebook
+with its markers applied and its headings, table of contents, and links fixed
+up, exactly as a one-click launch serves it. Open it in Jupyter to read it as
+a user would. `--diff` also prints what changed, and `-o` picks another output
+path. Preview files (`*.oneclick.ipynb`) are ignored by git.
+
+The preview doesn't show the proxy links notebooks.amd.com prints for local
+web UIs (Gradio apps, servers on `127.0.0.1`), because those are added in the
+running notebook.
