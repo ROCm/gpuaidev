@@ -1,0 +1,41 @@
+# Copyright Advanced Micro Devices, Inc.
+# SPDX-License-Identifier: MIT
+#
+# Validates the one-click markers in tutorial notebooks: the comments and
+# cell tags that tell the notebooks.amd.com one-click launch which local
+# setup steps to remove. A malformed marker makes the launch serve the
+# notebook unmodified, and a misplaced one changes how the docs site
+# renders it. See .github/scripts/check_oneclick_markers.py for the rules.
+
+name: One-click markers
+
+on:
+  pull_request:
+    # Spelled out the default to avoid confusion.
+    types: [opened, synchronize, reopened]
+    paths:
+      - "**/*.ipynb"
+      - ".github/scripts/check_oneclick_markers.py"
+      - ".github/workflows/oneclick-markers.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check one-click markers
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Standard library only, so the runner's system Python is enough.
+      - name: Check every notebook
+        run: python3 .github/scripts/check_oneclick_markers.py

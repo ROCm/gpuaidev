@@ -52,6 +52,15 @@ Welcome to the **AI Developer Hub** repository! This project contains Jupyter No
 
 
 
+## One-click launch
+
+Tutorials with an "Open in AMD Developer Cloud" badge can be launched in one
+click on [AMD Developer Cloud](https://notebooks.amd.com). Their environment
+setup steps are marked for removal from the launched copy with comments and
+cell tags that don't show on the documentation site. See
+[One-click markers](.github/ONECLICK_MARKERS.md) before adding the badge to a
+notebook or editing the setup steps of one that has it.
+
 ## Repository Structure
 
 The tutorials are organized into four main categories:
