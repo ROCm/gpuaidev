@@ -30,6 +30,8 @@ import re
 import subprocess
 import sys
 
+GUIDE = ".github/ONECLICK_MARKERS.md"
+
 REMOVE_TAG = "oneclick-remove"
 ONLY_TAG = "oneclick-only"
 KNOWN_TAGS = {REMOVE_TAG, ONLY_TAG}
@@ -260,6 +262,8 @@ def main(argv):
         print(e)
     print(f"Checked {len(paths)} notebook(s): "
           f"{'no problems' if not errors else f'{len(errors)} problem(s)'}")
+    if errors:
+        print(f"See {GUIDE} for how to write one-click markers.")
     return 1 if errors else 0
 
 
