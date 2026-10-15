@@ -6,9 +6,9 @@ notebook itself and picks a machine that has it, so a notebook written for a
 Radeon card runs on a Radeon card and one that needs eight GPUs runs on an
 eight-GPU node.
 
-Most notebooks need nothing: with no declarations, a notebook runs on one AMD
-Instinct GPU. Declare only what differs. The declarations are invisible on the
-documentation site and in Jupyter.
+Every tutorial under `docs/notebooks` declares at least the hardware it runs
+on and how many GPUs it uses; the rest is optional. The declarations are
+invisible on the documentation site and in Jupyter.
 
 The [CI metadata](workflows/ci-metadata.yml) check validates them on every
 pull request that changes a notebook.
@@ -23,16 +23,16 @@ Add a `ci` object to the notebook's metadata. In JupyterLab, open the
 ```json
 "metadata": {
   "ci": {
-    "hardware": ["cdna4"],
-    "gpus": 8
+    "hardware": ["instinct"],
+    "gpus": 1
   }
 }
 ```
 
 | Key | Meaning | Default |
 |---|---|---|
-| `hardware` | GPUs the notebook runs on: any of a product (`mi300x`, `mi355x`, `rx7900xtx`), an architecture (`gfx942`, `gfx950`, `gfx1100`) or a family (`instinct`, `radeon`, `cdna3`, `cdna4`, `rdna3`, `rdna4`) | `["instinct"]` |
-| `gpus` | GPUs used at once, all on one node | `1` |
+| `hardware` | GPUs the notebook runs on, matching its Hardware section: any of a product (`mi300x`, `mi355x`, `rx7900xtx`, `w7900`), an architecture (`gfx942`, `gfx950`, `gfx1100`) or a family (`instinct`, `radeon`, `cdna3`, `cdna4`, `rdna3`, `rdna4`). List every option the notebook supports, for example `["instinct", "w7900"]` | required |
+| `gpus` | GPUs used at once, all on one node | required |
 | `gpu_memory_gb` | Memory needed on each GPU | none |
 | `memory_gb` | Host memory needed | 64 |
 | `disk_gb` | Free disk needed for models and data | 100 |

@@ -12,7 +12,9 @@ notebook declares what it needs, and the runner picks a machine that has it:
   an interactive loop, a foreground GUI server).
 - Cell tag `parameters`: the cell whose variables `ci.parameters` overrides.
 
-This checks that the metadata is well formed and refers to things that exist.
+Every tutorial under docs/notebooks must declare at least `hardware` and
+`gpus`, so what it runs on is stated rather than assumed. This checks that,
+and that the metadata is well formed and refers to things that exist.
 
 Usage:
     python check_ci_metadata.py [notebook.ipynb ...]
@@ -41,6 +43,7 @@ HARDWARE = {
     "instinct", "radeon", "cdna3", "cdna4", "rdna3", "rdna4",
 }
 POSITIVE_INTS = ("gpus", "gpu_memory_gb", "memory_gb", "disk_gb")
+REQUIRED_KEYS = ("hardware", "gpus")
 KNOWN_KEYS = {"hardware", "capabilities", "env", "image", "parameters", "depends_on",
               *POSITIVE_INTS}
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
@@ -148,9 +151,24 @@ def check_notebook(path):
         if PARAMETERS_TAG in tags:
             parameter_cells.append(cell_source(cell))
 
-    if "ci" in nb.get("metadata", {}):
-        errors += check_metadata(path, nb["metadata"]["ci"], parameter_cells)
+    ci = nb.get("metadata", {}).get("ci")
+    if ci is None:
+        if is_tutorial(path):
+            errors.append(f"{path}: missing notebook metadata 'ci' (declare at least "
+                          f"{' and '.join(REQUIRED_KEYS)})")
+        return errors
+    errors += check_metadata(path, ci, parameter_cells)
+    if is_tutorial(path) and isinstance(ci, dict):
+        for key in REQUIRED_KEYS:
+            if key not in ci:
+                errors.append(f"{path}: ci.{key} is required for tutorials under "
+                              f"{NOTEBOOK_ROOT}")
     return errors
+
+
+def is_tutorial(path):
+    """A notebook the regression runner tests (under docs/notebooks)."""
+    return os.path.normpath(path).startswith(os.path.normpath(NOTEBOOK_ROOT) + os.sep)
 
 
 def tracked_notebooks():
