@@ -37,10 +37,16 @@ KNOWN_TAGS = {REMOVE_TAG, ONLY_TAG}
 REMOVE_START_RE = re.compile(r"^\s*<!--\s*oneclick:remove-start\s*-->\s*$")
 REMOVE_END_RE = re.compile(r"^\s*<!--\s*oneclick:remove-end\s*-->\s*$")
 INSERT_START_RE = re.compile(r"^\s*<!--\s*oneclick:insert\s*$")
-INSERT_END_RE = re.compile(r"^\s*-->\s*$")
+INSERT_END = "-->"  # alone on its line
+# What ends an HTML comment in a browser: "-->", and also "--!>" (a parse
+# error the HTML spec still treats as the end of the comment).
+COMMENT_ENDS = ("-->", "--!>")
 ANY_MARKER_RE = re.compile(r"oneclick:", re.I)
+COMMENT_MARKER_RE = re.compile(r"<!--\s*oneclick:")
 
 FENCE = ("```", "~~~")
+# A fenced code block delimiter: the fence, then anything after it.
+FENCE_DELIM_RE = re.compile(r"^\s*(`{3,}|~{3,})(.*)$")
 LIST_ITEM_RE = re.compile(r"^(?:[-*+]|\d+[.)])\s+\S")
 HEADING_RE = re.compile(r"^\s{0,3}#{1,6}\s")
 BADGE_RE = re.compile(r"\]\(https?://notebooks\.amd\.com/tutorials/[^)]*\)")
@@ -53,6 +59,37 @@ def cell_source(cell):
 
 def cell_tags(cell):
     return cell.get("metadata", {}).get("tags") or []
+
+
+def track_fence(fence, line):
+    """Advance fenced-code-block state over one markdown line. `fence` is the
+    open fence's delimiter ("```", "~~~~", ...) or None. Returns (fence after
+    this line, whether this line is a delimiter or fenced content).
+
+    Follows CommonMark: a fence closes only on the same character repeated at
+    least as many times as it opened with and nothing else on the line, so a
+    ``` line inside a ```` fence is content. Indented fences count, since
+    notebooks indent them inside list items. Matches how the one-click
+    launch reads markers."""
+    m = FENCE_DELIM_RE.match(line)
+    if fence is None:
+        if m and not (m.group(1)[0] == "`" and "`" in m.group(2)):
+            return m.group(1), True
+        return None, False
+    if (m and m.group(1)[0] == fence[0] and len(m.group(1)) >= len(fence)
+            and not m.group(2).strip()):
+        return None, True
+    return fence, True
+
+
+def has_comment_marker(source):
+    """True if a markdown cell has a oneclick comment outside fenced code."""
+    fence = None
+    for line in source.splitlines():
+        fence, fenced = track_fence(fence, line)
+        if not fenced and COMMENT_MARKER_RE.search(line):
+            return True
+    return False
 
 
 def neighbor(lines, hidden, idx, step):
@@ -111,18 +148,22 @@ def check_markdown(source, cell_removed=False):
     markers = []  # line indexes of the markers to check for placement
     state = None  # None, "remove", or "insert"
     opened_at = 0
-    in_fence = False
+    fence = None
     for idx, line in enumerate(lines):
         n = idx + 1
         if state == "insert":
             hidden.add(idx)
-            if INSERT_END_RE.match(line):
+            if line.strip() == INSERT_END:
                 state = None
+            elif any(end in line for end in COMMENT_ENDS):
+                # The browser ends the comment here, so the rest of the
+                # insert block would show on the docs site.
+                yield n, ("ends the oneclick:insert comment early on the docs site; "
+                          "the block must close with '-->' alone on its line, and its "
+                          "text cannot contain '-->' or '--!>'")
             continue
-        if line.lstrip().startswith(FENCE):
-            in_fence = not in_fence
-            continue
-        if in_fence:
+        fence, fenced = track_fence(fence, line)
+        if fenced:
             continue
 
         # In a launched notebook the badge would only relaunch itself, and the
@@ -190,7 +231,7 @@ def check_notebook(path):
                           f"tag, or it shows on the docs site")
 
         if cell.get("cell_type") == "markdown":
-            if ANY_MARKER_RE.search(src):
+            if has_comment_marker(src):
                 uses_markers = True
             if BADGE_RE.search(src):
                 has_badge = True
