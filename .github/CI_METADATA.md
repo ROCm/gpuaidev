@@ -38,6 +38,8 @@ Add a `ci` object to the notebook's metadata. In JupyterLab, open the
 | `disk_gb` | Free disk needed for models and data | 100 |
 | `capabilities` | Things the machine must provide that the notebook does not set up itself, for example `ollama` (a running Ollama server) or `rdma` | none |
 | `env` | Environment variables to set, for example `{"WANDB_MODE": "disabled"}` | none |
+| `requirements` | Python packages CI installs before running the notebook: the name of a requirements file next to the notebook (`"requirements.txt"`), or a list of requirement strings | none |
+| `system_packages` | Ubuntu (apt) packages the notebook's commands need that a minimal ROCm image may lack, for example `git`, `wget`, `unzip`, `cmake`, `ffmpeg`, `python3-venv` | none |
 | `image` | Docker repository the notebook runs in, when it is not the one its imports suggest (`rocm/pytorch`, `vllm/vllm-openai-rocm`, `lmsysorg/sglang`); the runner picks the tag | inferred |
 | `parameters` | Values for the cell tagged `parameters` in CI (see below) | none |
 | `depends_on` | Notebooks (paths under `docs/notebooks`) that must run first | none |
@@ -61,6 +63,21 @@ meant for a browser. CI skips the cell and grades the rest of the notebook.
 Don't tag cells that are merely slow or broken: CI is there to report those.
 Gradio `launch()` calls, audio playback, and cells that only call `input()`
 are skipped automatically.
+
+## Dependencies
+
+CI runs every notebook in a fresh virtual environment layered on the image's
+Python, so the image's ROCm PyTorch stays available while everything the
+notebook installs, including its own `!pip install` / `%pip install` cells,
+goes into that environment. Before the first cell runs, CI installs the
+`system_packages` and `requirements` the notebook declares.
+
+Declare what the notebook's cells use but do not install themselves: a
+`git clone` needs `git`, `wget` and `unzip` are not in every image, Whisper
+needs `ffmpeg`, `python3 -m venv` needs `python3-venv`. If readers must install
+Python packages before the first cell, put them in a `requirements.txt` next to
+the notebook, install it from the notebook's first code cell, and point
+`ci.requirements` at the same file, so CI and readers install the same thing.
 
 ## Servers
 
