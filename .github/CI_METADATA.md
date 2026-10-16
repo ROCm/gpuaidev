@@ -40,7 +40,8 @@ Add a `ci` object to the notebook's metadata. In JupyterLab, open the
 | `env` | Environment variables to set, for example `{"WANDB_MODE": "disabled"}` | none |
 | `requirements` | Python packages CI installs before running the notebook: the name of a requirements file next to the notebook (`"requirements.txt"`), or a list of requirement strings | none |
 | `system_packages` | Ubuntu (apt) packages the notebook's commands need that a minimal ROCm image may lack, for example `git`, `wget`, `unzip`, `cmake`, `ffmpeg`, `python3-venv` | none |
-| `image` | Docker repository the notebook runs in, when it is not the one its imports suggest (`rocm/pytorch`, `vllm/vllm-openai-rocm`, `lmsysorg/sglang`); the runner picks the tag | inferred |
+| `image` | Docker repository the notebook runs in, when it is not the one its imports suggest (`rocm/pytorch`, `vllm/vllm-openai-rocm`, `lmsysorg/sglang`); the runner picks the tag, unless the notebook pins one (`rocm/primus:v25.9_gfx942`) because it only works with that release | inferred |
+| `sandbox` | `false` runs the notebook in the image's own Python instead of a fresh virtual environment, for notebooks whose tools start their own Python processes with the image's interpreter (for example Ray workers) | `true` |
 | `parameters` | Values for the cell tagged `parameters` in CI (see below) | none |
 | `depends_on` | Notebooks (paths under `docs/notebooks`) that must run first | none |
 | `timeout_minutes` | How long one CI run of the notebook may take, model downloads included; a run that exceeds it is stopped | 60 |

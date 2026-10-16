@@ -46,10 +46,10 @@ HARDWARE = {
 POSITIVE_INTS = ("gpus", "gpu_memory_gb", "memory_gb", "disk_gb", "timeout_minutes")
 REQUIRED_KEYS = ("hardware", "gpus")
 KNOWN_KEYS = {"hardware", "capabilities", "env", "image", "parameters", "depends_on",
-              "requirements", "system_packages", *POSITIVE_INTS}
+              "requirements", "system_packages", "sandbox", *POSITIVE_INTS}
 APT_RE = re.compile(r"^[a-z0-9][a-z0-9.+-]+$")
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
-IMAGE_RE = re.compile(r"^[a-z0-9._-]+/[a-z0-9._-]+$")
+IMAGE_RE = re.compile(r"^[a-z0-9._-]+/[a-z0-9._-]+(:[A-Za-z0-9._-]+)?$")
 
 
 def cell_source(cell):
@@ -104,9 +104,11 @@ def check_metadata(path, ci, parameter_cells):
             isinstance(k, str) and isinstance(v, str) for k, v in env.items()):
         errors.append(f"{path}: ci.env must map names to string values")
 
+    if "sandbox" in ci and not isinstance(ci["sandbox"], bool):
+        errors.append(f"{path}: ci.sandbox must be true or false")
     if "image" in ci and not (isinstance(ci["image"], str) and IMAGE_RE.match(ci["image"])):
         errors.append(f"{path}: ci.image must be a Docker repository like "
-                      f"'rocm/pytorch', without a tag")
+                      f"'rocm/pytorch', optionally with a pinned tag")
 
     parameters = ci.get("parameters", {})
     if not isinstance(parameters, dict):
