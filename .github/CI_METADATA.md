@@ -41,6 +41,7 @@ Add a `ci` object to the notebook's metadata. In JupyterLab, open the
 | `image` | Docker repository the notebook runs in, when it is not the one its imports suggest (`rocm/pytorch`, `vllm/vllm-openai-rocm`, `lmsysorg/sglang`); the runner picks the tag | inferred |
 | `parameters` | Values for the cell tagged `parameters` in CI (see below) | none |
 | `depends_on` | Notebooks (paths under `docs/notebooks`) that must run first | none |
+| `timeout_minutes` | How long one CI run of the notebook may take, model downloads included; a run that exceeds it is stopped | 60 |
 
 Prefer making the notebook set things up itself over adding a capability:
 a notebook that installs and starts the server it needs runs anywhere.
@@ -60,6 +61,42 @@ meant for a browser. CI skips the cell and grades the rest of the notebook.
 Don't tag cells that are merely slow or broken: CI is there to report those.
 Gradio `launch()` calls, audio playback, and cells that only call `input()`
 are skipped automatically.
+
+## Servers
+
+A notebook that needs a server (vLLM, SGLang, Ollama, ComfyUI) starts it from a
+code cell instead of asking the reader to open a terminal, so it runs the same
+way for readers and in CI:
+
+1. A cell defines `ensure_server`, `stop_server` and `server_is_up` (copy them
+   from any of the server notebooks, for example
+   `inference/build_airbnb_agent_mcp.ipynb`).
+2. `server = ensure_server(command, health_url, log_path)` starts the command in
+   the background, unless the URL already answers, and waits until it does. If
+   the server exits or is not ready in time, it raises with the end of the log.
+3. `stop_server(server)` stops it when the notebook is done with it, for
+   example before starting a different server on the same port.
+   For a server started with `docker run`, the container stops shortly after
+   its client does; give it a `--name` and run `docker stop <name>` when the
+   next step needs it gone.
+
+Keep the markdown that explains the command and its flags; only the "open a
+terminal and paste this" instructions go.
+
+## Make setup steps fail loudly
+
+A `!command` line never fails its cell: the cell carries on after a failed
+`!curl ... | sh` or `!pip install`, and the notebook breaks later with a
+confusing error, or not at all. Write setup that later cells depend on as a
+`%%bash` cell starting with `set -e`, which fails the cell on the first error.
+
+## Check results, not just that cells ran
+
+CI records a pass when every code cell runs without an error. A cell that
+silently skips work (a missing checkpoint, an empty output) still passes, so
+end each stage that produces something with a short assertion on it: the file
+exists and is not empty, the mesh has faces, the video has frames, the server
+returned an answer.
 
 ## Shorter runs in CI
 

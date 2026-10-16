@@ -6,8 +6,8 @@ The notebook regression runner executes every tutorial on AMD GPUs. Each
 notebook declares what it needs, and the runner picks a machine that has it:
 
 - Notebook metadata `ci`: hardware, GPU count and memory, host memory, disk,
-  capabilities, environment, Docker image, CI parameter values, and notebooks
-  that must run first.
+  capabilities, environment, Docker image, CI parameter values, notebooks that
+  must run first, and how long a run may take.
 - Cell tag `ci-skip`: a code cell that cannot run unattended (a browser UI,
   an interactive loop, a foreground GUI server).
 - Cell tag `parameters`: the cell whose variables `ci.parameters` overrides.
@@ -42,7 +42,7 @@ HARDWARE = {
     "gfx942", "gfx950", "gfx1100", "gfx1201",
     "instinct", "radeon", "cdna3", "cdna4", "rdna3", "rdna4",
 }
-POSITIVE_INTS = ("gpus", "gpu_memory_gb", "memory_gb", "disk_gb")
+POSITIVE_INTS = ("gpus", "gpu_memory_gb", "memory_gb", "disk_gb", "timeout_minutes")
 REQUIRED_KEYS = ("hardware", "gpus")
 KNOWN_KEYS = {"hardware", "capabilities", "env", "image", "parameters", "depends_on",
               *POSITIVE_INTS}
