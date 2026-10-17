@@ -6,8 +6,9 @@ The notebook regression runner executes every tutorial on AMD GPUs. Each
 notebook declares what it needs, and the runner picks a machine that has it:
 
 - Notebook metadata `ci`: hardware, GPU count and memory, host memory, disk,
-  capabilities, environment, Docker image, CI parameter values, and notebooks
-  that must run first.
+  capabilities, environment, Docker image, Python requirements and system
+  packages, CI parameter values, notebooks that must run first, and how long
+  a run may take.
 - Cell tag `ci-skip`: a code cell that cannot run unattended (a browser UI,
   an interactive loop, a foreground GUI server).
 - Cell tag `parameters`: the cell whose variables `ci.parameters` overrides.
@@ -42,12 +43,13 @@ HARDWARE = {
     "gfx942", "gfx950", "gfx1100", "gfx1201",
     "instinct", "radeon", "cdna3", "cdna4", "rdna3", "rdna4",
 }
-POSITIVE_INTS = ("gpus", "gpu_memory_gb", "memory_gb", "disk_gb")
+POSITIVE_INTS = ("gpus", "gpu_memory_gb", "memory_gb", "disk_gb", "timeout_minutes")
 REQUIRED_KEYS = ("hardware", "gpus")
 KNOWN_KEYS = {"hardware", "capabilities", "env", "image", "parameters", "depends_on",
-              *POSITIVE_INTS}
+              "requirements", "system_packages", "sandbox", *POSITIVE_INTS}
+APT_RE = re.compile(r"^[a-z0-9][a-z0-9.+-]+$")
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
-IMAGE_RE = re.compile(r"^[a-z0-9._-]+/[a-z0-9._-]+$")
+IMAGE_RE = re.compile(r"^[a-z0-9._-]+/[a-z0-9._-]+(:[A-Za-z0-9._-]+)?$")
 
 
 def cell_source(cell):
@@ -102,9 +104,11 @@ def check_metadata(path, ci, parameter_cells):
             isinstance(k, str) and isinstance(v, str) for k, v in env.items()):
         errors.append(f"{path}: ci.env must map names to string values")
 
+    if "sandbox" in ci and not isinstance(ci["sandbox"], bool):
+        errors.append(f"{path}: ci.sandbox must be true or false")
     if "image" in ci and not (isinstance(ci["image"], str) and IMAGE_RE.match(ci["image"])):
         errors.append(f"{path}: ci.image must be a Docker repository like "
-                      f"'rocm/pytorch', without a tag")
+                      f"'rocm/pytorch', optionally with a pinned tag")
 
     parameters = ci.get("parameters", {})
     if not isinstance(parameters, dict):
@@ -120,6 +124,21 @@ def check_metadata(path, ci, parameter_cells):
             for key in sorted(set(parameters) - (names or set())):
                 errors.append(f"{path}: ci.parameters.{key} is not assigned in the "
                               f"{PARAMETERS_TAG!r} cell")
+
+    requirements = ci.get("requirements")
+    if isinstance(requirements, str):
+        if not os.path.isfile(os.path.join(os.path.dirname(path), requirements)):
+            errors.append(f"{path}: ci.requirements {requirements!r} is not a file next to "
+                          f"the notebook")
+    elif requirements is not None and not (
+            isinstance(requirements, list) and all(isinstance(r, str) for r in requirements)):
+        errors.append(f"{path}: ci.requirements must be a requirements file name or a list "
+                      f"of pip requirements")
+
+    packages = ci.get("system_packages", [])
+    if not isinstance(packages, list) or not all(
+            isinstance(p, str) and APT_RE.match(p) for p in packages):
+        errors.append(f"{path}: ci.system_packages must be a list of apt package names")
 
     depends_on = ci.get("depends_on", [])
     if not isinstance(depends_on, list):
