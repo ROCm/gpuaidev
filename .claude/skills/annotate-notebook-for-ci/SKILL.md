@@ -42,6 +42,21 @@ learned from running all the tutorials:
   `vllm/vllm-openai-rocm`. CI resolves the newest release tag; pin a tag
   (`rocm/primus:v25.9_gfx942`) only when the code needs that release, and
   say why in the notebook.
+- Pin every third-party `git clone` the cells run to a **release tag**, never a
+  moving branch (`main`, `release/v26.8`) or an unpinned clone: a floating ref
+  silently changes under the tutorial when upstream moves, so a notebook that
+  passed last week fails — or quietly produces a different result — with no
+  change of its own. A bare commit SHA is reproducible but opaque; prefer the
+  tag that points at it. When a tutorial pins a personal fork that upstream has
+  since absorbed or abandoned, move to the maintained upstream and pin its
+  newest release (and if it has no tags, a dated SHA on its release branch, with
+  the date in a comment).
+- Before pinning a clone to a newer ref, confirm it runs on the **image's Python
+  version**: a "newer is better" bump can break: e.g. a ref that imports
+  `typing.override` needs Python 3.12 and fails on a 3.10 image. Match the ref to
+  the interpreter the image ships, or bump the image too — and validate, don't
+  assume. Run the clone/checkout in a `%%bash` cell with `set -e` (see step 4)
+  so a bad ref fails the cell instead of silently reusing a prior checkout.
 - Large checkpoints: vLLM maps the whole checkpoint into host memory while
   loading. Set `memory_gb` above the checkpoint size (the default 64 GB fails
   for a ~200 GB model) and `gpu_memory_gb` when the model fills a GPU.
