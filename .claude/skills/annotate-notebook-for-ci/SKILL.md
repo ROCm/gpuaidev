@@ -157,6 +157,14 @@ prose. When you add or change code, keep its cells to these rules.
   one-line call, run back to back with nothing between them, is two clicks for no
   reason — merge them into one cell. Do not merge across a markdown explanation
   the reader needs, or steps deliberately kept apart to show output in between.
+- **Keep them readable in the one-click render too.** The notebooks.amd.com
+  one-click launch serves a *stripped* notebook: it removes setup and marked
+  cells, so a markdown or setup cell sitting between two code cells can vanish
+  and leave them back to back even when the source reads fine. These rules must
+  hold after that transform, not just in the repo. This is checked locally when
+  the style guide is applied (the fan-out renders each notebook through the real
+  one-click transform and rescans) — it is not a CI gate, so verify it before
+  you finish.
 
 ## 8. Keep the text true
 
@@ -167,12 +175,20 @@ nothing that explains the technique.
 
 ## 9. Check
 
-1. `python3 .github/scripts/check_ci_metadata.py docs/notebooks/<path>.ipynb`
-2. Keep the notebook's JSON formatting: edit metadata in JupyterLab (Property
+1. `python3 .github/scripts/check_ci_metadata.py docs/notebooks/<path>.ipynb` —
+   the metadata is well formed and every `hardware` name is in the vocabulary.
+2. `python3 .github/scripts/check_hardware_coverage.py` — `ci.hardware`
+   agrees with the GPUs the notebook's Hardware section names, reconciled
+   against the curated audit (`tutorial-gpu-requirements.md`, the source of
+   truth baked into that script). If you add or change a tutorial, add or
+   update its row there so the check covers it; list every GPU the Hardware
+   section offers (e.g. `["instinct", "w7900"]` for "MI300X or Radeon Pro
+   W7900"). Both checks gate the PR.
+3. Keep the notebook's JSON formatting: edit metadata in JupyterLab (Property
    Inspector) or VS Code (Edit Notebook Metadata), or with a script that writes
    it back with the file's own indent and `ensure_ascii=False`, so the diff
    shows only your change.
-3. Run it the way CI does, in the declared image with the CI parameters:
+4. Run it the way CI does, in the declared image with the CI parameters:
 
    ```bash
    pip install papermill ipykernel

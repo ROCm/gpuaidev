@@ -31,7 +31,7 @@ Add a `ci` object to the notebook's metadata. In JupyterLab, open the
 
 | Key | Meaning | Default |
 |---|---|---|
-| `hardware` | GPUs the notebook runs on, matching its Hardware section: any of a product (`mi300x`, `mi355x`, `rx7900xtx`, `w7900`), an architecture (`gfx942`, `gfx950`, `gfx1100`) or a family (`instinct`, `radeon`, `cdna3`, `cdna4`, `rdna3`, `rdna4`). List every option the notebook supports, for example `["instinct", "w7900"]` | required |
+| `hardware` | GPUs the notebook runs on, matching its Hardware section: any of a product (`mi300x`, `mi308x`, `mi325x`, `mi350x`, `mi355x`, `mi250x`, `mi210`, `mi100`, `rx7900xtx`, `w7900`, `rx9070xt`, `radeon8060s`), an architecture (`gfx942`, `gfx950`, `gfx90a`, `gfx908`, `gfx1100`, `gfx1201`, `gfx1151`) or a family (`instinct`, `radeon`, `cdna1`, `cdna2`, `cdna3`, `cdna4`, `rdna3`, `rdna4`, `rdna35`). List every option the notebook supports, for example `["instinct", "w7900"]` | required |
 | `gpus` | GPUs used at once, all on one node | required |
 | `gpu_memory_gb` | Memory needed on each GPU | none |
 | `memory_gb` | Host memory needed | 64 |

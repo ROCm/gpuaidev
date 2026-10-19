@@ -15,6 +15,7 @@ on:
     paths:
       - "**/*.ipynb"
       - ".github/scripts/check_ci_metadata.py"
+      - ".github/scripts/check_hardware_coverage.py"
       - ".github/workflows/ci-metadata.yml"
   workflow_dispatch:
 
@@ -38,3 +39,7 @@ jobs:
       # Standard library only, so the runner's system Python is enough.
       - name: Check every notebook
         run: python3 .github/scripts/check_ci_metadata.py
+
+      # Reconcile each tutorial's ci.hardware against the curated GPU audit.
+      - name: Check hardware coverage
+        run: python3 .github/scripts/check_hardware_coverage.py

@@ -37,12 +37,35 @@ SKIP_TAG = "ci-skip"
 PARAMETERS_TAG = "parameters"
 
 # Products, architectures and families the runner can match against a machine.
-HARDWARE = {
-    "mi300x", "mi308x", "mi325x", "mi350x", "mi355x",
-    "rx7900xtx", "w7900", "rx9070xt",
-    "gfx942", "gfx950", "gfx1100", "gfx1201",
-    "instinct", "radeon", "cdna3", "cdna4", "rdna3", "rdna4",
+# Product -> architecture -> families; a machine matches when the names overlap.
+# This mirrors tools/routing.py in the regression runner — keep the two in sync.
+PRODUCT_ARCH = {
+    "mi300x": "gfx942", "mi308x": "gfx942", "mi325x": "gfx942",
+    "mi350x": "gfx950", "mi355x": "gfx950",
+    "mi250x": "gfx90a", "mi210": "gfx90a",
+    "mi100": "gfx908",
+    "rx7900xtx": "gfx1100", "w7900": "gfx1100",
+    "rx9070xt": "gfx1201",
+    "radeon8060s": "gfx1151",
 }
+ARCH_FAMILIES = {
+    "gfx942": ("instinct", "cdna3"),
+    "gfx950": ("instinct", "cdna4"),
+    "gfx90a": ("instinct", "cdna2"),
+    "gfx908": ("instinct", "cdna1"),
+    "gfx1100": ("radeon", "rdna3"),
+    "gfx1201": ("radeon", "rdna4"),
+    "gfx1151": ("radeon", "rdna35"),
+}
+HARDWARE = (set(PRODUCT_ARCH) | set(ARCH_FAMILIES)
+            | {f for fams in ARCH_FAMILIES.values() for f in fams})
+
+
+def hardware_names(hardware):
+    """Every name a piece of hardware answers to: product, arch, families."""
+    hw = hardware.lower()
+    arch = PRODUCT_ARCH.get(hw, hw)
+    return {hw, arch, *ARCH_FAMILIES.get(arch, ())}
 POSITIVE_INTS = ("gpus", "gpu_memory_gb", "memory_gb", "disk_gb", "timeout_minutes")
 REQUIRED_KEYS = ("hardware", "gpus")
 KNOWN_KEYS = {"hardware", "capabilities", "env", "image", "parameters", "depends_on",
