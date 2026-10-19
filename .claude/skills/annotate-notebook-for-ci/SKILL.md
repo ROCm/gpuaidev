@@ -177,18 +177,13 @@ nothing that explains the technique.
 
 1. `python3 .github/scripts/check_ci_metadata.py docs/notebooks/<path>.ipynb` —
    the metadata is well formed and every `hardware` name is in the vocabulary.
-2. `python3 .github/scripts/check_hardware_coverage.py` — `ci.hardware`
-   agrees with the GPUs the notebook's Hardware section names, reconciled
-   against the curated audit (`tutorial-gpu-requirements.md`, the source of
-   truth baked into that script). If you add or change a tutorial, add or
-   update its row there so the check covers it; list every GPU the Hardware
-   section offers (e.g. `["instinct", "w7900"]` for "MI300X or Radeon Pro
-   W7900"). Both checks gate the PR.
-3. Keep the notebook's JSON formatting: edit metadata in JupyterLab (Property
+   List every GPU the Hardware section offers (e.g. `["instinct", "w7900"]` for
+   "MI300X or Radeon Pro W7900"); this check gates the PR.
+2. Keep the notebook's JSON formatting: edit metadata in JupyterLab (Property
    Inspector) or VS Code (Edit Notebook Metadata), or with a script that writes
    it back with the file's own indent and `ensure_ascii=False`, so the diff
    shows only your change.
-4. Run it the way CI does, in the declared image with the CI parameters:
+3. Run it the way CI does, in the declared image with the CI parameters:
 
    ```bash
    pip install papermill ipykernel
