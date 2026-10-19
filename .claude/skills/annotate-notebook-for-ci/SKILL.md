@@ -139,14 +139,33 @@ NUM_SAMPLES = None    # None uses the whole dataset
 - Evaluation limits must stay valid: a perplexity evaluation needs enough
   tokens for one window, so do not shrink it to a handful of rows.
 
-## 7. Keep the text true
+## 7. Keep cells readable
+
+How the code is split into cells is part of the tutorial: a reader runs them one
+at a time, so each cell should be one comprehensible step introduced by a line of
+prose. When you add or change code, keep its cells to these rules.
+
+- **Never leave code cells back to back with no explanation.** Two or more code
+  cells in a row with nothing between them leave the reader guessing what each is
+  for. Put at least a one-line markdown cell before a code cell that a nearby
+  heading does not already explain — say what the cell does and why, not how.
+- **Split a cell that does too much.** A code cell that runs several distinct
+  steps (install, then configure, then launch) overwhelms the reader and hides
+  which step failed. Break it along those boundaries into one cell per step, each
+  with its own one-line lead-in.
+- **Merge cells too small to run on their own.** A one-line import followed by a
+  one-line call, run back to back with nothing between them, is two clicks for no
+  reason — merge them into one cell. Do not merge across a markdown explanation
+  the reader needs, or steps deliberately kept apart to show output in between.
+
+## 8. Keep the text true
 
 After changing code, update the markdown that describes it: image tags and
 versions, GPU counts in the Prerequisites, commands in "expected output"
 blocks, steps the cells now do (installing and starting servers). Remove
 nothing that explains the technique.
 
-## 8. Check
+## 9. Check
 
 1. `python3 .github/scripts/check_ci_metadata.py docs/notebooks/<path>.ipynb`
 2. Keep the notebook's JSON formatting: edit metadata in JupyterLab (Property
