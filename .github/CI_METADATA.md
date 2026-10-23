@@ -38,7 +38,7 @@ Add a `ci` object to the notebook's metadata. In JupyterLab, open the
 | `disk_gb` | Free disk needed for models and data | 100 |
 | `capabilities` | Things the machine must provide that the notebook does not set up itself, for example `ollama` (a running Ollama server) or `rdma` | none |
 | `env` | Environment variables to set, for example `{"WANDB_MODE": "disabled"}` | none |
-| `requirements` | Python packages CI installs before running the notebook: the name of a requirements file next to the notebook (`"requirements.txt"`), or a list of requirement strings | none |
+| `requirements` | Python packages CI installs before running the notebook: a list of requirement strings, or the name of a requirements file next to the notebook (`"requirements.txt"`) | none |
 | `system_packages` | Ubuntu (apt) packages the notebook's commands need that a minimal ROCm image may lack, for example `git`, `wget`, `unzip`, `cmake`, `ffmpeg`, `python3-venv` | none |
 | `image` | Docker repository the notebook runs in, when it is not the one its imports suggest (`rocm/pytorch`, `vllm/vllm-openai-rocm`, `lmsysorg/sglang`); the runner picks the tag, unless the notebook pins one (`rocm/primus:v25.9_gfx942`) because it only works with that release | inferred |
 | `sandbox` | `false` runs the notebook in the image's own Python instead of a fresh virtual environment, for notebooks whose tools start their own Python processes with the image's interpreter (for example Ray workers) | `true` |
@@ -76,9 +76,11 @@ goes into that environment. Before the first cell runs, CI installs the
 Declare what the notebook's cells use but do not install themselves: a
 `git clone` needs `git`, `wget` and `unzip` are not in every image, Whisper
 needs `ffmpeg`, `python3 -m venv` needs `python3-venv`. If readers must install
-Python packages before the first cell, put them in a `requirements.txt` next to
-the notebook, install it from the notebook's first code cell, and point
-`ci.requirements` at the same file, so CI and readers install the same thing.
+Python packages before the first cell, install them from a code cell in the
+notebook and give the same list in `ci.requirements`, so CI and readers install
+the same thing. A tutorial is a single notebook: readers should not have to
+fetch extra files to follow it, so list the packages in the notebook rather
+than in a requirements file next to it.
 
 ## Servers
 

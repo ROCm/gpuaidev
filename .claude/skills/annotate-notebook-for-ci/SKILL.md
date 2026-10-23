@@ -37,6 +37,10 @@ learned from running all the tutorials:
 
 - `hardware` and `gpus` are required. `gpus` is what **one CI run** needs:
   the fewest GPUs that work, not the tutorial's showcase count (see step 6).
+  The Prerequisites must state that same minimum as **GPUs required**, with the
+  settings that need it and the default configuration as the optional one: the
+  contribution guidelines require regression runs to use the documented
+  minimum GPU count.
 - Set `ci.image` whenever the image is not what the imports suggest: a notebook
   that only calls `vllm serve` has no `import vllm`, so declare
   `vllm/vllm-openai-rocm`. CI resolves the newest release tag; pin a tag
@@ -50,7 +54,8 @@ learned from running all the tutorials:
   tag that points at it. When a tutorial pins a personal fork that upstream has
   since absorbed or abandoned, move to the maintained upstream and pin its
   newest release (and if it has no tags, a dated SHA on its release branch, with
-  the date in a comment).
+  the date in a comment). Prefer the upstream project over an AMD fork whenever
+  upstream supports ROCm.
 - Before pinning a clone to a newer ref, confirm it runs on the **image's Python
   version**: a "newer is better" bump can break: e.g. a ref that imports
   `typing.override` needs Python 3.12 and fails on a 3.10 image. Match the ref to
@@ -64,8 +69,10 @@ learned from running all the tutorials:
   (`git`, `wget`, `unzip`, `ffmpeg`, `zstd`, `cmake`). Prefer this to
   `apt install` cells.
 - `requirements` for Python packages readers must install before the first
-  cell: a `requirements.txt` next to the notebook that the first code cell
-  installs, so readers and CI install the same thing.
+  cell: list them in the notebook's install cell and give the same list in
+  `ci.requirements`, so readers and CI install the same thing. Don't add files
+  next to the notebook: a tutorial is a single notebook, and anything else it
+  needs is downloaded or generated from its cells.
 - `sandbox: false` only when a tool launches its own Python processes with the
   image's interpreter (Ray workers); otherwise CI's virtual environment is
   right.
@@ -172,6 +179,17 @@ After changing code, update the markdown that describes it: image tags and
 versions, GPU counts in the Prerequisites, commands in "expected output"
 blocks, steps the cells now do (installing and starting servers). Remove
 nothing that explains the technique.
+
+- **No performance claims.** Don't add speedups, throughput, latency or
+  tokens-per-second figures, or comparisons with other kernels or hardware,
+  even ones you measured. Explain what a benchmark measures and how to read its
+  output, and let readers compare the numbers their own run prints.
+- **Describe the current setup, not its history.** Write "this tutorial uses
+  Qwen2.5-VL", not "earlier versions of this tutorial used Llama 3.2 Vision";
+  a changelog in the text is noise to a reader following the steps.
+- **Write for readers, not for CI.** Markdown says what a step does for the
+  reader ("stop the script from killing the notebook's kernel"), never that it
+  makes the notebook "run unattended".
 
 ## 9. Check
 
