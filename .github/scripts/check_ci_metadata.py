@@ -42,8 +42,7 @@ PARAMETERS_TAG = "parameters"
 PRODUCT_ARCH = {
     "mi300x": "gfx942", "mi308x": "gfx942", "mi325x": "gfx942",
     "mi350x": "gfx950", "mi355x": "gfx950",
-    "mi250x": "gfx90a", "mi210": "gfx90a",
-    "mi100": "gfx908",
+    "mi250x": "gfx90a",
     "rx7900xtx": "gfx1100", "w7900": "gfx1100",
     "rx9070xt": "gfx1201",
 }
@@ -51,7 +50,6 @@ ARCH_FAMILIES = {
     "gfx942": ("instinct", "cdna3"),
     "gfx950": ("instinct", "cdna4"),
     "gfx90a": ("instinct", "cdna2"),
-    "gfx908": ("instinct", "cdna1"),
     "gfx1100": ("radeon", "rdna3"),
     "gfx1201": ("radeon", "rdna4"),
 }
