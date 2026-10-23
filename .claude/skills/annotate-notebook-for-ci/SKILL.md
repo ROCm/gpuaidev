@@ -85,8 +85,8 @@ learned from running all the tutorials:
   `inference/build_airbnb_agent_mcp.ipynb`), poll a health URL, and stop the
   server at the end. Replace "open a terminal and run" text with "the cell
   below starts it"; keep the explanation of the command and flags.
-- **No `docker` in code cells.** CI runs the notebook inside a container, and
-  pods cannot start nested containers. Run the server as a background process
+- **No `docker` in code cells.** CI runs the notebook inside a container, which
+  cannot start nested containers. Run the server as a background process
   in the notebook's own image and declare that image in `ci.image`; the setup
   markdown keeps one `docker run -it ... <image>` for readers.
 - **Interactive setup** (onboarding wizards, `notebook_login()`): use the
@@ -168,10 +168,8 @@ prose. When you add or change code, keep its cells to these rules.
   one-click launch serves a *stripped* notebook: it removes setup and marked
   cells, so a markdown or setup cell sitting between two code cells can vanish
   and leave them back to back even when the source reads fine. These rules must
-  hold after that transform, not just in the repo. This is checked locally when
-  the style guide is applied (the fan-out renders each notebook through the real
-  one-click transform and rescans) — it is not a CI gate, so verify it before
-  you finish.
+  hold after that transform, not just in the repo. This isn't checked by CI, so
+  verify it before you finish.
 
 ## 8. Keep the text true
 
