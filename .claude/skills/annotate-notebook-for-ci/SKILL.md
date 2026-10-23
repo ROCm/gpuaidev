@@ -196,8 +196,8 @@ nothing that explains the technique.
 1. `python3 .github/scripts/check_ci_metadata.py docs/notebooks/<path>.ipynb` —
    the metadata is well formed and every `hardware` name is in the vocabulary.
    List every GPU the Hardware section names, by product (e.g.
-   `["mi300x", "w7900"]` for "MI300X or Radeon Pro W7900", `["mi100", "mi210",
-   "mi300x"]` for a notebook that runs on all three). Use the product id, not the
+   `["mi300x", "w7900"]` for "MI300X or Radeon Pro W7900", `["mi300x",
+   "mi325x"]` for a notebook that runs on both). Use the product id, not the
    family (`instinct`/`radeon`), so the declaration states exactly what the
    tutorial supports; this check gates the PR.
 2. Keep the notebook's JSON formatting: edit metadata in JupyterLab (Property
