@@ -38,7 +38,7 @@ PARAMETERS_TAG = "parameters"
 
 # Products, architectures and families the runner can match against a machine.
 # Product -> architecture -> families; a machine matches when the names overlap.
-# This mirrors tools/routing.py in the regression runner — keep the two in sync.
+# Keep this vocabulary in sync with the runner's hardware matching.
 PRODUCT_ARCH = {
     "mi300x": "gfx942", "mi308x": "gfx942", "mi325x": "gfx942",
     "mi350x": "gfx950", "mi355x": "gfx950",
