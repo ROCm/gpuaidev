@@ -71,6 +71,8 @@ subtrees:
         title: GRPO with Unsloth
       - file: notebooks/fine_tune/slime_qwen3_4B_GRPO.ipynb
         title: GRPO with slime
+      - file: notebooks/fine_tune/microduck_lab_standalone.ipynb
+        title: Training a MicroDuck walking policy with reinforcement learning
 
     - file: notebooks/pretrain/index.rst
       title: Pretraining tutorials

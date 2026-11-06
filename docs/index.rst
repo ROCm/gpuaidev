@@ -12,8 +12,9 @@ The AI Developer Hub contains AMD ROCm tutorials in Jupyter Notebook format for 
 It leverages popular machine learning frameworks on AMD GPUs.
 
 .. admonition:: What's New
- 
-   * Added :doc:`Profiling and optimizing an AI agent on AMD Instinct GPUs <./notebooks/inference/agentic_ai_profiling>`
+
+   * Added :doc:`Training a MicroDuck walking policy with reinforcement learning <./notebooks/fine_tune/microduck_lab_standalone>`
+   * Added a minimum GPU filter to the :doc:`tutorial selector <./tutorial-selector>` to help you find tutorials compatible with your hardware.
    * See the :doc:`changelog<./changelog>` for the full history of tutorials added.
 
 These tutorials are organized into four main categories:
@@ -65,6 +66,7 @@ public GitHub repository at `<https://github.com/ROCm/gpuaidev>`_.
     * :doc:`Llama-3.1 8B with Llama-Factory <./notebooks/fine_tune/llama_factory_llama3>`
     * :doc:`GRPO with Unsloth <./notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO>`
     * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
+    * :doc:`Training a MicroDuck walking policy with reinforcement learning <./notebooks/fine_tune/microduck_lab_standalone>`
 
   .. grid-item-card:: Pretraining tutorials
 

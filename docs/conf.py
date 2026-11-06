@@ -5,7 +5,7 @@ import shutil
 from pathlib import Path
 
 project = 'Tutorials for AI developers'
-version = "16.0"
+version = "17.0"
 release = version
 html_title = f"Tutorials for AI developers {version}"
 # html_title = "Tutorials for AI developers"
@@ -21,11 +21,12 @@ extensions = [
     'myst_nb',            # For integrating Jupyter notebooks
     'sphinx.ext.mathjax', # For rendering math expressions
     'rocm_docs',          # For ROCm Docs theme
-    "rocm_docs_custom.selector" # For JavaScript selector
+    "rocm_docs.selector" # For JavaScript selector
 ]
 
 external_toc_path = "./sphinx/_toc.yml"
 external_projects_current_project = "gpuaidev"
+external_projects_remote_repository=""
 
 html_theme = "rocm_docs_theme"
 html_theme_options = {"flavor": "ai-developer-hub"}
@@ -56,5 +57,6 @@ nb_render_text_lexer = "none"  # Disables syntax highlighting errors
 source_suffix = ['.md', '.ipynb', ".rst"]
 suppress_warnings = ['app.add_source_parser']
 
-# # Paths for custom static files (e.g., CSS, JS)
-# html_static_path = ['_static']
+# Paths for custom static files (e.g., CSS, JS)
+html_static_path = ['extension/rocm_docs_custom/static']
+html_css_files = ['selector-custom.css']

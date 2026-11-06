@@ -1,0 +1,12 @@
+/* Fill row space when type buttons are hidden by :show-cond: */
+.rocm-docs-selector-group .rocm-docs-selector-option:not(.rocm-docs-hidden) {
+  flex: 1;
+}
+
+/* GPU buttons: force each space-separated word onto its own line so all
+   buttons have a consistent stacked appearance (AMD / Instinct™ / MI300X). */
+[data-selector-key="gpu"] .rocm-docs-selector-option span {
+  display: block;
+  text-align: center;
+  word-spacing: 100vw;
+}
