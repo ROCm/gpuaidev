@@ -1,0 +1,40 @@
+# Copyright Advanced Micro Devices, Inc.
+# SPDX-License-Identifier: MIT
+#
+# Validates the CI requirements declared in tutorial notebooks: the `ci`
+# notebook metadata and the `ci-skip` / `parameters` cell tags the notebook
+# regression runner uses to pick a machine and run the notebook unattended.
+# See .github/scripts/check_ci_metadata.py for the rules.
+
+name: CI metadata
+
+on:
+  pull_request:
+    # Spelled out the default to avoid confusion.
+    types: [opened, synchronize, reopened]
+    paths:
+      - "**/*.ipynb"
+      - ".github/scripts/check_ci_metadata.py"
+      - ".github/workflows/ci-metadata.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check CI metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Standard library only, so the runner's system Python is enough.
+      - name: Check every notebook
+        run: python3 .github/scripts/check_ci_metadata.py
