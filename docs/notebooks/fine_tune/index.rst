@@ -9,3 +9,4 @@ Explore tutorials for adapting and fine-tuning models on AMD GPUs.
 - :doc:`Llama-3.1 8B with Llama Factory <llama_factory_llama3>`
 - :doc:`GRPO with Unsloth <unsloth_Llama3_1_8B_GRPO>`
 - :doc:`GRPO with slime <slime_qwen3_4B_GRPO>`
+- :doc:`Training a MicroDuck walking policy with reinforcement learning <microduck_lab_standalone>`

@@ -10,6 +10,18 @@ Changelog for the AI Developer Hub
 
 AI developer tutorials are available at the :doc:`AI Developer Hub <./index>`.
 
+Version 17.0
+============
+
+Added
+------
+
+*  New fine-tuning tutorial:
+
+   * :doc:`Training a MicroDuck walking policy with reinforcement learning <./notebooks/fine_tune/microduck_lab_standalone>`
+
+*  New minimum GPU filter in the :doc:`tutorial selector <./tutorial-selector>` for filtering tutorials by compatible hardware.
+
 Version 16.0
 ============
 

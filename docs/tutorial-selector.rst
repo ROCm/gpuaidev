@@ -47,7 +47,7 @@ powerful AMD GPUs will also work.
    .. selector-option:: Fine-tuning
       :value: fine-tuning
       :width: 2
-      :show-cond: level=all level=intermediate
+      :show-cond: level=all level=intermediate level=beginner
 
    .. selector-option:: Pretraining
       :value: pretraining
@@ -76,6 +76,11 @@ powerful AMD GPUs will also work.
       :value: w7900
       :width: 2
       :show-cond: level=all level=beginner level=intermediate
+
+   .. selector-option:: AMD Instinct™ MI210 (gfx90a)
+      :value: mi210
+      :width: 2
+      :show-cond: level=all level=beginner
 
    .. selector-option:: AMD Instinct™ MI250X (gfx90a)
       :value: mi250x
@@ -127,6 +132,11 @@ powerful AMD GPUs will also work.
    .. selector-option:: All
       :value: all
       :width: 1
+
+   .. selector-option:: AMD Instinct™ MI210 (gfx90a)
+      :value: mi210
+      :width: 2
+      :show-cond: level=all level=beginner
 
    .. selector-option:: AMD Instinct™ MI300X (gfx942)
       :value: mi300x
@@ -216,6 +226,7 @@ Here are the selected tutorials.
     * :doc:`Llama-3.1 8B with Llama-Factory <./notebooks/fine_tune/llama_factory_llama3>`
     * :doc:`GRPO with Unsloth <./notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO>`
     * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
+    * :doc:`Training a MicroDuck walking policy with reinforcement learning <./notebooks/fine_tune/microduck_lab_standalone>`
 
     **Pretraining tutorials**
 
@@ -261,6 +272,12 @@ Here are the selected tutorials.
     **Pretraining tutorials**
 
     * :doc:`SE(3)-Transformer overview <./notebooks/pretrain/se3transform_intro>`
+
+.. selected:: level=all type=all gpu=mi210
+
+    **Fine-tuning tutorials**
+
+    * :doc:`Training a MicroDuck walking policy with reinforcement learning <./notebooks/fine_tune/microduck_lab_standalone>`
 
 .. selected:: level=all type=all gpu=mi300x
 
@@ -383,6 +400,11 @@ Here are the selected tutorials.
     * :doc:`Llama-3.1 8B with Llama-Factory <./notebooks/fine_tune/llama_factory_llama3>`
     * :doc:`GRPO with Unsloth <./notebooks/fine_tune/unsloth_Llama3_1_8B_GRPO>`
     * :doc:`GRPO with slime <./notebooks/fine_tune/slime_qwen3_4B_GRPO>`
+    * :doc:`Training a MicroDuck walking policy with reinforcement learning <./notebooks/fine_tune/microduck_lab_standalone>`
+
+.. selected:: level=all type=fine-tuning gpu=mi210
+
+    * :doc:`Training a MicroDuck walking policy with reinforcement learning <./notebooks/fine_tune/microduck_lab_standalone>`
 
 .. selected:: level=all type=fine-tuning gpu=mi300x
 
@@ -472,6 +494,10 @@ Here are the selected tutorials.
     * :doc:`Custom diffusion model with PyTorch <./notebooks/pretrain/ddim_pretrain>`
     * :doc:`Training and serving a FinalNet CTR model with Triton Inference Server <./notebooks/pretrain/triton_inference_server_benchmark>`
 
+    **Fine-tuning tutorials**
+
+    * :doc:`Training a MicroDuck walking policy with reinforcement learning <./notebooks/fine_tune/microduck_lab_standalone>`
+
     **GPU development and optimization tutorials**
 
     * :doc:`Quark MXFP4 quantization for vLLM <./notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm>`
@@ -530,6 +556,20 @@ Here are the selected tutorials.
     **GPU development and optimization tutorials**
 
     * :doc:`Quark MXFP4 quantization for vLLM <./notebooks/gpu_dev_optimize/mxfp4_quantization_quark_vllm>`
+
+.. selected:: level=beginner type=all gpu=mi210
+
+    **Fine-tuning tutorials**
+
+    * :doc:`Training a MicroDuck walking policy with reinforcement learning <./notebooks/fine_tune/microduck_lab_standalone>`
+
+.. selected:: level=beginner type=fine-tuning gpu=all
+
+    * :doc:`Training a MicroDuck walking policy with reinforcement learning <./notebooks/fine_tune/microduck_lab_standalone>`
+
+.. selected:: level=beginner type=fine-tuning gpu=mi210
+
+    * :doc:`Training a MicroDuck walking policy with reinforcement learning <./notebooks/fine_tune/microduck_lab_standalone>`
 
 .. selected:: level=beginner type=inference gpu=rx7900xtx
 
