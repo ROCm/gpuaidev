@@ -68,6 +68,10 @@ rocminfo
 conda create -n lerobot python=3.12
 conda activate lerobot
 ```
+**For Windows - WSL,** make sure to also install evdev:
+```bash
+conda install evdev -c conda-forge
+```
 
 ### 2. Install PyTorch with ROCm Support
 ```bash
